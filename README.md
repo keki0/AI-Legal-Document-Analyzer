@@ -14,8 +14,8 @@ plain-language simplification, summarisation, and semantic search.
 | Phase | Component | State |
 |---|---|---|
 | 0 | Environment, config, dependencies | **Complete** |
-| 1 | Document processing & clause segmentation | Not started |
-| 2 | Dataset preparation & clause taxonomy | Not started |
+| 1 | Document processing & clause segmentation | **Complete** |
+| 2 | Dataset preparation & clause taxonomy | **Complete** |
 | 3 | Clause classification (TF-IDF baseline + Legal-BERT) | Not started |
 | 4 | Importance & attention flags | Not started |
 | 5 | Information extraction | Not started |
