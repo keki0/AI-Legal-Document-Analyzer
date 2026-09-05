@@ -1,0 +1,120 @@
+# LEDGAR (100 labels) -> project clause taxonomy (15 categories)
+#
+# WHY NAMES, NOT INDICES
+# The HF dataset card shows an example provision about taxes carrying
+# `label: 32`, but index 32 in the ClassLabel `names` array is "Duties"
+# ("Taxes" is 87). The card's worked example is illustrative and its integer
+# is not reliable. Every mapping here is therefore keyed by label NAME, and
+# src/dataset.py resolves names to ids at runtime from
+# `features["label"].names`. Never hard-code a LEDGAR integer.
+#
+# COVERAGE
+# All 100 labels are mapped. Nothing is discarded: dropping labels would
+# silently change the dataset and invite the question "what happened to the
+# other 40?". Labels with no user-facing significance land in
+# "Boilerplate & Administrative", which is a deliberate category, not a
+# dumping ground -- it is what lets the importance layer down-weight
+# "Counterparts" and surface "Indemnifications" without a keyword list.
+#
+# CAVEAT TO REPORT
+# Collapsing 100 classes into 15 makes the task easier. Report that plainly
+# alongside the metrics.
+
+version: 1
+source_dataset: coastalcph/lex_glue
+source_config: ledgar
+n_source_labels: 100
+n_target_categories: 15
+
+categories:
+
+  Payment & Fees:
+    description: What is owed, when, and what it costs.
+    ledgar_labels: [Payments, Fees, Expenses, Costs, Adjustments]
+
+  Employment & Compensation:
+    description: Salary, benefits, duties and role-specific employment terms.
+    ledgar_labels:
+      [Base Salary, Benefits, Vacations, Vesting, Forfeitures, Employment,
+       Positions, Duties, Death, Disability, Erisa]
+
+  Term & Termination:
+    description: How long the agreement runs, how it ends, what survives.
+    ledgar_labels:
+      [Terms, Terminations, Effective Dates, Effectiveness, Survival,
+       Change In Control]
+
+  Confidentiality & Publicity:
+    description: What must be kept secret and what may be said publicly.
+    ledgar_labels: [Confidentiality, Non-Disparagement, Publicity, Disclosures]
+
+  Intellectual Property:
+    description: Ownership and assignment of work product and IP rights.
+    # Only one source label, so this will be a small class. Kept separate
+    # anyway: it is a headline user-facing category and the subject of the
+    # documented retrieval regression test. Its per-class recall must be
+    # reported, not hidden inside a merged bucket.
+    ledgar_labels: [Intellectual Property]
+
+  Liability & Indemnity:
+    description: Who bears loss, and what remedies exist.
+    ledgar_labels:
+      [Indemnifications, Indemnity, Insurances, Releases, Remedies,
+       Specific Performance, Enforcements]
+
+  Governing Law & Dispute Resolution:
+    description: Which law applies and how disputes are resolved.
+    # Governing Laws + Applicable Laws alone would be a very small class, and
+    # for a lay reader "which law applies" and "where do I have to sue" are
+    # one question. Merged deliberately.
+    ledgar_labels:
+      [Governing Laws, Applicable Laws, Arbitration, Litigations,
+       Waiver Of Jury Trials, Consent To Jurisdiction, Submission To Jurisdiction,
+       Jurisdictions, Venues]
+
+  Compliance & Approvals:
+    description: Regulatory obligations, consents and authorisations.
+    ledgar_labels:
+      [Compliance With Laws, Anti-Corruption Laws, Sanctions, Authorizations,
+       Approvals, Consents, Qualifications]
+
+  Tax:
+    description: Tax responsibility and withholding.
+    ledgar_labels: [Taxes, Tax Withholdings, Withholdings]
+
+  Assignment & Transfer:
+    description: Whether rights can be transferred, and to whom.
+    ledgar_labels:
+      [Assignments, Assigns, Successors, Participations,
+       Transactions With Affiliates, Sales, Interests]
+
+  Representations & Warranties:
+    description: Factual assurances each party gives the other.
+    ledgar_labels:
+      [Representations, Warranties, No Conflicts, No Defaults, Authority,
+       Enforceability, Powers]
+
+  Corporate & Financial:
+    description: Entity status, financial condition and deal mechanics.
+    ledgar_labels:
+      [Capitalization, Financial Statements, Solvency, Subsidiaries, Liens,
+       Use Of Proceeds, Brokers, Closings, Organizations, Existence]
+
+  Notices & Records:
+    description: How formal notice is given; books, records and cooperation.
+    # Notices is often treated as boilerplate, but notice provisions carry the
+    # notice PERIODS the information-extraction component targets ("14 days'
+    # written notice"), so it is surfaced rather than buried.
+    ledgar_labels: [Notices, Books, Records, Cooperation, Further Assurances]
+
+  Amendments & Waivers:
+    description: How the agreement can be changed or rights given up.
+    ledgar_labels:
+      [Amendments, Modifications, Waivers, No Waivers, Binding Effects]
+
+  Boilerplate & Administrative:
+    description: Standard drafting machinery with little user-facing effect.
+    ledgar_labels:
+      [Headings, Counterparts, Severability, Construction, Defined Terms,
+       Definitions, Entire Agreements, Integration, Interpretations, Titles,
+       General, Miscellaneous, Agreements]

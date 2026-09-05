@@ -1,0 +1,69 @@
+# AI Legal Document Analyzer — LOCAL environment
+# Target: Windows + Python 3.10.11 + CPU only
+#
+# All versions below were resolved against PyPI for cp310 / win_amd64.
+# Install with:
+#     pip install -r requirements.txt
+#
+# NOTE ON TORCH: on Windows the PyPI wheel is already CPU-only, so plain
+# `pip install torch==2.5.1` is correct here. Do NOT use the CUDA index URL
+# on a machine without an NVIDIA GPU.
+#
+# Do NOT use this file in Colab — use requirements-colab.txt instead.
+
+# --- core numeric / data -------------------------------------------------
+# numpy is deliberately held below 2.0: several packages in this stack still
+# ship wheels compiled against the 1.x ABI, and a 1.x/2.x mismatch produces
+# an obscure "module compiled against NumPy 1.x" crash at import time.
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.5.2
+
+# --- deep learning -------------------------------------------------------
+torch==2.5.1
+transformers==4.45.2
+accelerate==1.1.1
+sentence-transformers==3.2.1
+
+# T5 / FLAN-T5 tokenizers are SentencePiece-based; without these two the
+# tokenizer fails to load with a confusing conversion error.
+sentencepiece==0.2.0
+protobuf==5.28.3
+
+# --- datasets ------------------------------------------------------------
+# datasets is pinned below 3.0 on purpose. Version 3.x removed support for
+# repositories that carry a loading script, and coastalcph/lex_glue is one
+# of them. 2.21.0 loads it via the script path with trust_remote_code=True.
+datasets==2.21.0
+# Pinned to a release contemporaneous with datasets 2.21 / transformers 4.45.
+# Leaving this unpinned lets pip pull a much newer hub that changed APIs
+# datasets 2.x still calls.
+huggingface_hub==0.25.2
+
+# --- NLP -----------------------------------------------------------------
+spacy==3.8.2
+# The English model is NOT on PyPI. Install it separately, after this file:
+#     python -m spacy download en_core_web_sm
+
+# --- document processing -------------------------------------------------
+pymupdf==1.24.13
+
+# --- retrieval -----------------------------------------------------------
+rank-bm25==0.2.2
+
+# --- evaluation ----------------------------------------------------------
+evaluate==0.4.3
+# rouge-score has no wheel on PyPI (source distribution only). It is pure
+# Python and needs no compiler, so this installs fine on Windows.
+rouge-score==0.1.2
+bert-score==0.3.13
+
+# --- application ---------------------------------------------------------
+streamlit==1.40.2
+
+# --- reporting / tooling -------------------------------------------------
+matplotlib==3.9.2
+seaborn==0.13.2
+pyyaml==6.0.2
+tqdm==4.67.1
+pytest==8.3.3

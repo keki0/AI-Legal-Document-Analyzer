@@ -1,0 +1,36 @@
+# AI Legal Document Analyzer — GOOGLE COLAB environment
+#
+#     !pip install -q -r requirements-colab.txt
+#
+# Deliberately does NOT pin torch or numpy.
+#
+# Colab ships torch already built against its own CUDA runtime. Reinstalling
+# or downgrading it is the single most common way to lose GPU access on a
+# free-tier session, and it costs a runtime restart to recover. Leave it alone.
+#
+# numpy is likewise left to whatever Colab provides. The local numpy<2.0 pin
+# exists for Windows ABI reasons that do not apply here, and forcing it in
+# Colab triggers a "restart runtime" prompt mid-notebook.
+#
+# Only packages Colab lacks, or ships at a version incompatible with this
+# project, are listed.
+
+transformers==4.45.2
+accelerate==1.1.1
+sentence-transformers==3.2.1
+
+# See requirements.txt for why datasets is held below 3.0.
+datasets==2.21.0
+huggingface_hub==0.25.2
+
+sentencepiece==0.2.0
+
+evaluate==0.4.3
+rouge-score==0.1.2
+bert-score==0.3.13
+
+pymupdf==1.24.13
+pyyaml==6.0.2
+
+# After installing, restart the runtime ONCE if Colab warns about it, then
+# continue. Do not install streamlit here — the app runs locally.

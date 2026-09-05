@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "note": "Hand-written evaluation queries. 'expected' must exactly match a clause title produced by src.document_processing. Categories: direct (uses clause vocabulary), paraphrase (reworded), lay (how a non-lawyer would ask), inference (answer implied not stated), cross (answer sits in a clause whose title does not match), distractor-pair (deliberately close to another clause), regression (the documented baseline failure).",
+  "queries": [
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Who owns the work produced by the contractor?",
+      "expected": "Intellectual Property",
+      "type": "regression"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Does the contractor keep any rights to reuse the deliverables?",
+      "expected": "Intellectual Property",
+      "type": "paraphrase"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Can I reuse the designs I made after the project ends?",
+      "expected": "Intellectual Property",
+      "type": "lay"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "How much notice is needed to end the agreement?",
+      "expected": "Term and Termination",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "What happens if the client ends the contract early?",
+      "expected": "Term and Termination",
+      "type": "paraphrase"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Can they fire me immediately for bad behaviour?",
+      "expected": "Term and Termination",
+      "type": "lay"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "When do invoices have to be paid?",
+      "expected": "Payment Terms",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "How is the contractor compensated for the work?",
+      "expected": "Payment Terms",
+      "type": "paraphrase"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Who is responsible for paying tax?",
+      "expected": "Payment Terms",
+      "type": "cross"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "What information must be kept secret?",
+      "expected": "Confidentiality",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Do the secrecy obligations continue after the contract ends?",
+      "expected": "Confidentiality",
+      "type": "inference"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Is the contractor an employee of the client?",
+      "expected": "Independent Contractor Status",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Who decides the contractor's working hours and equipment?",
+      "expected": "Independent Contractor Status",
+      "type": "distractor-pair"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Who pays if a third party sues because of a breach?",
+      "expected": "Indemnification",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "What laws does the contractor have to follow?",
+      "expected": "Compliance with Laws",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Which state's law governs this agreement?",
+      "expected": "Miscellaneous",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "How are disagreements between the parties settled?",
+      "expected": "Miscellaneous",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Can the agreement be changed verbally?",
+      "expected": "Miscellaneous",
+      "type": "inference"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "What services is the contractor providing?",
+      "expected": "Scope of Work",
+      "type": "direct"
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "query": "Who are the parties to this agreement?",
+      "expected": "Preamble",
+      "type": "direct"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "Will my subscription renew by itself?",
+      "expected": "Automatic Renewal of Your Subscription",
+      "type": "direct"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "How do I stop being charged again?",
+      "expected": "Automatic Renewal of Your Subscription",
+      "type": "lay"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "Do they sell my personal data?",
+      "expected": "Sharing With Third Parties",
+      "type": "direct"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "Who else can see my information?",
+      "expected": "Sharing With Third Parties",
+      "type": "paraphrase"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "How long is my data kept after I close my account?",
+      "expected": "How Long We Keep Your Data",
+      "type": "direct"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "Can I ask them to delete everything about me?",
+      "expected": "Your Rights and Choices",
+      "type": "direct"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "How do I stop marketing emails?",
+      "expected": "Your Rights and Choices",
+      "type": "lay"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "What do they collect automatically without me typing it?",
+      "expected": "How We Collect Your Information",
+      "type": "inference"
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "query": "Can I join a class action lawsuit?",
+      "expected": "Resolving Disputes",
+      "type": "direct"
+    }
+  ]
+}

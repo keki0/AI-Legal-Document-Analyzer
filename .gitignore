@@ -1,9 +1,58 @@
-.venv/
+# --- Python --------------------------------------------------------------
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
+.pytest_cache/
 .ipynb_checkpoints/
+
+# --- Virtual environments -------------------------------------------------
+.venv/
+venv/
+env/
+
+# --- Secrets --------------------------------------------------------------
+# Nothing in this project needs an API key. If that ever changes, the value
+# goes in .env and .env stays out of git.
 .env
-.env.*
-models/*
+*.key
+*.token
+
+# --- Model artifacts ------------------------------------------------------
+# Fine-tuned checkpoints are hundreds of MB. They belong in Google Drive or a
+# release asset, never in the repo. A single accidental commit of a Legal-BERT
+# checkpoint bloats the clone permanently, because git keeps it in history
+# even after deletion.
+models/
+*.pt
+*.bin
+*.safetensors
+*.onnx
+
+# Keep the directory itself so paths resolve on a fresh clone.
+!models/.gitkeep
+
+# --- Hugging Face / torch caches -----------------------------------------
+.cache/
+hf_cache/
+*.lock
+
+# --- Data -----------------------------------------------------------------
+# Downloaded datasets are large and reproducible from code, so they are not
+# tracked. Small hand-authored evaluation files ARE tracked: they cannot be
+# regenerated and the results depend on them.
 data/raw/*
+!data/raw/.gitkeep
+!data/raw/sample-independent-contractor-agreement.pdf
+
 data/processed/*
+!data/processed/.gitkeep
+
+# data/eval/ is intentionally NOT ignored — taxonomy.yaml and
+# retrieval_queries.json must be version-controlled.
+
+# --- OS / editor ----------------------------------------------------------
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
