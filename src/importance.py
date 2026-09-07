@@ -55,6 +55,7 @@ if TYPE_CHECKING:  # pragma: no cover
 logger = logging.getLogger(__name__)
 
 __all__ = [
+    "split_sentences",
     "TemperatureScaler",
     "CalibrationReport",
     "compute_ece",
@@ -518,7 +519,7 @@ _ABBREVIATIONS = r"(?<!\be\.g)(?<!\bi\.e)(?<!\betc)(?<!\bNo)(?<!\bInc)(?<!\bLtd)
 _SENTENCE_SPLIT = re.compile(rf"{_ABBREVIATIONS}(?<=[.;])\s+(?=[A-Z(\[])")
 
 
-def _split_sentences(text: str) -> list[tuple[int, int, str]]:
+def split_sentences(text: str) -> list[tuple[int, int, str]]:
     """Return ``(start, end, sentence)`` triples with offsets into ``text``."""
     if not text.strip():
         return []
@@ -570,7 +571,7 @@ class FlagDetector:
         if not text or not text.strip():
             return []
 
-        sentences = _split_sentences(text)
+        sentences = split_sentences(text)
         hits: list[FlagHit] = []
 
         for flag_id, label, source, reason, patterns in self._compiled:
@@ -622,6 +623,11 @@ class ClauseAnalysis:
     category_prior: float
     flags: list[FlagHit] = field(default_factory=list)
     probabilities: dict[str, float] = field(default_factory=dict)
+    # Populated by src.extraction.attach_extractions (Phase 5). Kept here
+    # rather than in a parallel structure so the interface has one object per
+    # clause. Typed loosely to avoid an import cycle: extraction imports the
+    # sentence splitter from this module.
+    extractions: list = field(default_factory=list)
 
     @property
     def flag_labels(self) -> list[str]:
@@ -714,3 +720,7 @@ def top_k_salient(
     FLAN-T5's 512-token input cannot take a whole contract.
     """
     return sorted(analyses, key=lambda a: a.salience, reverse=True)[:k]
+
+
+# Backwards-compatible private alias. src.extraction imports the public name.
+_split_sentences = split_sentences
