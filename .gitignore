@@ -56,3 +56,6 @@ data/processed/*
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# --- Calibration intermediate artifacts -------------------------------
+evaluation/results/*.npy

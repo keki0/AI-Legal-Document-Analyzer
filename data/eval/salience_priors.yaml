@@ -1,0 +1,111 @@
+# Category salience priors -- HAND-ASSIGNED DESIGN CHOICES
+#
+# ============================================================================
+# READ THIS BEFORE CITING THESE NUMBERS ANYWHERE
+#
+# These values are NOT learned. They were not fitted, estimated, or derived
+# from any labelled importance dataset. They are domain-informed judgements
+# about how much attention a non-lawyer reader should typically give each
+# clause category, assigned by hand by the project authors.
+#
+# We considered grounding importance in CUAD, whose 41 categories are
+# expert-defined "clauses lawyers look for". That was dropped to keep the
+# project inside its scope, which means this project reports NO
+# precision/recall/F1 for importance against expert ground truth. The
+# honest description in the report is: "category priors are a documented
+# design choice; importance detection is evaluated qualitatively."
+#
+# Anyone reusing this file should re-assign the values for their own domain.
+# ============================================================================
+#
+# HOW THE VALUES WERE CHOSEN
+#
+# The ordering answers one question: if a person signs this without reading
+# it, which clauses are most likely to surprise them later? Categories that
+# transfer money, rights, or the ability to exit rank highest. Categories
+# that are drafting machinery rank lowest.
+#
+# Scale is 0.0 to 1.0 and is ORDINAL, not probabilistic. A prior of 0.90 does
+# not mean "90% likely to matter"; it means "ranks above 0.80 and below 0.95".
+# Only the ordering is defended.
+#
+# Salience = calibrated_confidence x category_prior
+#
+# Consequence worth stating: a clause the classifier is unsure about receives
+# LOW salience even if its category prior is high. That is a deliberate bias
+# toward surfacing only what the model is confident about, and it is a
+# limitation -- an important clause the model finds ambiguous will be ranked
+# down. Evidence-linked flags run independently of salience precisely so that
+# such clauses can still surface.
+
+version: 1
+scale: ordinal
+learned: false
+source: hand-assigned by project authors
+
+priors:
+
+  # --- highest: transfers of money, rights, or exit ability ---------------
+
+  Intellectual Property: 0.95
+  # Who owns the work. Frequently the single most consequential clause for a
+  # contractor or creator, and the subject of our documented retrieval test.
+
+  Liability & Indemnity: 0.95
+  # Who pays when something goes wrong. Uncapped indemnity is the classic
+  # clause people regret not reading.
+
+  Term & Termination: 0.90
+  # How and when either side can exit, and on what notice.
+
+  Payment & Fees: 0.90
+  # What is owed and when. Directly financial.
+
+  Governing Law & Dispute Resolution: 0.85
+  # Where and how a dispute must be fought. Arbitration and class-action
+  # waivers materially change what remedies remain available.
+
+  Confidentiality & Publicity: 0.80
+  # Ongoing obligations that commonly survive termination.
+
+  # --- middle: conditional or role-specific ------------------------------
+
+  Employment & Compensation: 0.70
+  # High impact where it applies, but absent from most non-employment
+  # documents.
+
+  Assignment & Transfer: 0.70
+  # Determines whether the counterparty can hand the agreement to someone
+  # else without asking.
+
+  Tax: 0.65
+  # Usually allocates a known obligation rather than creating a surprise.
+
+  Compliance & Approvals: 0.55
+  # Often restates existing legal duties rather than adding new ones.
+
+  Amendments & Waivers: 0.50
+  # Matters mainly when change is unilateral -- which the
+  # "unilateral_change" flag detects independently.
+
+  # --- lower: procedural or entity-level ---------------------------------
+
+  Notices & Records: 0.45
+  # Procedural, but ranked above pure boilerplate because notice clauses
+  # carry the notice PERIODS the extraction component targets.
+
+  Representations & Warranties: 0.45
+  # Numerous and formulaic; individually low-signal for a lay reader.
+
+  Corporate & Financial: 0.35
+  # Entity status and deal mechanics. Rarely actionable for an individual.
+
+  Boilerplate & Administrative: 0.15
+  # Headings, counterparts, severability, construction. Deliberately the
+  # floor: down-weighting this category is the main job the priors do, and
+  # it is what replaces the baseline's keyword rules.
+
+# Applied when a category is absent from the map (e.g. taxonomy changes
+# without this file being updated). Mid-scale so a new category is neither
+# suppressed nor promoted.
+default_prior: 0.50
