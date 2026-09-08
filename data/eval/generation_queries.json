@@ -1,0 +1,351 @@
+{
+  "version": 1,
+  "note": "Hand-written generation evaluation set. Every reference answer is derived strictly from the text of the two evaluation documents; no fact is included that the source documents do not state. 'expected_sources' are clause titles produced by src.document_processing. 'key_points' are terms an adequate answer should contain, matched case-insensitively as substrings for the coverage diagnostic. These are author-written references, not expert annotations, and the set is far too small to support any claim beyond an indicative comparison.",
+  "queries": [
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "Who owns the work produced by the contractor?",
+      "expected_sources": [
+        "Intellectual Property"
+      ],
+      "reference": "All work product, materials and deliverables created under the agreement become the sole and exclusive property of the Client once full payment is made. The Contractor assigns all rights, title and interest to the Client and keeps no rights to use, reproduce or distribute the materials unless allowed in writing.",
+      "key_points": [
+        "property of the Client",
+        "assign",
+        "rights",
+        "no rights",
+        "writing"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "How can this agreement be ended?",
+      "expected_sources": [
+        "Term and Termination"
+      ],
+      "reference": "Either party can end the agreement by giving written notice. The Client may end it immediately for breach, nonperformance or ethical concerns. On termination the Contractor is paid for services rendered up to the termination date.",
+      "key_points": [
+        "written notice",
+        "terminate",
+        "breach",
+        "paid"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "What must the contractor keep confidential?",
+      "expected_sources": [
+        "Confidentiality"
+      ],
+      "reference": "The Contractor must not disclose or use the Client's confidential or proprietary information, including business operations, customer data and trade secrets. This obligation continues after the agreement ends.",
+      "key_points": [
+        "disclose",
+        "confidential",
+        "trade secrets",
+        "survives"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "Who pays if a third party makes a claim?",
+      "expected_sources": [
+        "Indemnification"
+      ],
+      "reference": "The Contractor must indemnify and hold the Client harmless from claims, losses or liabilities that arise from the Contractor's breach of the agreement, violation of laws or misconduct.",
+      "key_points": [
+        "indemnify",
+        "hold harmless",
+        "claims",
+        "breach"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "Is the contractor an employee?",
+      "expected_sources": [
+        "Independent Contractor Status"
+      ],
+      "reference": "The Contractor is an independent contractor, not an employee, partner or agent of the Client, and the agreement does not create an employer-employee relationship. The Contractor controls their own work schedule, equipment and methods.",
+      "key_points": [
+        "independent contractor",
+        "not an employee",
+        "schedule",
+        "equipment"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "How and when is the contractor paid?",
+      "expected_sources": [
+        "Payment Terms"
+      ],
+      "reference": "The Client pays the Contractor at a stated rate per hour, project or milestone, with sample milestone payments for a rough draft, client edits and a final draft. The Contractor invoices either monthly or on completion and payment is due within the stated net period. No taxes are withheld and the Contractor is responsible for their own tax obligations.",
+      "key_points": [
+        "rate",
+        "milestone",
+        "invoices",
+        "taxes"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "Which law governs the agreement and how are disputes handled?",
+      "expected_sources": [
+        "Miscellaneous"
+      ],
+      "reference": "The agreement is governed by the law of a named state or country, and disputes are resolved through mediation, arbitration or court in a named location. The document is the entire agreement and changes must be in writing signed by both parties.",
+      "key_points": [
+        "governed",
+        "laws",
+        "disputes",
+        "writing"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "What laws must the contractor follow?",
+      "expected_sources": [
+        "Compliance with Laws"
+      ],
+      "reference": "The Contractor must comply with all applicable local, state, federal and international laws and regulations, including export controls, tax laws and labour regulations.",
+      "key_points": [
+        "comply",
+        "laws",
+        "export controls",
+        "tax"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "clause_explanation",
+      "query": "What work is the contractor providing?",
+      "expected_sources": [
+        "Scope of Work"
+      ],
+      "reference": "The Contractor provides the services described in the agreement and delivers them in writing in line with any project milestones, deadlines or specifications given by the Client.",
+      "key_points": [
+        "services",
+        "milestones",
+        "deadlines",
+        "Client"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "simple_explanation",
+      "query": "In simple terms, do I keep the rights to work I create?",
+      "expected_sources": [
+        "Intellectual Property"
+      ],
+      "reference": "No. Once the Client pays in full, the work you create belongs to them. You transfer all rights to the Client and cannot reuse or share the materials unless they agree in writing.",
+      "key_points": [
+        "property",
+        "Client",
+        "rights",
+        "writing"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "simple_explanation",
+      "query": "In simple terms, how much notice do I need to give to stop working?",
+      "expected_sources": [
+        "Term and Termination"
+      ],
+      "reference": "Either side can end the agreement by giving written notice for the number of days stated. The Client can also end it straight away for breach, nonperformance or ethical concerns.",
+      "key_points": [
+        "notice",
+        "days",
+        "immediately",
+        "breach"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "simple_explanation",
+      "query": "In simple terms, what happens to secrets after the contract ends?",
+      "expected_sources": [
+        "Confidentiality"
+      ],
+      "reference": "The duty to keep the Client's confidential information private continues even after the agreement finishes.",
+      "key_points": [
+        "confidential",
+        "survives",
+        "termination"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "simple_explanation",
+      "query": "In simple terms, who handles my taxes?",
+      "expected_sources": [
+        "Payment Terms"
+      ],
+      "reference": "No tax is deducted from your payments. You are responsible for your own local, federal and international tax obligations.",
+      "key_points": [
+        "taxes",
+        "withheld",
+        "responsible"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "quick_summary",
+      "query": "Summarize the payment and termination terms.",
+      "expected_sources": [
+        "Payment Terms",
+        "Term and Termination"
+      ],
+      "reference": "The Client pays the Contractor at a stated rate with milestone payments, invoices are submitted monthly or on completion, and no taxes are withheld. Either party may end the agreement with written notice, and the Client may end it immediately for breach, nonperformance or ethical concerns.",
+      "key_points": [
+        "pay",
+        "invoic",
+        "notice",
+        "terminat"
+      ]
+    },
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "task": "quick_summary",
+      "query": "Summarize the ownership and confidentiality obligations.",
+      "expected_sources": [
+        "Intellectual Property",
+        "Confidentiality"
+      ],
+      "reference": "Work product created under the agreement becomes the Client's property on full payment and the Contractor assigns all rights. The Contractor must not disclose the Client's confidential information, and that duty continues after termination.",
+      "key_points": [
+        "property",
+        "assign",
+        "confidential",
+        "termination"
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "task": "clause_explanation",
+      "query": "Does my subscription renew by itself?",
+      "expected_sources": [
+        "Automatic Renewal of Your Subscription"
+      ],
+      "reference": "The subscription renews automatically at the end of each billing period unless it is cancelled at least fourteen days before the renewal date. Renewal charges go to the payment method on file.",
+      "key_points": [
+        "automatically renew",
+        "fourteen days",
+        "cancel",
+        "payment method"
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "task": "clause_explanation",
+      "query": "How are disputes resolved under this policy?",
+      "expected_sources": [
+        "Resolving Disputes"
+      ],
+      "reference": "Disputes are resolved by binding arbitration administered in the State of Delaware, and the user gives up the right to take part in a class action.",
+      "key_points": [
+        "binding arbitration",
+        "Delaware",
+        "class action"
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "task": "clause_explanation",
+      "query": "How long is my data kept?",
+      "expected_sources": [
+        "How Long We Keep Your Data"
+      ],
+      "reference": "Account information is kept for as long as the account is active and for a further twenty-four months after it is closed, unless a longer period is required by applicable law.",
+      "key_points": [
+        "active",
+        "twenty-four months",
+        "closure",
+        "law"
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "task": "clause_explanation",
+      "query": "Who else can see my personal data?",
+      "expected_sources": [
+        "Sharing With Third Parties"
+      ],
+      "reference": "Personal data may be shared with advertising partners, analytics providers and payment processors. The policy states that personal information is not sold to third parties for monetary consideration.",
+      "key_points": [
+        "advertising partners",
+        "analytics",
+        "payment processors",
+        "not sell"
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "task": "clause_explanation",
+      "query": "What information is collected about me?",
+      "expected_sources": [
+        "How We Collect Your Information"
+      ],
+      "reference": "Information provided directly when creating an account is collected, including name, email address and payment details. Device identifiers, IP address and browsing activity are also collected automatically through cookies.",
+      "key_points": [
+        "account",
+        "email address",
+        "payment details",
+        "cookies"
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "task": "clause_explanation",
+      "query": "Can I have my data deleted?",
+      "expected_sources": [
+        "Your Rights and Choices"
+      ],
+      "reference": "Access, correction or deletion of personal data can be requested at any time by contacting the privacy team. Marketing communications can be stopped using the unsubscribe link.",
+      "key_points": [
+        "deletion",
+        "privacy team",
+        "unsubscribe"
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "task": "simple_explanation",
+      "query": "In simple terms, how do I avoid being charged again?",
+      "expected_sources": [
+        "Automatic Renewal of Your Subscription"
+      ],
+      "reference": "Cancel at least fourteen days before the renewal date. If you do not, the subscription renews automatically and the charge goes to the payment method on file.",
+      "key_points": [
+        "fourteen days",
+        "cancel",
+        "renew"
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "task": "quick_summary",
+      "query": "Summarize how my data is collected, shared and retained.",
+      "expected_sources": [
+        "How We Collect Your Information",
+        "Sharing With Third Parties",
+        "How Long We Keep Your Data"
+      ],
+      "reference": "Account details such as name, email address and payment information are collected directly, and device identifiers, IP address and browsing activity are collected automatically via cookies. Data may be shared with advertising partners, analytics providers and payment processors but is not sold. Account information is retained while the account is active and for twenty-four months after closure.",
+      "key_points": [
+        "collect",
+        "cookies",
+        "share",
+        "retain"
+      ]
+    }
+  ]
+}

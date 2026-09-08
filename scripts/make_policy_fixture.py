@@ -60,7 +60,12 @@ def main() -> int:
             y = 60
         page.insert_text((60, y), title, fontname="hebo", fontsize=14)
         y += 22
-        for chunk in (body[i:i + 95] for i in range(0, len(body), 95)):
+        # Wrap on word boundaries. An earlier version sliced every 95
+        # characters, which split words across lines ("add ress") and
+        # corrupted the extracted text used for evaluation.
+        import textwrap
+
+        for chunk in textwrap.wrap(body, width=95):
             page.insert_text((60, y), chunk, fontname="helv", fontsize=11)
             y += 15
         y += 18

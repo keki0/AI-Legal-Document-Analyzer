@@ -16,10 +16,10 @@ plain-language simplification, summarisation, and semantic search.
 | 0 | Environment, config, dependencies | **Complete** |
 | 1 | Document processing & clause segmentation | **Complete** |
 | 2 | Dataset preparation & clause taxonomy | **Complete** |
-| 3 | Clause classification (TF-IDF baseline + Legal-BERT) | Not started |
-| 4 | Importance & attention flags | Not started |
-| 5 | Information extraction | Not started |
-| 6 | Simplification & summarisation (FLAN-T5) | Not started |
+| 3 | Clause classification (TF-IDF baseline + Legal-BERT) | **Complete** |
+| 4 | Importance & attention flags | **Complete** |
+| 5 | Information extraction | **Complete** |
+| 6 | Simplification & summarisation (FLAN-T5) | **Complete** |
 | 7 | Improved semantic retrieval | Not started |
 | 8 | Streamlit application | Not started |
 | 9 | Evaluation & documentation | Not started |

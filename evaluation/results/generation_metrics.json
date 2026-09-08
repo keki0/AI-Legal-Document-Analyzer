@@ -1,0 +1,1400 @@
+{
+  "model": "google/flan-t5-base",
+  "device": "cpu",
+  "prompt_version": "v1",
+  "generation_settings": {
+    "model_name": "google/flan-t5-base",
+    "num_beams": 4,
+    "do_sample": false,
+    "early_stopping": true,
+    "no_repeat_ngram_size": 3,
+    "max_input_tokens": 512,
+    "max_new_tokens": {
+      "quick_summary": 160,
+      "simple_explanation": 120,
+      "clause_explanation": 120
+    }
+  },
+  "n_examples": 23,
+  "top_k": 3,
+  "total_seconds": 137.1,
+  "seconds_per_example": 5.96,
+  "rag_context": {
+    "n": 23,
+    "rouge": {
+      "rouge1": 0.438,
+      "rouge2": 0.2643,
+      "rougeL": 0.3874
+    },
+    "key_point_coverage": 0.4703,
+    "examples_with_unsupported_numbers": 0,
+    "total_unsupported_numeric_tokens": 0,
+    "examples_citing_all_expected_sources": 21,
+    "mean_output_chars": 140.8,
+    "bertscore": {
+      "precision": 0.9085,
+      "recall": 0.8859,
+      "f1": 0.8968
+    }
+  },
+  "per_example": [
+    {
+      "query": "Who owns the work produced by the contractor?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "All work product, materials and deliverables created under the agreement become the sole and exclusive property of the Client once full payment is made. The Contractor assigns all rights, title and interest to the Client and keeps no rights to use, reproduce or distribute the materials unless allowed in writing.",
+      "expected_sources": [
+        "Intellectual Property"
+      ],
+      "retrieved_titles": [
+        "Intellectual Property",
+        "Independent Contractor Status",
+        "Indemnification"
+      ],
+      "rag": {
+        "text": "The Contractor agrees to assign all rights, title, and interest to the Client upon full payment.",
+        "source_clause_ids": [
+          6
+        ],
+        "source_titles": [
+          "Intellectual Property"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.4,
+        "covered_key_points": [
+          "assign",
+          "rights"
+        ],
+        "missing_key_points": [
+          "property of the Client",
+          "no rights",
+          "writing"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor agrees to assign all rights, title, and interest to the Client upon full payment.",
+        "source_clause_ids": [
+          6
+        ],
+        "source_titles": [
+          "Intellectual Property"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.4,
+        "covered_key_points": [
+          "assign",
+          "rights"
+        ],
+        "missing_key_points": [
+          "property of the Client",
+          "no rights",
+          "writing"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "How can this agreement be ended?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "Either party can end the agreement by giving written notice. The Client may end it immediately for breach, nonperformance or ethical concerns. On termination the Contractor is paid for services rendered up to the termination date.",
+      "expected_sources": [
+        "Term and Termination"
+      ],
+      "retrieved_titles": [
+        "Term and Termination",
+        "Confidentiality",
+        "Miscellaneous"
+      ],
+      "rag": {
+        "text": "The Contractor will be paid for Services rendered through the date of termination.",
+        "source_clause_ids": [
+          3
+        ],
+        "source_titles": [
+          "Term and Termination"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.25,
+        "covered_key_points": [
+          "paid"
+        ],
+        "missing_key_points": [
+          "written notice",
+          "terminate",
+          "breach"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor will be paid for Services rendered through the date of termination.",
+        "source_clause_ids": [
+          3
+        ],
+        "source_titles": [
+          "Term and Termination"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.25,
+        "covered_key_points": [
+          "paid"
+        ],
+        "missing_key_points": [
+          "written notice",
+          "terminate",
+          "breach"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "What must the contractor keep confidential?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The Contractor must not disclose or use the Client's confidential or proprietary information, including business operations, customer data and trade secrets. This obligation continues after the agreement ends.",
+      "expected_sources": [
+        "Confidentiality"
+      ],
+      "retrieved_titles": [
+        "Confidentiality",
+        "Compliance with Laws",
+        "Indemnification"
+      ],
+      "rag": {
+        "text": "The Contractor agrees not to disclose or use any confidential or proprietary information belonging to the Client.",
+        "source_clause_ids": [
+          7
+        ],
+        "source_titles": [
+          "Confidentiality"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "disclose",
+          "confidential"
+        ],
+        "missing_key_points": [
+          "trade secrets",
+          "survives"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor agrees not to disclose or use any confidential or proprietary information belonging to the Client.",
+        "source_clause_ids": [
+          7
+        ],
+        "source_titles": [
+          "Confidentiality"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "disclose",
+          "confidential"
+        ],
+        "missing_key_points": [
+          "trade secrets",
+          "survives"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Who pays if a third party makes a claim?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The Contractor must indemnify and hold the Client harmless from claims, losses or liabilities that arise from the Contractor's breach of the agreement, violation of laws or misconduct.",
+      "expected_sources": [
+        "Indemnification"
+      ],
+      "retrieved_titles": [
+        "Indemnification",
+        "Payment Terms",
+        "Intellectual Property"
+      ],
+      "rag": {
+        "text": "The Contractor shall indemnify and hold harmless the Client from any claims, losses, or liabilities arising from the Contractor\u2019s breach of this Agreement.",
+        "source_clause_ids": [
+          9
+        ],
+        "source_titles": [
+          "Indemnification"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 1.0,
+        "covered_key_points": [
+          "indemnify",
+          "hold harmless",
+          "claims",
+          "breach"
+        ],
+        "missing_key_points": [],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor shall indemnify and hold harmless the Client from any claims, losses, or liabilities arising from the Contractor\u2019s breach of this Agreement.",
+        "source_clause_ids": [
+          9
+        ],
+        "source_titles": [
+          "Indemnification"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 1.0,
+        "covered_key_points": [
+          "indemnify",
+          "hold harmless",
+          "claims",
+          "breach"
+        ],
+        "missing_key_points": [],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Is the contractor an employee?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The Contractor is an independent contractor, not an employee, partner or agent of the Client, and the agreement does not create an employer-employee relationship. The Contractor controls their own work schedule, equipment and methods.",
+      "expected_sources": [
+        "Independent Contractor Status"
+      ],
+      "retrieved_titles": [
+        "Independent Contractor Status",
+        "Compliance with Laws",
+        "Indemnification"
+      ],
+      "rag": {
+        "text": "The Contractor is not an employee, partner, or agent of the Client. Nothing in this Agreement shall be construed to create an employer-employee relationship.",
+        "source_clause_ids": [
+          5
+        ],
+        "source_titles": [
+          "Independent Contractor Status"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.25,
+        "covered_key_points": [
+          "not an employee"
+        ],
+        "missing_key_points": [
+          "independent contractor",
+          "schedule",
+          "equipment"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor is not an employee, partner, or agent of the Client. Nothing in this Agreement shall be construed to create an employer-employee relationship.",
+        "source_clause_ids": [
+          5
+        ],
+        "source_titles": [
+          "Independent Contractor Status"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.25,
+        "covered_key_points": [
+          "not an employee"
+        ],
+        "missing_key_points": [
+          "independent contractor",
+          "schedule",
+          "equipment"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "How and when is the contractor paid?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The Client pays the Contractor at a stated rate per hour, project or milestone, with sample milestone payments for a rough draft, client edits and a final draft. The Contractor invoices either monthly or on completion and payment is due within the stated net period. No taxes are withheld and the Contractor is responsible for their own tax obligations.",
+      "expected_sources": [
+        "Payment Terms"
+      ],
+      "retrieved_titles": [
+        "Payment Terms",
+        "Term and Termination",
+        "Compliance with Laws"
+      ],
+      "rag": {
+        "text": "The Contractor is solely responsible for any local, federal, or international tax obligations.",
+        "source_clause_ids": [
+          4
+        ],
+        "source_titles": [
+          "Payment Terms"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.0,
+        "covered_key_points": [],
+        "missing_key_points": [
+          "rate",
+          "milestone",
+          "invoices",
+          "taxes"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor is solely responsible for any local, federal, or international tax obligations.",
+        "source_clause_ids": [
+          4
+        ],
+        "source_titles": [
+          "Payment Terms"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.0,
+        "covered_key_points": [],
+        "missing_key_points": [
+          "rate",
+          "milestone",
+          "invoices",
+          "taxes"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Which law governs the agreement and how are disputes handled?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The agreement is governed by the law of a named state or country, and disputes are resolved through mediation, arbitration or court in a named location. The document is the entire agreement and changes must be in writing signed by both parties.",
+      "expected_sources": [
+        "Miscellaneous"
+      ],
+      "retrieved_titles": [
+        "Miscellaneous",
+        "Intellectual Property",
+        "Term and Termination"
+      ],
+      "rag": {
+        "text": "Payoneer is a software company that specializes in contract management.",
+        "source_clause_ids": [
+          10
+        ],
+        "source_titles": [
+          "Miscellaneous"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.0,
+        "covered_key_points": [],
+        "missing_key_points": [
+          "governed",
+          "laws",
+          "disputes",
+          "writing"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "Payoneer is a software company that specializes in contract management.",
+        "source_clause_ids": [
+          10
+        ],
+        "source_titles": [
+          "Miscellaneous"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.0,
+        "covered_key_points": [],
+        "missing_key_points": [
+          "governed",
+          "laws",
+          "disputes",
+          "writing"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "What laws must the contractor follow?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The Contractor must comply with all applicable local, state, federal and international laws and regulations, including export controls, tax laws and labour regulations.",
+      "expected_sources": [
+        "Compliance with Laws"
+      ],
+      "retrieved_titles": [
+        "Compliance with Laws",
+        "Indemnification",
+        "Confidentiality"
+      ],
+      "rag": {
+        "text": "The Contractor agrees to comply with all applicable local, state, federal, and international laws and regulations.",
+        "source_clause_ids": [
+          8
+        ],
+        "source_titles": [
+          "Compliance with Laws"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "comply",
+          "laws"
+        ],
+        "missing_key_points": [
+          "export controls",
+          "tax"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor agrees to comply with all applicable local, state, federal, and international laws and regulations.",
+        "source_clause_ids": [
+          8
+        ],
+        "source_titles": [
+          "Compliance with Laws"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "comply",
+          "laws"
+        ],
+        "missing_key_points": [
+          "export controls",
+          "tax"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "What work is the contractor providing?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The Contractor provides the services described in the agreement and delivers them in writing in line with any project milestones, deadlines or specifications given by the Client.",
+      "expected_sources": [
+        "Scope of Work"
+      ],
+      "retrieved_titles": [
+        "Scope of Work",
+        "Compliance with Laws",
+        "Independent Contractor Status"
+      ],
+      "rag": {
+        "text": "The Contractor will deliver all services provided in writing in accordance with any project milestones, deadlines, or specifications provided by the Client.",
+        "source_clause_ids": [
+          2
+        ],
+        "source_titles": [
+          "Scope of Work"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 1.0,
+        "covered_key_points": [
+          "services",
+          "milestones",
+          "deadlines",
+          "Client"
+        ],
+        "missing_key_points": [],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor will deliver all services provided in writing in accordance with any project milestones, deadlines, or specifications provided by the Client.",
+        "source_clause_ids": [
+          2
+        ],
+        "source_titles": [
+          "Scope of Work"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 1.0,
+        "covered_key_points": [
+          "services",
+          "milestones",
+          "deadlines",
+          "Client"
+        ],
+        "missing_key_points": [],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "In simple terms, do I keep the rights to work I create?",
+      "task": "simple_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "No. Once the Client pays in full, the work you create belongs to them. You transfer all rights to the Client and cannot reuse or share the materials unless they agree in writing.",
+      "expected_sources": [
+        "Intellectual Property"
+      ],
+      "retrieved_titles": [
+        "Intellectual Property",
+        "Independent Contractor Status",
+        "Compliance with Laws"
+      ],
+      "rag": {
+        "text": "The Contractor retains no rights to use, reproduce, or distribute such materials unless explicitly authorized in writing. The Contractor is an independent contractor and not an employee, partner, or agent of the Client. Nothing in this Agreement shall be construed to create an employer-employee relationship.",
+        "source_clause_ids": [
+          6,
+          5,
+          8
+        ],
+        "source_titles": [
+          "Intellectual Property",
+          "Independent Contractor Status",
+          "Compliance with Laws"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.75,
+        "covered_key_points": [
+          "Client",
+          "rights",
+          "writing"
+        ],
+        "missing_key_points": [
+          "property"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor retains no rights to use, reproduce, or distribute such materials unless explicitly authorized in writing.",
+        "source_clause_ids": [
+          6
+        ],
+        "source_titles": [
+          "Intellectual Property"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "rights",
+          "writing"
+        ],
+        "missing_key_points": [
+          "property",
+          "Client"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "In simple terms, how much notice do I need to give to stop working?",
+      "task": "simple_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "Either side can end the agreement by giving written notice for the number of days stated. The Client can also end it straight away for breach, nonperformance or ethical concerns.",
+      "expected_sources": [
+        "Term and Termination"
+      ],
+      "retrieved_titles": [
+        "Term and Termination",
+        "Preamble",
+        "Payment Terms"
+      ],
+      "rag": {
+        "text": "[7/14] days\u2019 written notice",
+        "source_clause_ids": [
+          3,
+          1,
+          4
+        ],
+        "source_titles": [
+          "Term and Termination",
+          "Preamble",
+          "Payment Terms"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "notice",
+          "days"
+        ],
+        "missing_key_points": [
+          "immediately",
+          "breach"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "[7/14] days",
+        "source_clause_ids": [
+          3
+        ],
+        "source_titles": [
+          "Term and Termination"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.25,
+        "covered_key_points": [
+          "days"
+        ],
+        "missing_key_points": [
+          "notice",
+          "immediately",
+          "breach"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "In simple terms, what happens to secrets after the contract ends?",
+      "task": "simple_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The duty to keep the Client's confidential information private continues even after the agreement finishes.",
+      "expected_sources": [
+        "Confidentiality"
+      ],
+      "retrieved_titles": [
+        "Confidentiality",
+        "Term and Termination",
+        "Intellectual Property"
+      ],
+      "rag": {
+        "text": "The Contractor will be paid for Services rendered through the date of termination.",
+        "source_clause_ids": [
+          7,
+          3,
+          6
+        ],
+        "source_titles": [
+          "Confidentiality",
+          "Term and Termination",
+          "Intellectual Property"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.3333333333333333,
+        "covered_key_points": [
+          "termination"
+        ],
+        "missing_key_points": [
+          "confidential",
+          "survives"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "This clause survives the termination of the Agreement.",
+        "source_clause_ids": [
+          7
+        ],
+        "source_titles": [
+          "Confidentiality"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.6666666666666666,
+        "covered_key_points": [
+          "survives",
+          "termination"
+        ],
+        "missing_key_points": [
+          "confidential"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "In simple terms, who handles my taxes?",
+      "task": "simple_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "No tax is deducted from your payments. You are responsible for your own local, federal and international tax obligations.",
+      "expected_sources": [
+        "Payment Terms"
+      ],
+      "retrieved_titles": [
+        "Payment Terms",
+        "Miscellaneous",
+        "Compliance with Laws"
+      ],
+      "rag": {
+        "text": "Contractor is solely responsible for any local, federal, or international tax obligations.",
+        "source_clause_ids": [
+          4,
+          10,
+          8
+        ],
+        "source_titles": [
+          "Payment Terms",
+          "Miscellaneous",
+          "Compliance with Laws"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.3333333333333333,
+        "covered_key_points": [
+          "responsible"
+        ],
+        "missing_key_points": [
+          "taxes",
+          "withheld"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor is solely responsible for any local, federal, or international tax obligations.",
+        "source_clause_ids": [
+          4
+        ],
+        "source_titles": [
+          "Payment Terms"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.3333333333333333,
+        "covered_key_points": [
+          "responsible"
+        ],
+        "missing_key_points": [
+          "taxes",
+          "withheld"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Summarize the payment and termination terms.",
+      "task": "quick_summary",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "The Client pays the Contractor at a stated rate with milestone payments, invoices are submitted monthly or on completion, and no taxes are withheld. Either party may end the agreement with written notice, and the Client may end it immediately for breach, nonperformance or ethical concerns.",
+      "expected_sources": [
+        "Payment Terms",
+        "Term and Termination"
+      ],
+      "retrieved_titles": [
+        "Term and Termination",
+        "Payment Terms"
+      ],
+      "rag": {
+        "text": "The Contractor is solely responsible for any local, federal, or international tax obligations.",
+        "source_clause_ids": [
+          3,
+          4
+        ],
+        "source_titles": [
+          "Term and Termination",
+          "Payment Terms"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.0,
+        "covered_key_points": [],
+        "missing_key_points": [
+          "pay",
+          "invoic",
+          "notice",
+          "terminat"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "This Agreement will begin on [Start Date] and continue until the Services are completed unless terminated earlier by either party with [7/14] days\u2019 written notice. The Contractor will be paid for Services rendered through the date of termination.",
+        "source_clause_ids": [
+          3
+        ],
+        "source_titles": [
+          "Term and Termination"
+        ],
+        "source_titles_correct": false,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "notice",
+          "terminat"
+        ],
+        "missing_key_points": [
+          "pay",
+          "invoic"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Summarize the ownership and confidentiality obligations.",
+      "task": "quick_summary",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "reference": "Work product created under the agreement becomes the Client's property on full payment and the Contractor assigns all rights. The Contractor must not disclose the Client's confidential information, and that duty continues after termination.",
+      "expected_sources": [
+        "Intellectual Property",
+        "Confidentiality"
+      ],
+      "retrieved_titles": [
+        "Confidentiality",
+        "Miscellaneous",
+        "Intellectual Property"
+      ],
+      "rag": {
+        "text": "The Contractor agrees not to disclose or use any confidential or proprietary information belonging to the Client, including but not limited to business operations, customer data, or trade secrets. This clause survives the termination of the Agreement. [Clause 10: Miscellaneous (p3)] Entire Agreement: This document represents the entire agreement between the parties. Amendments: Any changes must be made in writing and signed by both parties. Governing Law: This Agreement shall be governed by the laws of the State of [Insert State or Country]. Dispute Resolution: Any disputes shall be resolved through [mediation/arbitration/court] in [location].",
+        "source_clause_ids": [
+          7,
+          10,
+          6
+        ],
+        "source_titles": [
+          "Confidentiality",
+          "Miscellaneous",
+          "Intellectual Property"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "confidential",
+          "termination"
+        ],
+        "missing_key_points": [
+          "property",
+          "assign"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "The Contractor agrees not to disclose or use any confidential or proprietary information belonging to the Client.",
+        "source_clause_ids": [
+          7
+        ],
+        "source_titles": [
+          "Confidentiality"
+        ],
+        "source_titles_correct": false,
+        "key_point_coverage": 0.25,
+        "covered_key_points": [
+          "confidential"
+        ],
+        "missing_key_points": [
+          "property",
+          "assign",
+          "termination"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Does my subscription renew by itself?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "reference": "The subscription renews automatically at the end of each billing period unless it is cancelled at least fourteen days before the renewal date. Renewal charges go to the payment method on file.",
+      "expected_sources": [
+        "Automatic Renewal of Your Subscription"
+      ],
+      "retrieved_titles": [
+        "Automatic Renewal of Your Subscription",
+        "Your Rights and Choices",
+        "How Long We Keep Your Data"
+      ],
+      "rag": {
+        "text": "Your subscription will automatically renew at the end of each billing period until you cancel at least fourteen days before the renewal date.",
+        "source_clause_ids": [
+          6
+        ],
+        "source_titles": [
+          "Automatic Renewal of Your Subscription"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.75,
+        "covered_key_points": [
+          "automatically renew",
+          "fourteen days",
+          "cancel"
+        ],
+        "missing_key_points": [
+          "payment method"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "Your subscription will automatically renew at the end of each billing period until you cancel at least fourteen days before the renewal date.",
+        "source_clause_ids": [
+          6
+        ],
+        "source_titles": [
+          "Automatic Renewal of Your Subscription"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.75,
+        "covered_key_points": [
+          "automatically renew",
+          "fourteen days",
+          "cancel"
+        ],
+        "missing_key_points": [
+          "payment method"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "How are disputes resolved under this policy?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "reference": "Disputes are resolved by binding arbitration administered in the State of Delaware, and the user gives up the right to take part in a class action.",
+      "expected_sources": [
+        "Resolving Disputes"
+      ],
+      "retrieved_titles": [
+        "Resolving Disputes",
+        "Your Rights and Choices",
+        "Preamble"
+      ],
+      "rag": {
+        "text": "You waive the right to participate in a class action.",
+        "source_clause_ids": [
+          7
+        ],
+        "source_titles": [
+          "Resolving Disputes"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.3333333333333333,
+        "covered_key_points": [
+          "class action"
+        ],
+        "missing_key_points": [
+          "binding arbitration",
+          "Delaware"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "You waive the right to participate in a class action.",
+        "source_clause_ids": [
+          7
+        ],
+        "source_titles": [
+          "Resolving Disputes"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.3333333333333333,
+        "covered_key_points": [
+          "class action"
+        ],
+        "missing_key_points": [
+          "binding arbitration",
+          "Delaware"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "How long is my data kept?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "reference": "Account information is kept for as long as the account is active and for a further twenty-four months after it is closed, unless a longer period is required by applicable law.",
+      "expected_sources": [
+        "How Long We Keep Your Data"
+      ],
+      "retrieved_titles": [
+        "How Long We Keep Your Data",
+        "Automatic Renewal of Your Subscription",
+        "Your Rights and Choices"
+      ],
+      "rag": {
+        "text": "We retain your account information for as long as your account remains active and for a further twenty-four months after closure, unless a longer period is required by applicable law.",
+        "source_clause_ids": [
+          4
+        ],
+        "source_titles": [
+          "How Long We Keep Your Data"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 1.0,
+        "covered_key_points": [
+          "active",
+          "twenty-four months",
+          "closure",
+          "law"
+        ],
+        "missing_key_points": [],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "We retain your account information for as long as your account remains active and for a further twenty-four months after closure, unless a longer period is required by applicable law.",
+        "source_clause_ids": [
+          4
+        ],
+        "source_titles": [
+          "How Long We Keep Your Data"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 1.0,
+        "covered_key_points": [
+          "active",
+          "twenty-four months",
+          "closure",
+          "law"
+        ],
+        "missing_key_points": [],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Who else can see my personal data?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "reference": "Personal data may be shared with advertising partners, analytics providers and payment processors. The policy states that personal information is not sold to third parties for monetary consideration.",
+      "expected_sources": [
+        "Sharing With Third Parties"
+      ],
+      "retrieved_titles": [
+        "Your Rights and Choices",
+        "Sharing With Third Parties",
+        "How We Collect Your Information"
+      ],
+      "rag": {
+        "text": "You may request access to, correction of, or deletion of your personal data at any time by contacting our privacy team",
+        "source_clause_ids": [
+          5
+        ],
+        "source_titles": [
+          "Your Rights and Choices"
+        ],
+        "source_titles_correct": false,
+        "key_point_coverage": 0.0,
+        "covered_key_points": [],
+        "missing_key_points": [
+          "advertising partners",
+          "analytics",
+          "payment processors",
+          "not sell"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "You may request access to, correction of, or deletion of your personal data at any time by contacting our privacy team",
+        "source_clause_ids": [
+          5
+        ],
+        "source_titles": [
+          "Your Rights and Choices"
+        ],
+        "source_titles_correct": false,
+        "key_point_coverage": 0.0,
+        "covered_key_points": [],
+        "missing_key_points": [
+          "advertising partners",
+          "analytics",
+          "payment processors",
+          "not sell"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "What information is collected about me?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "reference": "Information provided directly when creating an account is collected, including name, email address and payment details. Device identifiers, IP address and browsing activity are also collected automatically through cookies.",
+      "expected_sources": [
+        "How We Collect Your Information"
+      ],
+      "retrieved_titles": [
+        "How We Collect Your Information",
+        "Preamble",
+        "Sharing With Third Parties"
+      ],
+      "rag": {
+        "text": "We collect information you provide directly to us when you create an account.",
+        "source_clause_ids": [
+          2
+        ],
+        "source_titles": [
+          "How We Collect Your Information"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.25,
+        "covered_key_points": [
+          "account"
+        ],
+        "missing_key_points": [
+          "email address",
+          "payment details",
+          "cookies"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "We collect information you provide directly to us when you create an account.",
+        "source_clause_ids": [
+          2
+        ],
+        "source_titles": [
+          "How We Collect Your Information"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.25,
+        "covered_key_points": [
+          "account"
+        ],
+        "missing_key_points": [
+          "email address",
+          "payment details",
+          "cookies"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Can I have my data deleted?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "reference": "Access, correction or deletion of personal data can be requested at any time by contacting the privacy team. Marketing communications can be stopped using the unsubscribe link.",
+      "expected_sources": [
+        "Your Rights and Choices"
+      ],
+      "retrieved_titles": [
+        "Your Rights and Choices",
+        "How Long We Keep Your Data",
+        "Sharing With Third Parties"
+      ],
+      "rag": {
+        "text": "You may request access to, correction of, or deletion of your personal data at any time by contacting our privacy team",
+        "source_clause_ids": [
+          5
+        ],
+        "source_titles": [
+          "Your Rights and Choices"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.6666666666666666,
+        "covered_key_points": [
+          "deletion",
+          "privacy team"
+        ],
+        "missing_key_points": [
+          "unsubscribe"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "You may request access to, correction of, or deletion of your personal data at any time by contacting our privacy team",
+        "source_clause_ids": [
+          5
+        ],
+        "source_titles": [
+          "Your Rights and Choices"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 0.6666666666666666,
+        "covered_key_points": [
+          "deletion",
+          "privacy team"
+        ],
+        "missing_key_points": [
+          "unsubscribe"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "In simple terms, how do I avoid being charged again?",
+      "task": "simple_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "reference": "Cancel at least fourteen days before the renewal date. If you do not, the subscription renews automatically and the charge goes to the payment method on file.",
+      "expected_sources": [
+        "Automatic Renewal of Your Subscription"
+      ],
+      "retrieved_titles": [
+        "Automatic Renewal of Your Subscription",
+        "How We Collect Your Information",
+        "How Long We Keep Your Data"
+      ],
+      "rag": {
+        "text": "You can cancel your subscription at least fourteen days before the renewal date.",
+        "source_clause_ids": [
+          6,
+          2,
+          4
+        ],
+        "source_titles": [
+          "Automatic Renewal of Your Subscription",
+          "How We Collect Your Information",
+          "How Long We Keep Your Data"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 1.0,
+        "covered_key_points": [
+          "fourteen days",
+          "cancel",
+          "renew"
+        ],
+        "missing_key_points": [],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "You can cancel at least fourteen days before the renewal date.",
+        "source_clause_ids": [
+          6
+        ],
+        "source_titles": [
+          "Automatic Renewal of Your Subscription"
+        ],
+        "source_titles_correct": true,
+        "key_point_coverage": 1.0,
+        "covered_key_points": [
+          "fourteen days",
+          "cancel",
+          "renew"
+        ],
+        "missing_key_points": [],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    },
+    {
+      "query": "Summarize how my data is collected, shared and retained.",
+      "task": "quick_summary",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "reference": "Account details such as name, email address and payment information are collected directly, and device identifiers, IP address and browsing activity are collected automatically via cookies. Data may be shared with advertising partners, analytics providers and payment processors but is not sold. Account information is retained while the account is active and for twenty-four months after closure.",
+      "expected_sources": [
+        "How We Collect Your Information",
+        "Sharing With Third Parties",
+        "How Long We Keep Your Data"
+      ],
+      "retrieved_titles": [
+        "How We Collect Your Information",
+        "Preamble",
+        "Sharing With Third Parties"
+      ],
+      "rag": {
+        "text": "We collect information you provide directly to us when you create an account. We also automatically collect device identifiers, IP address and browsing activity through cookies.",
+        "source_clause_ids": [
+          2,
+          1,
+          3
+        ],
+        "source_titles": [
+          "How We Collect Your Information",
+          "Preamble",
+          "Sharing With Third Parties"
+        ],
+        "source_titles_correct": false,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "collect",
+          "cookies"
+        ],
+        "missing_key_points": [
+          "share",
+          "retain"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      },
+      "top1": {
+        "text": "We collect information you provide directly to us when you create an account, including your name, email address and payment details. We also automatically collect device identifiers, IP address and browsing activity through cookies.",
+        "source_clause_ids": [
+          2
+        ],
+        "source_titles": [
+          "How We Collect Your Information"
+        ],
+        "source_titles_correct": false,
+        "key_point_coverage": 0.5,
+        "covered_key_points": [
+          "collect",
+          "cookies"
+        ],
+        "missing_key_points": [
+          "share",
+          "retain"
+        ],
+        "unsupported_numbers": [],
+        "is_grounded": true
+      }
+    }
+  ],
+  "caveat": "ROUGE and BERTScore measure similarity to 23 author-written reference answers. They do not measure legal correctness. The grounding check is a surface diagnostic, not a hallucination detector.",
+  "top1_context": {
+    "n": 23,
+    "rouge": {
+      "rouge1": 0.4499,
+      "rouge2": 0.2758,
+      "rougeL": 0.4087
+    },
+    "key_point_coverage": 0.4739,
+    "examples_with_unsupported_numbers": 0,
+    "total_unsupported_numeric_tokens": 0,
+    "examples_citing_all_expected_sources": 19,
+    "mean_output_chars": 115.7,
+    "bertscore": {
+      "precision": 0.9137,
+      "recall": 0.8863,
+      "f1": 0.8997
+    }
+  },
+  "rag_by_task": {
+    "clause_explanation": {
+      "n": 15,
+      "rouge": {
+        "rouge1": 0.5026,
+        "rouge2": 0.3362,
+        "rougeL": 0.4673
+      },
+      "key_point_coverage": 0.46,
+      "examples_with_unsupported_numbers": 0,
+      "total_unsupported_numeric_tokens": 0,
+      "examples_citing_all_expected_sources": 14,
+      "mean_output_chars": 115.2
+    },
+    "quick_summary": {
+      "n": 3,
+      "rouge": {
+        "rouge1": 0.2513,
+        "rouge2": 0.0759,
+        "rougeL": 0.1599
+      },
+      "key_point_coverage": 0.3333,
+      "examples_with_unsupported_numbers": 0,
+      "total_unsupported_numeric_tokens": 0,
+      "examples_citing_all_expected_sources": 2,
+      "mean_output_chars": 307.3
+    },
+    "simple_explanation": {
+      "n": 5,
+      "rouge": {
+        "rouge1": 0.3561,
+        "rouge2": 0.1618,
+        "rougeL": 0.2842
+      },
+      "key_point_coverage": 0.5833,
+      "examples_with_unsupported_numbers": 0,
+      "total_unsupported_numeric_tokens": 0,
+      "examples_citing_all_expected_sources": 5,
+      "mean_output_chars": 117.6
+    }
+  }
+}
