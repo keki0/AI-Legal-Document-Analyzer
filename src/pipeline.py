@@ -45,6 +45,7 @@ from src.extraction import attach_extractions
 from src.generation import GenerationPipeline, GenerationTask
 from src.importance import TemperatureScaler, analyze_clauses, top_k_salient
 from src.rag import RAGContextBuilder
+from src.retrieval import RetrievalResult
 
 if TYPE_CHECKING:  # pragma: no cover
     from src.document_processing import Clause, Document
@@ -353,6 +354,63 @@ class LegalDocumentPipeline:
             stage_errors=errors,
             seconds=time.perf_counter() - started,
         )
+
+    # -- document-level summary ------------------------------------------
+
+    def summary_context(
+        self, analysis: DocumentAnalysis, *, k: int = 4
+    ) -> "RAGContext":
+        """Build a context from the most salient clauses, without retrieval.
+
+        A document summary has no query to retrieve against, and FLAN-T5's
+        512-token limit means a whole contract cannot be passed in. Phase 4's
+        salience ranking is what selects which clauses are worth summarising --
+        this is the wiring that connects the classifier to the generator.
+
+        Implemented as a tiny adapter satisfying the Phase 6 ``Retriever``
+        protocol rather than by assembling a ``RAGContext`` by hand, so
+        deduplication, budgeting and formatting all remain Phase 6's job.
+        """
+        ranked = top_k_salient(analysis.analyses, k=k)
+
+        class _SalienceOrder:
+            """Returns clauses in salience order. Score = salience."""
+
+            def search(self, query: str, top_k: int = 3):
+                return [
+                    RetrievalResult(
+                        rank=rank, clause_id=item.clause_id, title=item.title,
+                        score=float(item.salience), text=item.text, page=item.page,
+                    )
+                    for rank, item in enumerate(ranked[:top_k], start=1)
+                ]
+
+        kwargs = {"analyses": analysis.analyses, "top_k": k}
+        if self.budget_chars is not None:
+            kwargs["budget_chars"] = self.budget_chars
+        return RAGContextBuilder(_SalienceOrder(), **kwargs).build(
+            "Summary of the most significant clauses in this document."
+        )
+
+    def document_summary(
+        self, analysis: DocumentAnalysis, *, k: int = 4
+    ) -> QueryResult:
+        """Generate a quick summary from the most salient clauses."""
+        started = time.perf_counter()
+        result = QueryResult(
+            query="(document summary)",
+            task=GenerationTask.QUICK_SUMMARY,
+            document=analysis.path.name,
+        )
+        try:
+            context = self.summary_context(analysis, k=k)
+            result.context = context
+            result.response = self.generator.run(GenerationTask.QUICK_SUMMARY, context)
+        except Exception as error:  # noqa: BLE001
+            result.error = f"{type(error).__name__}: {error}"
+            logger.exception("Document summary failed")
+        result.seconds = time.perf_counter() - started
+        return result
 
     # -- stage 2: question answering -------------------------------------
 
