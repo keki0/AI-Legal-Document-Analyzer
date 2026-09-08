@@ -1,0 +1,1670 @@
+{
+  "documents": [
+    {
+      "document": "sample-independent-contractor-agreement.pdf",
+      "pages": 3,
+      "words": 595,
+      "clauses": 10,
+      "classified": 10,
+      "with_flags": 4,
+      "with_extractions": 10,
+      "extracted_items": 41,
+      "degraded": false,
+      "stage_errors": [],
+      "seconds": 7.16,
+      "clauses_detail": [
+        {
+          "clause_id": 1,
+          "title": "Preamble",
+          "page": 1,
+          "category": "Boilerplate & Administrative",
+          "calibrated_confidence": 0.6152,
+          "salience": 0.0923,
+          "flags": [],
+          "n_extractions": 4
+        },
+        {
+          "clause_id": 2,
+          "title": "Scope of Work",
+          "page": 1,
+          "category": "Payment & Fees",
+          "calibrated_confidence": 0.3404,
+          "salience": 0.3063,
+          "flags": [],
+          "n_extractions": 3
+        },
+        {
+          "clause_id": 3,
+          "title": "Term and Termination",
+          "page": 1,
+          "category": "Term & Termination",
+          "calibrated_confidence": 0.977,
+          "salience": 0.8793,
+          "flags": [
+            "Unilateral termination"
+          ],
+          "n_extractions": 7
+        },
+        {
+          "clause_id": 4,
+          "title": "Payment Terms",
+          "page": 1,
+          "category": "Payment & Fees",
+          "calibrated_confidence": 0.9639,
+          "salience": 0.8675,
+          "flags": [],
+          "n_extractions": 8
+        },
+        {
+          "clause_id": 5,
+          "title": "Independent Contractor Status",
+          "page": 2,
+          "category": "Employment & Compensation",
+          "calibrated_confidence": 0.9482,
+          "salience": 0.6637,
+          "flags": [],
+          "n_extractions": 3
+        },
+        {
+          "clause_id": 6,
+          "title": "Intellectual Property",
+          "page": 2,
+          "category": "Boilerplate & Administrative",
+          "calibrated_confidence": 0.4516,
+          "salience": 0.0677,
+          "flags": [
+            "Broad IP assignment"
+          ],
+          "n_extractions": 3
+        },
+        {
+          "clause_id": 7,
+          "title": "Confidentiality",
+          "page": 2,
+          "category": "Confidentiality & Publicity",
+          "calibrated_confidence": 0.9819,
+          "salience": 0.7855,
+          "flags": [],
+          "n_extractions": 2
+        },
+        {
+          "clause_id": 8,
+          "title": "Compliance with Laws",
+          "page": 3,
+          "category": "Compliance & Approvals",
+          "calibrated_confidence": 0.9709,
+          "salience": 0.534,
+          "flags": [],
+          "n_extractions": 2
+        },
+        {
+          "clause_id": 9,
+          "title": "Indemnification",
+          "page": 3,
+          "category": "Liability & Indemnity",
+          "calibrated_confidence": 0.9783,
+          "salience": 0.9294,
+          "flags": [
+            "Broad indemnity"
+          ],
+          "n_extractions": 3
+        },
+        {
+          "clause_id": 10,
+          "title": "Miscellaneous",
+          "page": 3,
+          "category": "Boilerplate & Administrative",
+          "calibrated_confidence": 0.8716,
+          "salience": 0.1307,
+          "flags": [
+            "Choice of law",
+            "Arbitration"
+          ],
+          "n_extractions": 6
+        }
+      ]
+    },
+    {
+      "document": "synthetic-unnumbered-policy.pdf",
+      "pages": 1,
+      "words": 218,
+      "clauses": 7,
+      "classified": 7,
+      "with_flags": 2,
+      "with_extractions": 3,
+      "extracted_items": 6,
+      "degraded": false,
+      "stage_errors": [],
+      "seconds": 2.72,
+      "clauses_detail": [
+        {
+          "clause_id": 1,
+          "title": "Preamble",
+          "page": 1,
+          "category": "Notices & Records",
+          "calibrated_confidence": 0.4123,
+          "salience": 0.1856,
+          "flags": [],
+          "n_extractions": 0
+        },
+        {
+          "clause_id": 2,
+          "title": "How We Collect Your Information",
+          "page": 1,
+          "category": "Notices & Records",
+          "calibrated_confidence": 0.6884,
+          "salience": 0.3098,
+          "flags": [],
+          "n_extractions": 0
+        },
+        {
+          "clause_id": 3,
+          "title": "Sharing With Third Parties",
+          "page": 1,
+          "category": "Confidentiality & Publicity",
+          "calibrated_confidence": 0.9521,
+          "salience": 0.7617,
+          "flags": [],
+          "n_extractions": 0
+        },
+        {
+          "clause_id": 4,
+          "title": "How Long We Keep Your Data",
+          "page": 1,
+          "category": "Term & Termination",
+          "calibrated_confidence": 0.8378,
+          "salience": 0.7541,
+          "flags": [],
+          "n_extractions": 1
+        },
+        {
+          "clause_id": 5,
+          "title": "Your Rights and Choices",
+          "page": 1,
+          "category": "Notices & Records",
+          "calibrated_confidence": 0.9167,
+          "salience": 0.4125,
+          "flags": [],
+          "n_extractions": 0
+        },
+        {
+          "clause_id": 6,
+          "title": "Automatic Renewal of Your Subscription",
+          "page": 1,
+          "category": "Term & Termination",
+          "calibrated_confidence": 0.9707,
+          "salience": 0.8736,
+          "flags": [
+            "Automatic renewal"
+          ],
+          "n_extractions": 4
+        },
+        {
+          "clause_id": 7,
+          "title": "Resolving Disputes",
+          "page": 1,
+          "category": "Governing Law & Dispute Resolution",
+          "calibrated_confidence": 0.9683,
+          "salience": 0.823,
+          "flags": [
+            "Arbitration"
+          ],
+          "n_extractions": 1
+        }
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "query": "Who owns the work produced by the contractor?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "retrieved_clause_ids": [
+        6,
+        5,
+        9
+      ],
+      "retrieved_titles": [
+        "Intellectual Property",
+        "Independent Contractor Status",
+        "Indemnification"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 6,
+          "title": "Intellectual Property",
+          "page": 2,
+          "score": 0.6994,
+          "category": "Boilerplate & Administrative",
+          "salience": 0.0677,
+          "calibrated_confidence": 0.4516,
+          "flags": [
+            "Broad IP assignment"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "All work product, materials, and deliverables created under this Agreement shall be the sole and exclusive property of the Client upon full payment, and the Contractor agrees to assign all rights, title, and interest to the Client.",
+              "normalized_value": "requirement:All work product, materials, and deliverables created under this Agreement",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 5,
+          "title": "Independent Contractor Status",
+          "page": 2,
+          "score": 0.6231,
+          "category": "Employment & Compensation",
+          "salience": 0.6637,
+          "calibrated_confidence": 0.9482,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Nothing in this Agreement shall be construed to create an employer-employee relationship.",
+              "normalized_value": "requirement:Nothing in this Agreement",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 9,
+          "title": "Indemnification",
+          "page": 3,
+          "score": 0.576,
+          "category": "Liability & Indemnity",
+          "salience": 0.9294,
+          "calibrated_confidence": 0.9783,
+          "flags": [
+            "Broad indemnity"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Contractor shall indemnify and hold harmless the Client from any claims, losses, or liabilities arising from the Contractor\u2019s breach of this Agreement, violation of laws, or misconduct.",
+              "normalized_value": "requirement:The Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 1064,
+      "context_token_estimate": 267,
+      "generated_text": "The Contractor agrees to assign all rights, title, and interest to the Client upon full payment.",
+      "source_clause_ids": [
+        6
+      ],
+      "source_titles": [
+        "Intellectual Property"
+      ],
+      "source_citations": [
+        "Clause 6: Intellectual Property (p2)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 3.69,
+      "topic": "intellectual property"
+    },
+    {
+      "query": "How much notice is needed to end the agreement?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "retrieved_clause_ids": [
+        3,
+        10
+      ],
+      "retrieved_titles": [
+        "Term and Termination",
+        "Miscellaneous"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 3,
+          "title": "Term and Termination",
+          "page": 1,
+          "score": 0.6712,
+          "category": "Term & Termination",
+          "salience": 0.8793,
+          "calibrated_confidence": 0.977,
+          "flags": [
+            "Unilateral termination"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "This Agreement will begin on [Start Date] and continue until the Services are completed unless terminated earlier by either party with [7/14] days\u2019 written notice.",
+              "normalized_value": "undertaking:This Agreement",
+              "is_placeholder": false
+            },
+            {
+              "type": "date",
+              "value": "Start Date",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "duration",
+              "value": "[7/14] days",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "notice_period",
+              "value": "[7/14] days",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Upon termination, the Contractor will be paid for Services rendered through the date of termination.",
+              "normalized_value": "undertaking:Upon termination, the Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 10,
+          "title": "Miscellaneous",
+          "page": 3,
+          "score": 0.4575,
+          "category": "Boilerplate & Administrative",
+          "salience": 0.1307,
+          "calibrated_confidence": 0.8716,
+          "flags": [
+            "Choice of law",
+            "Arbitration"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "Amendments: Any changes must be made in writing and signed by both parties.",
+              "normalized_value": "requirement:Amendments: Any changes",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Governing Law: This Agreement shall be governed by the laws of the State of [Insert State or Country].",
+              "normalized_value": "requirement:Governing Law: This Agreement",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Dispute Resolution: Any disputes shall be resolved through [mediation/arbitration/court] in [location].",
+              "normalized_value": "requirement:Dispute Resolution: Any disputes",
+              "is_placeholder": false
+            },
+            {
+              "type": "date",
+              "value": "Effective Date",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "party",
+              "value": "[Client Representative Name]",
+              "normalized_value": "Client Representative Name",
+              "is_placeholder": true
+            },
+            {
+              "type": "party",
+              "value": "[Contractor Name]",
+              "normalized_value": "Contractor Name",
+              "is_placeholder": true
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 1322,
+      "context_token_estimate": 331,
+      "generated_text": "Unilateral termination is a termination of a contract.",
+      "source_clause_ids": [
+        3
+      ],
+      "source_titles": [
+        "Term and Termination"
+      ],
+      "source_citations": [
+        "Clause 3: Term and Termination (p1)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 1.47,
+      "topic": "termination / notice"
+    },
+    {
+      "query": "What information must the contractor keep confidential?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "retrieved_clause_ids": [
+        7,
+        8,
+        2
+      ],
+      "retrieved_titles": [
+        "Confidentiality",
+        "Compliance with Laws",
+        "Scope of Work"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 7,
+          "title": "Confidentiality",
+          "page": 2,
+          "score": 0.7449,
+          "category": "Confidentiality & Publicity",
+          "salience": 0.7855,
+          "calibrated_confidence": 0.9819,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 8,
+          "title": "Compliance with Laws",
+          "page": 3,
+          "score": 0.6079,
+          "category": "Compliance & Approvals",
+          "salience": 0.534,
+          "calibrated_confidence": 0.9709,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Contractor agrees to comply with all applicable local, state, federal, and international laws and regulations, including export controls, tax laws, and labor regulations.",
+              "normalized_value": "requirement:The Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 2,
+          "title": "Scope of Work",
+          "page": 1,
+          "score": 0.5606,
+          "category": "Payment & Fees",
+          "salience": 0.3063,
+          "calibrated_confidence": 0.3404,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Contractor agrees to provide the following services: [Describe the work to be performed, e.g., \"Website design, development, and SEO optimization.\"] The Contractor will deliver all services provided in writing in accordance with any project milestones, deadlines, or specifications provided by the Client.",
+              "normalized_value": "requirement:The Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 936,
+      "context_token_estimate": 235,
+      "generated_text": "The Contractor agrees not to disclose or use any confidential or proprietary information belonging to the Client.",
+      "source_clause_ids": [
+        7
+      ],
+      "source_titles": [
+        "Confidentiality"
+      ],
+      "source_citations": [
+        "Clause 7: Confidentiality (p2)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 2.48,
+      "topic": "confidentiality"
+    },
+    {
+      "query": "How and when is the contractor paid?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "retrieved_clause_ids": [
+        4,
+        3,
+        8
+      ],
+      "retrieved_titles": [
+        "Payment Terms",
+        "Term and Termination",
+        "Compliance with Laws"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 4,
+          "title": "Payment Terms",
+          "page": 1,
+          "score": 0.686,
+          "category": "Payment & Fees",
+          "salience": 0.8675,
+          "calibrated_confidence": 0.9639,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Client agrees to pay the Contractor: Rate: $[Rate] per [hour/project/milestone] Milestone Payments (Sample) # Deliverable Due Date Payment 1 Rough Draft Month [Date], [Year] $X 2 Client Edits Month [Date], [Year] $XX 3 Final Draft Month [Date], [Year] $XY Invoicing: Contractor will submit invoices [monthly/upon completion], and payment is due within [Net 15/30] days.",
+              "normalized_value": "requirement:The Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "money",
+              "value": "$[Rate]",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$X",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$XX",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$XY",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "obligation",
+              "value": "Method of Payment: [Payoneer / Bank transfer / ACH / other] No taxes will be withheld.",
+              "normalized_value": "undertaking:Method of Payment: [Payoneer / Bank transfer / ACH / other] No taxes",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 3,
+          "title": "Term and Termination",
+          "page": 1,
+          "score": 0.5929,
+          "category": "Term & Termination",
+          "salience": 0.8793,
+          "calibrated_confidence": 0.977,
+          "flags": [
+            "Unilateral termination"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "This Agreement will begin on [Start Date] and continue until the Services are completed unless terminated earlier by either party with [7/14] days\u2019 written notice.",
+              "normalized_value": "undertaking:This Agreement",
+              "is_placeholder": false
+            },
+            {
+              "type": "date",
+              "value": "Start Date",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "duration",
+              "value": "[7/14] days",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "notice_period",
+              "value": "[7/14] days",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Upon termination, the Contractor will be paid for Services rendered through the date of termination.",
+              "normalized_value": "undertaking:Upon termination, the Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 8,
+          "title": "Compliance with Laws",
+          "page": 3,
+          "score": 0.5223,
+          "category": "Compliance & Approvals",
+          "salience": 0.534,
+          "calibrated_confidence": 0.9709,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Contractor agrees to comply with all applicable local, state, federal, and international laws and regulations, including export controls, tax laws, and labor regulations.",
+              "normalized_value": "requirement:The Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 1277,
+      "context_token_estimate": 320,
+      "generated_text": "The Contractor is solely responsible for any local, federal, or international tax obligations.",
+      "source_clause_ids": [
+        4
+      ],
+      "source_titles": [
+        "Payment Terms"
+      ],
+      "source_citations": [
+        "Clause 4: Payment Terms (p1)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 2.25,
+      "topic": "payment"
+    },
+    {
+      "query": "Which law governs the agreement and how are disputes resolved?",
+      "task": "clause_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "retrieved_clause_ids": [
+        10,
+        8,
+        3
+      ],
+      "retrieved_titles": [
+        "Miscellaneous",
+        "Compliance with Laws",
+        "Term and Termination"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 10,
+          "title": "Miscellaneous",
+          "page": 3,
+          "score": 0.5367,
+          "category": "Boilerplate & Administrative",
+          "salience": 0.1307,
+          "calibrated_confidence": 0.8716,
+          "flags": [
+            "Choice of law",
+            "Arbitration"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "Amendments: Any changes must be made in writing and signed by both parties.",
+              "normalized_value": "requirement:Amendments: Any changes",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Governing Law: This Agreement shall be governed by the laws of the State of [Insert State or Country].",
+              "normalized_value": "requirement:Governing Law: This Agreement",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Dispute Resolution: Any disputes shall be resolved through [mediation/arbitration/court] in [location].",
+              "normalized_value": "requirement:Dispute Resolution: Any disputes",
+              "is_placeholder": false
+            },
+            {
+              "type": "date",
+              "value": "Effective Date",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "party",
+              "value": "[Client Representative Name]",
+              "normalized_value": "Client Representative Name",
+              "is_placeholder": true
+            },
+            {
+              "type": "party",
+              "value": "[Contractor Name]",
+              "normalized_value": "Contractor Name",
+              "is_placeholder": true
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 8,
+          "title": "Compliance with Laws",
+          "page": 3,
+          "score": 0.5065,
+          "category": "Compliance & Approvals",
+          "salience": 0.534,
+          "calibrated_confidence": 0.9709,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Contractor agrees to comply with all applicable local, state, federal, and international laws and regulations, including export controls, tax laws, and labor regulations.",
+              "normalized_value": "requirement:The Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 3,
+          "title": "Term and Termination",
+          "page": 1,
+          "score": 0.4929,
+          "category": "Term & Termination",
+          "salience": 0.8793,
+          "calibrated_confidence": 0.977,
+          "flags": [
+            "Unilateral termination"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "This Agreement will begin on [Start Date] and continue until the Services are completed unless terminated earlier by either party with [7/14] days\u2019 written notice.",
+              "normalized_value": "undertaking:This Agreement",
+              "is_placeholder": false
+            },
+            {
+              "type": "date",
+              "value": "Start Date",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "duration",
+              "value": "[7/14] days",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "notice_period",
+              "value": "[7/14] days",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Upon termination, the Contractor will be paid for Services rendered through the date of termination.",
+              "normalized_value": "undertaking:Upon termination, the Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 1569,
+      "context_token_estimate": 393,
+      "generated_text": "If you are a contractor, you must sign a contract with the contractor. If you do not sign the contract, the contractor will not be able to terminate the contract.",
+      "source_clause_ids": [
+        10
+      ],
+      "source_titles": [
+        "Miscellaneous"
+      ],
+      "source_citations": [
+        "Clause 10: Miscellaneous (p3)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 3.54,
+      "topic": "governing law / dispute resolution"
+    },
+    {
+      "query": "In simple terms, who pays if a third party makes a claim?",
+      "task": "simple_explanation",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "retrieved_clause_ids": [
+        9,
+        4,
+        6
+      ],
+      "retrieved_titles": [
+        "Indemnification",
+        "Payment Terms",
+        "Intellectual Property"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 9,
+          "title": "Indemnification",
+          "page": 3,
+          "score": 0.4841,
+          "category": "Liability & Indemnity",
+          "salience": 0.9294,
+          "calibrated_confidence": 0.9783,
+          "flags": [
+            "Broad indemnity"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Contractor shall indemnify and hold harmless the Client from any claims, losses, or liabilities arising from the Contractor\u2019s breach of this Agreement, violation of laws, or misconduct.",
+              "normalized_value": "requirement:The Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 4,
+          "title": "Payment Terms",
+          "page": 1,
+          "score": 0.4162,
+          "category": "Payment & Fees",
+          "salience": 0.8675,
+          "calibrated_confidence": 0.9639,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Client agrees to pay the Contractor: Rate: $[Rate] per [hour/project/milestone] Milestone Payments (Sample) # Deliverable Due Date Payment 1 Rough Draft Month [Date], [Year] $X 2 Client Edits Month [Date], [Year] $XX 3 Final Draft Month [Date], [Year] $XY Invoicing: Contractor will submit invoices [monthly/upon completion], and payment is due within [Net 15/30] days.",
+              "normalized_value": "requirement:The Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "money",
+              "value": "$[Rate]",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$X",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$XX",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$XY",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "obligation",
+              "value": "Method of Payment: [Payoneer / Bank transfer / ACH / other] No taxes will be withheld.",
+              "normalized_value": "undertaking:Method of Payment: [Payoneer / Bank transfer / ACH / other] No taxes",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 6,
+          "title": "Intellectual Property",
+          "page": 2,
+          "score": 0.3602,
+          "category": "Boilerplate & Administrative",
+          "salience": 0.0677,
+          "calibrated_confidence": 0.4516,
+          "flags": [
+            "Broad IP assignment"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "All work product, materials, and deliverables created under this Agreement shall be the sole and exclusive property of the Client upon full payment, and the Contractor agrees to assign all rights, title, and interest to the Client.",
+              "normalized_value": "requirement:All work product, materials, and deliverables created under this Agreement",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 1300,
+      "context_token_estimate": 326,
+      "generated_text": "The Contractor.",
+      "source_clause_ids": [
+        9,
+        4,
+        6
+      ],
+      "source_titles": [
+        "Indemnification",
+        "Payment Terms",
+        "Intellectual Property"
+      ],
+      "source_citations": [
+        "Clause 9: Indemnification (p3)",
+        "Clause 4: Payment Terms (p1)",
+        "Clause 6: Intellectual Property (p2)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 1.26,
+      "topic": "liability / indemnity"
+    },
+    {
+      "query": "Summarize the payment and termination terms.",
+      "task": "quick_summary",
+      "document": "sample-independent-contractor-agreement.pdf",
+      "retrieved_clause_ids": [
+        3,
+        4
+      ],
+      "retrieved_titles": [
+        "Term and Termination",
+        "Payment Terms"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 3,
+          "title": "Term and Termination",
+          "page": 1,
+          "score": 0.6349,
+          "category": "Term & Termination",
+          "salience": 0.8793,
+          "calibrated_confidence": 0.977,
+          "flags": [
+            "Unilateral termination"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "This Agreement will begin on [Start Date] and continue until the Services are completed unless terminated earlier by either party with [7/14] days\u2019 written notice.",
+              "normalized_value": "undertaking:This Agreement",
+              "is_placeholder": false
+            },
+            {
+              "type": "date",
+              "value": "Start Date",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "duration",
+              "value": "[7/14] days",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "notice_period",
+              "value": "[7/14] days",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "obligation",
+              "value": "Upon termination, the Contractor will be paid for Services rendered through the date of termination.",
+              "normalized_value": "undertaking:Upon termination, the Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 4,
+          "title": "Payment Terms",
+          "page": 1,
+          "score": 0.601,
+          "category": "Payment & Fees",
+          "salience": 0.8675,
+          "calibrated_confidence": 0.9639,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "The Client agrees to pay the Contractor: Rate: $[Rate] per [hour/project/milestone] Milestone Payments (Sample) # Deliverable Due Date Payment 1 Rough Draft Month [Date], [Year] $X 2 Client Edits Month [Date], [Year] $XX 3 Final Draft Month [Date], [Year] $XY Invoicing: Contractor will submit invoices [monthly/upon completion], and payment is due within [Net 15/30] days.",
+              "normalized_value": "requirement:The Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Client",
+              "normalized_value": "Client",
+              "is_placeholder": false
+            },
+            {
+              "type": "party",
+              "value": "Contractor",
+              "normalized_value": "Contractor",
+              "is_placeholder": false
+            },
+            {
+              "type": "money",
+              "value": "$[Rate]",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$X",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$XX",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "money",
+              "value": "$XY",
+              "normalized_value": null,
+              "is_placeholder": true
+            },
+            {
+              "type": "obligation",
+              "value": "Method of Payment: [Payoneer / Bank transfer / ACH / other] No taxes will be withheld.",
+              "normalized_value": "undertaking:Method of Payment: [Payoneer / Bank transfer / ACH / other] No taxes",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 1030,
+      "context_token_estimate": 258,
+      "generated_text": "The Contractor is solely responsible for any local, federal, or international tax obligations. [Clause 4: Payment Terms (p1)] Category: Payment & Fees The Contractor will submit invoices [monthly/upon completion], and payment is due within [Net 15/30] days.",
+      "source_clause_ids": [
+        3,
+        4
+      ],
+      "source_titles": [
+        "Term and Termination",
+        "Payment Terms"
+      ],
+      "source_citations": [
+        "Clause 3: Term and Termination (p1)",
+        "Clause 4: Payment Terms (p1)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 6.27,
+      "topic": "summary"
+    },
+    {
+      "query": "Who else can see my personal data?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "retrieved_clause_ids": [
+        5,
+        3,
+        2
+      ],
+      "retrieved_titles": [
+        "Your Rights and Choices",
+        "Sharing With Third Parties",
+        "How We Collect Your Information"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 5,
+          "title": "Your Rights and Choices",
+          "page": 1,
+          "score": 0.5635,
+          "category": "Notices & Records",
+          "salience": 0.4125,
+          "calibrated_confidence": 0.9167,
+          "flags": [],
+          "extractions": [],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 3,
+          "title": "Sharing With Third Parties",
+          "page": 1,
+          "score": 0.563,
+          "category": "Confidentiality & Publicity",
+          "salience": 0.7617,
+          "calibrated_confidence": 0.9521,
+          "flags": [],
+          "extractions": [],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 2,
+          "title": "How We Collect Your Information",
+          "page": 1,
+          "score": 0.5081,
+          "category": "Notices & Records",
+          "salience": 0.3098,
+          "calibrated_confidence": 0.6884,
+          "flags": [],
+          "extractions": [],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 849,
+      "context_token_estimate": 213,
+      "generated_text": "You may request access to, correction of, or deletion of your personal data by contacting our privacy team.",
+      "source_clause_ids": [
+        5
+      ],
+      "source_titles": [
+        "Your Rights and Choices"
+      ],
+      "source_citations": [
+        "Clause 5: Your Rights and Choices (p1)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 1.92,
+      "topic": "data sharing"
+    },
+    {
+      "query": "Does my subscription renew automatically?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "retrieved_clause_ids": [
+        6,
+        5,
+        1
+      ],
+      "retrieved_titles": [
+        "Automatic Renewal of Your Subscription",
+        "Your Rights and Choices",
+        "Preamble"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 6,
+          "title": "Automatic Renewal of Your Subscription",
+          "page": 1,
+          "score": 0.7766,
+          "category": "Term & Termination",
+          "salience": 0.8736,
+          "calibrated_confidence": 0.9707,
+          "flags": [
+            "Automatic renewal"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "Your subscription will automatically renew at the end of each billing period unless you cancel at least fourteen days before the renewal date.",
+              "normalized_value": "undertaking:Your subscription",
+              "is_placeholder": false
+            },
+            {
+              "type": "renewal_term",
+              "value": "automatically renew",
+              "normalized_value": "automatic_renewal",
+              "is_placeholder": false
+            },
+            {
+              "type": "duration",
+              "value": "fourteen days",
+              "normalized_value": "P14D",
+              "is_placeholder": false
+            },
+            {
+              "type": "date",
+              "value": "renewal date",
+              "normalized_value": null,
+              "is_placeholder": true
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 5,
+          "title": "Your Rights and Choices",
+          "page": 1,
+          "score": 0.4121,
+          "category": "Notices & Records",
+          "salience": 0.4125,
+          "calibrated_confidence": 0.9167,
+          "flags": [],
+          "extractions": [],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 1,
+          "title": "Preamble",
+          "page": 1,
+          "score": 0.4015,
+          "category": "Notices & Records",
+          "salience": 0.1856,
+          "calibrated_confidence": 0.4123,
+          "flags": [],
+          "extractions": [],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 651,
+      "context_token_estimate": 163,
+      "generated_text": "Your subscription will automatically renew at the end of each billing period unless you cancel at least fourteen days before the renewal date.",
+      "source_clause_ids": [
+        6
+      ],
+      "source_titles": [
+        "Automatic Renewal of Your Subscription"
+      ],
+      "source_citations": [
+        "Clause 6: Automatic Renewal of Your Subscription (p1)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 2.24,
+      "topic": "automatic renewal"
+    },
+    {
+      "query": "How are disputes resolved under this policy?",
+      "task": "clause_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "retrieved_clause_ids": [
+        7,
+        5,
+        1
+      ],
+      "retrieved_titles": [
+        "Resolving Disputes",
+        "Your Rights and Choices",
+        "Preamble"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 7,
+          "title": "Resolving Disputes",
+          "page": 1,
+          "score": 0.6524,
+          "category": "Governing Law & Dispute Resolution",
+          "salience": 0.823,
+          "calibrated_confidence": 0.9683,
+          "flags": [
+            "Arbitration"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "Any dispute arising under these terms shall be resolved by binding arbitration administered in the State of Delaware.",
+              "normalized_value": "requirement:Any dispute arising under these terms",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 5,
+          "title": "Your Rights and Choices",
+          "page": 1,
+          "score": 0.4322,
+          "category": "Notices & Records",
+          "salience": 0.4125,
+          "calibrated_confidence": 0.9167,
+          "flags": [],
+          "extractions": [],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 1,
+          "title": "Preamble",
+          "page": 1,
+          "score": 0.3654,
+          "category": "Notices & Records",
+          "salience": 0.1856,
+          "calibrated_confidence": 0.4123,
+          "flags": [],
+          "extractions": [],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 617,
+      "context_token_estimate": 155,
+      "generated_text": "Arbitration Clause text: Any dispute arising under these terms shall be resolved by binding arbitration administered in the State of Delaware.",
+      "source_clause_ids": [
+        7
+      ],
+      "source_titles": [
+        "Resolving Disputes"
+      ],
+      "source_citations": [
+        "Clause 7: Resolving Disputes (p1)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 2.22,
+      "topic": "dispute resolution"
+    },
+    {
+      "query": "In simple terms, how long is my data kept?",
+      "task": "simple_explanation",
+      "document": "synthetic-unnumbered-policy.pdf",
+      "retrieved_clause_ids": [
+        4,
+        6,
+        1
+      ],
+      "retrieved_titles": [
+        "How Long We Keep Your Data",
+        "Automatic Renewal of Your Subscription",
+        "Preamble"
+      ],
+      "retrieved_clauses": [
+        {
+          "clause_id": 4,
+          "title": "How Long We Keep Your Data",
+          "page": 1,
+          "score": 0.6544,
+          "category": "Term & Termination",
+          "salience": 0.7541,
+          "calibrated_confidence": 0.8378,
+          "flags": [],
+          "extractions": [
+            {
+              "type": "duration",
+              "value": "twenty-four months",
+              "normalized_value": "P24M",
+              "is_placeholder": false
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 6,
+          "title": "Automatic Renewal of Your Subscription",
+          "page": 1,
+          "score": 0.3828,
+          "category": "Term & Termination",
+          "salience": 0.8736,
+          "calibrated_confidence": 0.9707,
+          "flags": [
+            "Automatic renewal"
+          ],
+          "extractions": [
+            {
+              "type": "obligation",
+              "value": "Your subscription will automatically renew at the end of each billing period unless you cancel at least fourteen days before the renewal date.",
+              "normalized_value": "undertaking:Your subscription",
+              "is_placeholder": false
+            },
+            {
+              "type": "renewal_term",
+              "value": "automatically renew",
+              "normalized_value": "automatic_renewal",
+              "is_placeholder": false
+            },
+            {
+              "type": "duration",
+              "value": "fourteen days",
+              "normalized_value": "P14D",
+              "is_placeholder": false
+            },
+            {
+              "type": "date",
+              "value": "renewal date",
+              "normalized_value": null,
+              "is_placeholder": true
+            }
+          ],
+          "selection_reason": "semantic",
+          "included_fully": true
+        },
+        {
+          "clause_id": 1,
+          "title": "Preamble",
+          "page": 1,
+          "score": 0.3584,
+          "category": "Notices & Records",
+          "salience": 0.1856,
+          "calibrated_confidence": 0.4123,
+          "flags": [],
+          "extractions": [],
+          "selection_reason": "semantic",
+          "included_fully": true
+        }
+      ],
+      "context_chars": 642,
+      "context_token_estimate": 161,
+      "generated_text": "As long as your account remains active and for a further twenty-four months after closure, unless a longer period is required by applicable law.",
+      "source_clause_ids": [
+        4,
+        6,
+        1
+      ],
+      "source_titles": [
+        "How Long We Keep Your Data",
+        "Automatic Renewal of Your Subscription",
+        "Preamble"
+      ],
+      "source_citations": [
+        "Clause 4: How Long We Keep Your Data (p1)",
+        "Clause 6: Automatic Renewal of Your Subscription (p1)",
+        "Clause 1: Preamble (p1)"
+      ],
+      "is_grounded": true,
+      "empty_context": false,
+      "unsupported_numbers": [],
+      "error": null,
+      "seconds": 3.28,
+      "topic": "data retention"
+    }
+  ],
+  "failures": []
+}

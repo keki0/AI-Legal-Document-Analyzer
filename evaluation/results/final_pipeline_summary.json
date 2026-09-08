@@ -1,0 +1,17 @@
+{
+  "documents_processed": 2,
+  "total_clauses": 17,
+  "clauses_classified": 17,
+  "clauses_with_flags": 6,
+  "clauses_with_extractions": 13,
+  "total_extracted_items": 47,
+  "queries_evaluated": 11,
+  "successful_retrievals": 11,
+  "generated_responses": 11,
+  "grounded_responses": 11,
+  "empty_context_responses": 0,
+  "pipeline_failures": 0,
+  "degraded_mode": false,
+  "total_runtime_seconds": 41.7,
+  "note": "Integration counts only. No end-to-end accuracy metric is computed because no ground truth exists for the combined pipeline. Component quality is measured in Phases 3, 6 and 7."
+}
