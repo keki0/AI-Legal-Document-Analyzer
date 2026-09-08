@@ -1,0 +1,330 @@
+{
+  "n_queries": 29,
+  "documents": [
+    "sample-independent-contractor-agreement.pdf",
+    "synthetic-unnumbered-policy.pdf"
+  ],
+  "correctness_definition": "retrieved clause title == expected title",
+  "improved_mpnet_qa": {
+    "n_queries": 29,
+    "hit_at_1": 0.8620689655172413,
+    "hit_at_3": 0.9655172413793104,
+    "hit_at_5": 1.0,
+    "mrr": 0.9091954022988505
+  },
+  "improved_by_query_type": {
+    "cross": {
+      "n": 1,
+      "hit_at_1": 1.0
+    },
+    "direct": {
+      "n": 15,
+      "hit_at_1": 0.8666666666666667
+    },
+    "distractor-pair": {
+      "n": 1,
+      "hit_at_1": 0.0
+    },
+    "inference": {
+      "n": 3,
+      "hit_at_1": 0.6666666666666666
+    },
+    "lay": {
+      "n": 4,
+      "hit_at_1": 1.0
+    },
+    "paraphrase": {
+      "n": 4,
+      "hit_at_1": 1.0
+    },
+    "regression": {
+      "n": 1,
+      "hit_at_1": 1.0
+    }
+  },
+  "per_query": [
+    {
+      "query": "Who owns the work produced by the contractor?",
+      "expected": "Intellectual Property",
+      "type": "regression",
+      "retrieved_top1": "Intellectual Property",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.6994
+    },
+    {
+      "query": "Does the contractor keep any rights to reuse the deliverables?",
+      "expected": "Intellectual Property",
+      "type": "paraphrase",
+      "retrieved_top1": "Intellectual Property",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.627
+    },
+    {
+      "query": "Can I reuse the designs I made after the project ends?",
+      "expected": "Intellectual Property",
+      "type": "lay",
+      "retrieved_top1": "Intellectual Property",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.4498
+    },
+    {
+      "query": "How much notice is needed to end the agreement?",
+      "expected": "Term and Termination",
+      "type": "direct",
+      "retrieved_top1": "Term and Termination",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.6712
+    },
+    {
+      "query": "What happens if the client ends the contract early?",
+      "expected": "Term and Termination",
+      "type": "paraphrase",
+      "retrieved_top1": "Term and Termination",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.6753
+    },
+    {
+      "query": "Can they fire me immediately for bad behaviour?",
+      "expected": "Term and Termination",
+      "type": "lay",
+      "retrieved_top1": "Term and Termination",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.3885
+    },
+    {
+      "query": "When do invoices have to be paid?",
+      "expected": "Payment Terms",
+      "type": "direct",
+      "retrieved_top1": "Payment Terms",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.4982
+    },
+    {
+      "query": "How is the contractor compensated for the work?",
+      "expected": "Payment Terms",
+      "type": "paraphrase",
+      "retrieved_top1": "Payment Terms",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.6445
+    },
+    {
+      "query": "Who is responsible for paying tax?",
+      "expected": "Payment Terms",
+      "type": "cross",
+      "retrieved_top1": "Payment Terms",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.4612
+    },
+    {
+      "query": "What information must be kept secret?",
+      "expected": "Confidentiality",
+      "type": "direct",
+      "retrieved_top1": "Confidentiality",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.5005
+    },
+    {
+      "query": "Do the secrecy obligations continue after the contract ends?",
+      "expected": "Confidentiality",
+      "type": "inference",
+      "retrieved_top1": "Confidentiality",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.6194
+    },
+    {
+      "query": "Is the contractor an employee of the client?",
+      "expected": "Independent Contractor Status",
+      "type": "direct",
+      "retrieved_top1": "Independent Contractor Status",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.7366
+    },
+    {
+      "query": "Who decides the contractor's working hours and equipment?",
+      "expected": "Independent Contractor Status",
+      "type": "distractor-pair",
+      "retrieved_top1": "Compliance with Laws",
+      "rank_of_expected": 2,
+      "top1_correct": false,
+      "top1_score": 0.5871
+    },
+    {
+      "query": "Who pays if a third party sues because of a breach?",
+      "expected": "Indemnification",
+      "type": "direct",
+      "retrieved_top1": "Indemnification",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.5385
+    },
+    {
+      "query": "What laws does the contractor have to follow?",
+      "expected": "Compliance with Laws",
+      "type": "direct",
+      "retrieved_top1": "Compliance with Laws",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.7554
+    },
+    {
+      "query": "Which state's law governs this agreement?",
+      "expected": "Miscellaneous",
+      "type": "direct",
+      "retrieved_top1": "Preamble",
+      "rank_of_expected": 3,
+      "top1_correct": false,
+      "top1_score": 0.532
+    },
+    {
+      "query": "How are disagreements between the parties settled?",
+      "expected": "Miscellaneous",
+      "type": "direct",
+      "retrieved_top1": "Miscellaneous",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.3529
+    },
+    {
+      "query": "Can the agreement be changed verbally?",
+      "expected": "Miscellaneous",
+      "type": "inference",
+      "retrieved_top1": "Confidentiality",
+      "rank_of_expected": 3,
+      "top1_correct": false,
+      "top1_score": 0.4866
+    },
+    {
+      "query": "What services is the contractor providing?",
+      "expected": "Scope of Work",
+      "type": "direct",
+      "retrieved_top1": "Scope of Work",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.6702
+    },
+    {
+      "query": "Who are the parties to this agreement?",
+      "expected": "Preamble",
+      "type": "direct",
+      "retrieved_top1": "Payment Terms",
+      "rank_of_expected": 5,
+      "top1_correct": false,
+      "top1_score": 0.544
+    },
+    {
+      "query": "Will my subscription renew by itself?",
+      "expected": "Automatic Renewal of Your Subscription",
+      "type": "direct",
+      "retrieved_top1": "Automatic Renewal of Your Subscription",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.7269
+    },
+    {
+      "query": "How do I stop being charged again?",
+      "expected": "Automatic Renewal of Your Subscription",
+      "type": "lay",
+      "retrieved_top1": "Automatic Renewal of Your Subscription",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.3621
+    },
+    {
+      "query": "Do they sell my personal data?",
+      "expected": "Sharing With Third Parties",
+      "type": "direct",
+      "retrieved_top1": "Sharing With Third Parties",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.663
+    },
+    {
+      "query": "Who else can see my information?",
+      "expected": "Sharing With Third Parties",
+      "type": "paraphrase",
+      "retrieved_top1": "Sharing With Third Parties",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.5784
+    },
+    {
+      "query": "How long is my data kept after I close my account?",
+      "expected": "How Long We Keep Your Data",
+      "type": "direct",
+      "retrieved_top1": "How Long We Keep Your Data",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.7683
+    },
+    {
+      "query": "Can I ask them to delete everything about me?",
+      "expected": "Your Rights and Choices",
+      "type": "direct",
+      "retrieved_top1": "Your Rights and Choices",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.563
+    },
+    {
+      "query": "How do I stop marketing emails?",
+      "expected": "Your Rights and Choices",
+      "type": "lay",
+      "retrieved_top1": "Your Rights and Choices",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.4382
+    },
+    {
+      "query": "What do they collect automatically without me typing it?",
+      "expected": "How We Collect Your Information",
+      "type": "inference",
+      "retrieved_top1": "How We Collect Your Information",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.6232
+    },
+    {
+      "query": "Can I join a class action lawsuit?",
+      "expected": "Resolving Disputes",
+      "type": "direct",
+      "retrieved_top1": "Resolving Disputes",
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "top1_score": 0.5142
+    }
+  ],
+  "baseline_minilm": {
+    "n_queries": 29,
+    "hit_at_1": 0.8275862068965517,
+    "hit_at_3": 1.0,
+    "hit_at_5": 1.0,
+    "mrr": 0.9080459770114944
+  },
+  "regression_case": {
+    "query": "Who owns the work produced by the contractor?",
+    "expected": "Intellectual Property",
+    "type": "regression",
+    "retrieved_top1": "Intellectual Property",
+    "rank_of_expected": 1,
+    "top1_correct": true,
+    "top1_score": 0.6994
+  },
+  "flag_rule_diagnostic": {
+    "queries_where_rule_fired": 16,
+    "total_clauses_added": 33,
+    "gold_clauses_recovered_from_outside_top3": 0,
+    "note": "The rule adds clauses to a context; it never reorders retrieval, so it cannot change Hit@k. 'Recovered' counts cases where the expected clause was absent from semantic top-3 but admitted by the flag rule."
+  }
+}
