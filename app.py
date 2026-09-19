@@ -13,6 +13,7 @@ so they can be unit tested without launching a browser. Everything below
 
 from __future__ import annotations
 
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -24,6 +25,7 @@ import streamlit as st  # noqa: E402
 from src.config import PATHS  # noqa: E402
 from src.generation import DISCLAIMER, GenerationTask  # noqa: E402
 from src.pipeline import UNCLASSIFIED, LegalDocumentPipeline  # noqa: E402
+from src.translation import create_translation_backend  # noqa: E402
 
 APP_TITLE = "AI-Powered Legal Document Analyzer"
 
@@ -66,6 +68,7 @@ EXTRACTION_LABELS = {
 # Data preparation -- no Streamlit calls, unit tested in tests/test_app.py
 # ===========================================================================
 
+
 def document_stats(analysis) -> dict:
     """Headline numbers for the sidebar."""
     return {
@@ -88,17 +91,19 @@ def key_clauses(analysis, limit: int = 6) -> list[dict]:
     rows = []
     for item in analysis.top_salient(limit):
         text = item.text
-        rows.append({
-            "clause_id": item.clause_id,
-            "title": item.title,
-            "category": item.category,
-            "salience": round(item.salience, 3),
-            "confidence": round(item.calibrated_confidence, 3),
-            "page": item.page,
-            "preview": (text[:180] + "...") if len(text) > 180 else text,
-            "text": text,
-            "flags": item.flag_labels,
-        })
+        rows.append(
+            {
+                "clause_id": item.clause_id,
+                "title": item.title,
+                "category": item.category,
+                "salience": round(item.salience, 3),
+                "confidence": round(item.calibrated_confidence, 3),
+                "page": item.page,
+                "preview": (text[:180] + "...") if len(text) > 180 else text,
+                "text": text,
+                "flags": item.flag_labels,
+            }
+        )
     return rows
 
 
@@ -112,16 +117,18 @@ def attention_flags(analysis) -> list[dict]:
     rows = []
     for item in analysis.analyses:
         for hit in item.flags:
-            rows.append({
-                "label": hit.label,
-                "clause_id": item.clause_id,
-                "clause_title": item.title,
-                "category": item.category,
-                "explanation": hit.explanation,
-                "evidence": hit.sentence,
-                "trigger": hit.trigger_span,
-                "page": item.page,
-            })
+            rows.append(
+                {
+                    "label": hit.label,
+                    "clause_id": item.clause_id,
+                    "clause_title": item.title,
+                    "category": item.category,
+                    "explanation": hit.explanation,
+                    "evidence": hit.sentence,
+                    "trigger": hit.trigger_span,
+                    "page": item.page,
+                }
+            )
     return rows
 
 
@@ -132,20 +139,22 @@ def grouped_extractions(analysis) -> dict[str, list[dict]]:
 
     grouped: dict[str, list[dict]] = {}
     for item in analysis.extraction.items:
-        grouped.setdefault(item.type, []).append({
-            "Value": item.value,
-            "Normalized": item.normalized_value or "—",
-            "Clause": item.clause_title or "—",
-            "Category": item.clause_category or "—",
-            "Unfilled placeholder": "yes" if item.is_placeholder else "no",
-            "Evidence": item.evidence,
-        })
+        grouped.setdefault(item.type, []).append(
+            {
+                "Value": item.value,
+                "Normalized": item.normalized_value or "—",
+                "Clause": item.clause_title or "—",
+                "Category": item.clause_category or "—",
+                "Unfilled placeholder": "yes" if item.is_placeholder else "no",
+                "Evidence": item.evidence,
+            }
+        )
 
     ordered = {}
     for key in EXTRACTION_LABELS:
         if key in grouped:
             ordered[key] = grouped[key]
-    for key, rows in grouped.items():   # any type not in the label map
+    for key, rows in grouped.items():  # any type not in the label map
         ordered.setdefault(key, rows)
     return ordered
 
@@ -234,6 +243,7 @@ def build_report(analysis, history: list) -> str:
 # Pipeline loading
 # ===========================================================================
 
+
 @st.cache_resource(show_spinner=False)
 def load_pipeline():
     """Load models once per session. Cached across reruns.
@@ -243,6 +253,12 @@ def load_pipeline():
     """
     pipeline = LegalDocumentPipeline.from_defaults(top_k=3)
     return pipeline
+
+
+@st.cache_resource(show_spinner=False)
+def load_translation_backend():
+    """Load the translation model once and reuse it."""
+    return create_translation_backend("local")
 
 
 def analyze_upload(pipeline, uploaded) -> tuple[object | None, str | None]:
@@ -267,11 +283,16 @@ def analyze_upload(pipeline, uploaded) -> tuple[object | None, str | None]:
     try:
         analysis = pipeline.analyze_document(temp_path)
     except Exception as error:  # noqa: BLE001 - surfaced as a message, not a trace
-        return None, f"Could not read this PDF ({type(error).__name__}). It may be scanned, encrypted or corrupted."
+        return (
+            None,
+            f"Could not read this PDF ({type(error).__name__}). It may be scanned, encrypted or corrupted.",
+        )
 
     if analysis.n_clauses == 0:
-        return None, ("No text could be extracted. Scanned or image-only PDFs "
-                      "are not supported — this prototype has no OCR.")
+        return None, (
+            "No text could be extracted. Scanned or image-only PDFs "
+            "are not supported — this prototype has no OCR."
+        )
     return analysis, None
 
 
@@ -336,8 +357,9 @@ def render_overview(pipeline, analysis) -> None:
         st.warning("No clause content was available to summarise.")
         return
 
-    st.markdown(f"<div class='answer-card'>{payload['text']}</div>",
-                unsafe_allow_html=True)
+    st.markdown(
+        f"<div class='answer-card'>{payload['text']}</div>", unsafe_allow_html=True
+    )
     st.caption(GROUNDING_CAVEAT)
 
     if payload["sources"]:
@@ -461,16 +483,21 @@ def render_ask(pipeline, analysis) -> None:
             st.markdown(f"**Q: {question_text}**")
 
             if payload["status"] == "error":
-                st.error("This question could not be answered. "
-                         "The retrieval or generation step failed.")
+                st.error(
+                    "This question could not be answered. "
+                    "The retrieval or generation step failed."
+                )
                 continue
             if payload["status"] == "empty":
-                st.warning(payload["text"] or
-                           "No relevant clause was found for this question.")
+                st.warning(
+                    payload["text"] or "No relevant clause was found for this question."
+                )
                 continue
 
-            st.markdown(f"<div class='answer-card'>{payload['text']}</div>",
-                        unsafe_allow_html=True)
+            st.markdown(
+                f"<div class='answer-card'>{payload['text']}</div>",
+                unsafe_allow_html=True,
+            )
             st.caption(GROUNDING_CAVEAT)
             st.markdown("**Source clauses**")
             for source in payload["sources"]:
@@ -484,6 +511,175 @@ def render_ask(pipeline, analysis) -> None:
                         st.caption("Flags: " + ", ".join(source["flags"]))
 
 
+def split_translation_chunks(text: str, max_chars: int = 700) -> list[str]:
+    """Split text while preserving line breaks and document structure."""
+    if not text.strip():
+        return []
+
+    chunks = []
+
+    # Preserve original line boundaries instead of flattening the text.
+    for line in text.splitlines():
+        line = line.strip()
+
+        if not line:
+            continue
+
+        if len(line) <= max_chars:
+            chunks.append(line)
+            continue
+
+        # Split long lines at sentence boundaries.
+        sentences = re.split(r"(?<=[.!?])\s+", line)
+        current = ""
+
+        for sentence in sentences:
+            if len(sentence) > max_chars:
+                words = sentence.split()
+
+                for word in words:
+                    candidate = f"{current} {word}".strip()
+
+                    if current and len(candidate) > max_chars:
+                        chunks.append(current)
+                        current = word
+                    else:
+                        current = candidate
+                continue
+
+            candidate = f"{current} {sentence}".strip()
+
+            if current and len(candidate) > max_chars:
+                chunks.append(current)
+                current = sentence
+            else:
+                current = candidate
+
+        if current:
+            chunks.append(current)
+
+    return chunks
+
+
+PLACEHOLDER_PATTERN = re.compile(r"\[[^\[\]\n]{1,80}\]")
+
+
+def translate_preserving_placeholders(backend, text: str) -> str:
+    """Translate prose while preserving placeholders and surrounding spaces."""
+    parts = PLACEHOLDER_PATTERN.split(text)
+    placeholders = PLACEHOLDER_PATTERN.findall(text)
+
+    translated_parts = []
+
+    for part in parts:
+        if not part.strip():
+            translated_parts.append(part)
+            continue
+
+        # Preserve whitespace around the text being translated.
+        leading_space = part[: len(part) - len(part.lstrip())]
+        trailing_space = part[len(part.rstrip()) :]
+
+        core_text = part.strip()
+        chunks = split_translation_chunks(core_text)
+
+        translated_core = " ".join(
+            backend.translate(chunk).translated_text for chunk in chunks
+        )
+
+        translated_parts.append(leading_space + translated_core + trailing_space)
+
+    result = translated_parts[0] if translated_parts else ""
+
+    for index, placeholder in enumerate(placeholders):
+        result += placeholder
+
+        if index + 1 < len(translated_parts):
+            result += translated_parts[index + 1]
+
+    return result
+
+
+def render_translation(analysis) -> None:
+    """Translate document clauses in smaller chunks from English to Marathi."""
+    st.subheader("English → Marathi translation")
+    st.caption(
+        "Long clauses are divided into smaller chunks to reduce model "
+        "truncation. The output is machine-generated."
+    )
+
+    if st.button("Translate document", type="primary"):
+        backend = load_translation_backend()
+        translations = []
+
+        with st.spinner("Translating clauses into Marathi..."):
+            for index, clause in enumerate(analysis.analyses, start=1):
+                source_text = clause.text.strip()
+
+                if not source_text:
+                    continue
+
+                try:
+                    marathi_text = translate_preserving_placeholders(
+                        backend, source_text
+                    )
+
+                    translations.append(
+                        {
+                            "number": index,
+                            "title": clause.title,
+                            "page": clause.page,
+                            "english": source_text,
+                            "marathi": marathi_text,
+                        }
+                    )
+
+                except Exception as error:  # noqa: BLE001
+                    translations.append(
+                        {
+                            "number": index,
+                            "title": clause.title,
+                            "page": clause.page,
+                            "english": source_text,
+                            "marathi": (f"Translation failed: {type(error).__name__}"),
+                        }
+                    )
+
+        st.session_state["translations"] = translations
+
+    translations = st.session_state.get("translations")
+
+    if not translations:
+        st.info(
+            "Select **Translate document** to generate clause-by-clause "
+            "translations."
+        )
+        return
+
+    st.warning(
+        "Machine-generated translation only. This output may contain "
+        "omissions or incorrect legal terminology and is not legal advice "
+        "or a certified legal translation."
+    )
+
+    for item in translations:
+        title = item["title"] or f"Clause {item['number']}"
+
+        with st.expander(
+            f"{title} · Page {item['page']}",
+            expanded=False,
+        ):
+            english, marathi = st.columns(2)
+
+            with english:
+                st.markdown("#### Original English")
+                st.text(item["english"])
+
+            with marathi:
+                st.markdown("#### Marathi translation")
+                st.text(item["marathi"])
+
+
 def main() -> None:
     st.set_page_config(page_title=APP_TITLE, page_icon="⚖️", layout="wide")
     st.markdown(CSS, unsafe_allow_html=True)
@@ -491,6 +687,7 @@ def main() -> None:
     st.session_state.setdefault("analysis", None)
     st.session_state.setdefault("history", [])
     st.session_state.setdefault("summary", None)
+    st.session_state.setdefault("translations", None)
 
     st.markdown(
         f"<div class='doc-hero'><h1>⚖️ {APP_TITLE}</h1>"
@@ -535,6 +732,7 @@ def main() -> None:
                 st.session_state["analysis"] = analysis
                 st.session_state["history"] = []
                 st.session_state["summary"] = None
+                st.session_state["translations"] = None
                 st.success(f"Analysed {analysis.n_clauses} clauses.")
 
         analysis = st.session_state.get("analysis")
@@ -553,8 +751,9 @@ def main() -> None:
             if analysis.degraded:
                 st.warning("Running without the classifier.", icon="⚠️")
             if analysis.stage_errors:
-                st.warning("Some stages did not complete: "
-                           + "; ".join(analysis.stage_errors))
+                st.warning(
+                    "Some stages did not complete: " + "; ".join(analysis.stage_errors)
+                )
 
             st.divider()
             st.download_button(
@@ -581,9 +780,15 @@ def main() -> None:
         )
         return
 
-    overview, clauses, flags, extracted, ask = st.tabs(
-        ["Overview", "Key clauses", "Watch out for", "Extracted information",
-         "Ask the document"]
+    overview, clauses, flags, extracted, ask, translation = st.tabs(
+        [
+            "Overview",
+            "Key clauses",
+            "Watch out for",
+            "Extracted information",
+            "Ask the document",
+            "English → Marathi",
+        ]
     )
     with overview:
         render_overview(pipeline, analysis)
@@ -595,6 +800,8 @@ def main() -> None:
         render_extractions(analysis)
     with ask:
         render_ask(pipeline, analysis)
+    with translation:
+        render_translation(analysis)
 
     st.divider()
     st.caption(DISCLAIMER)
