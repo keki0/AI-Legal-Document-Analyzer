@@ -68,6 +68,7 @@ class FakeUpload:
 # Document statistics
 # ===========================================================================
 
+
 def test_document_stats_reports_real_numbers(analysis):
     stats = application.document_stats(analysis)
     assert stats["Filename"] == CONTRACT.name
@@ -89,6 +90,7 @@ def test_document_stats_survives_missing_extraction(analysis):
 # Key clauses
 # ===========================================================================
 
+
 def test_key_clauses_are_sorted_by_salience(analysis):
     rows = application.key_clauses(analysis)
     scores = [r["salience"] for r in rows]
@@ -101,8 +103,16 @@ def test_key_clauses_respect_the_limit(analysis):
 
 def test_key_clause_rows_carry_everything_the_ui_renders(analysis):
     row = application.key_clauses(analysis, limit=1)[0]
-    for field in ("clause_id", "title", "category", "salience", "page",
-                  "preview", "text", "flags"):
+    for field in (
+        "clause_id",
+        "title",
+        "category",
+        "salience",
+        "page",
+        "preview",
+        "text",
+        "flags",
+    ):
         assert field in row
     assert row["clause_id"] in analysis.clause_ids
 
@@ -118,6 +128,7 @@ def test_preview_is_truncated_but_full_text_is_kept(analysis):
 # ===========================================================================
 # Attention flags
 # ===========================================================================
+
 
 def test_flags_include_evidence_and_neutral_wording(analysis):
     flags = application.attention_flags(analysis)
@@ -157,6 +168,7 @@ def test_flags_are_independent_of_salience(analysis):
 # Extracted information
 # ===========================================================================
 
+
 def test_extractions_are_grouped_by_type(analysis):
     grouped = application.grouped_extractions(analysis)
     assert grouped
@@ -189,6 +201,7 @@ def test_grouped_extractions_handles_missing_extraction(analysis):
 # ===========================================================================
 # Answers and source mapping
 # ===========================================================================
+
 
 def test_answer_payload_maps_a_successful_query(pipeline, analysis):
     result = pipeline.ask(analysis, "Who owns the work produced by the contractor?")
@@ -242,9 +255,35 @@ def test_source_clauses_empty_for_none():
     assert application.source_clauses(QueryResult("q", "t", "d")) == []
 
 
+def test_answer_payload_handles_document_summary(pipeline, analysis):
+    summary_result = pipeline.document_summary(analysis, k=4)
+    payload = application.answer_payload(summary_result)
+    assert payload["status"] == "ok"
+    assert payload["text"]
+    assert len(payload["sources"]) == 4
+    for source in payload["sources"]:
+        assert source["clause_id"] in analysis.clause_ids
+        assert source["title"]
+        assert source["text"]
+
+
+def test_answer_payload_handles_summary_failure():
+    result = QueryResult(
+        query="(document summary)",
+        task="quick_summary",
+        document="contract.pdf",
+        error="Model timeout",
+    )
+    payload = application.answer_payload(result)
+    assert payload["status"] == "error"
+    assert "Model timeout" in payload["text"]
+    assert payload["sources"] == []
+
+
 # ===========================================================================
 # Upload handling
 # ===========================================================================
+
 
 def test_non_pdf_upload_is_rejected(pipeline):
     analysis, error = application.analyze_upload(
@@ -289,6 +328,7 @@ def test_valid_pdf_upload_is_analysed(pipeline):
 # Missing model artefacts
 # ===========================================================================
 
+
 def test_degraded_pipeline_marks_clauses_unclassified():
     if not CONTRACT.exists():
         pytest.skip("contract fixture not present")
@@ -302,13 +342,13 @@ def test_degraded_pipeline_marks_clauses_unclassified():
     # Rule-based sections still populate.
     assert application.attention_flags(analysis)
     assert application.grouped_extractions(analysis)
-    assert all(r["category"] == UNCLASSIFIED
-               for r in application.key_clauses(analysis))
+    assert all(r["category"] == UNCLASSIFIED for r in application.key_clauses(analysis))
 
 
 # ===========================================================================
 # Report generation
 # ===========================================================================
+
 
 def test_report_contains_every_section(analysis):
     report = application.build_report(analysis, [])
@@ -334,6 +374,7 @@ def test_report_is_plain_text_and_non_empty(analysis):
 # ===========================================================================
 # Disclaimer
 # ===========================================================================
+
 
 def test_disclaimer_is_present_and_appropriately_hedged():
     text = application.DISCLAIMER_TEXT.lower()

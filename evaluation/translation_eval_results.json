@@ -1,0 +1,125 @@
+{
+  "service_agreement": [
+    {
+      "clause_index": 1,
+      "title": "Preamble",
+      "english": "SERVICE AGREEMENT Effective Date: [Date] This Service Agreement is made between [Client Name], located at [Client Address], and [Contractor Name], located at [Contractor Address].",
+      "marathi": "सेवा कराराची अंमलबजावणी तारीखः [Date] या सेवा कराराची अंमलबजावणी [Client Name], येथे स्थित आहे [Client Address] आणि [Contractor Name], येथे स्थित आहे [Contractor Address].",
+      "latency_sec": 3.26
+    },
+    {
+      "clause_index": 2,
+      "title": "Services",
+      "english": "The Contractor agrees to provide the following services: [Description of Services]. The Contractor will perform the services with reasonable care and in a professional manner.",
+      "marathi": "कंत्राटदार खालील सेवा प्रदान करण्यास सहमत आहेः [Description of Services]. कंत्राटदार योग्य काळजीपूर्वक आणि व्यावसायिक पद्धतीने सेवा देईल.",
+      "latency_sec": 1.97
+    },
+    {
+      "clause_index": 3,
+      "title": "Payment",
+      "english": "The Client will pay the Contractor [Amount]. Invoices are payable within [Number] days after receipt. Payments will be made by [Payment Method].",
+      "marathi": "ग्राहक कंत्राटदाराला पैसे देईल [Amount]. इनव्हॉक्सन्स आत देय आहेत. [Number] प्राप्तीनंतर काही दिवस. [Payment Method].",
+      "latency_sec": 2.46
+    },
+    {
+      "clause_index": 4,
+      "title": "Confidentiality",
+      "english": "Each party agrees to keep non-public business, technical, and financial information confidential. This obligation continues after this Agreement ends.",
+      "marathi": "या कराराच्या समाप्तीनंतर प्रत्येक पक्ष व्यावसायिक, तांत्रिक आणि आर्थिक माहिती गोपनीय ठेवण्यास सहमत आहे.",
+      "latency_sec": 1.36
+    },
+    {
+      "clause_index": 5,
+      "title": "Termination",
+      "english": "Either party may terminate this Agreement by providing [Notice Period] written notice. The Client will pay for services completed before termination.",
+      "marathi": "कोणताही पक्ष या कराराची समाप्ती करून करू शकतो. [Notice Period] क्लायंटला समाप्तीपूर्वी पूर्ण केलेल्या सेवांसाठी पैसे द्यावे लागतील.",
+      "latency_sec": 1.93
+    },
+    {
+      "clause_index": 6,
+      "title": "Governing Law",
+      "english": "This Agreement is governed by the laws of [State or Country]. Disputes will be resolved in the courts located in [Location].",
+      "marathi": "या कराराचे कायदे [State or Country]. वाद न्यायालयांमध्ये सोडवले जातील. [Location].",
+      "latency_sec": 1.66
+    },
+    {
+      "clause_index": 7,
+      "title": "Signatures",
+      "english": "Client Signature: ________________________________ Contractor Signature: _____________________________",
+      "marathi": "ग्राहक स्वाक्षरी: ________________________________ कंत्राटदार स्वाक्षरी: _____________________________",
+      "latency_sec": 1.55
+    }
+  ],
+  "sample_nda": [
+    {
+      "clause_index": 1,
+      "title": "Preamble",
+      "english": "NON-DISCLOSURE AGREEMENT",
+      "marathi": "नॉन-डिस्क्रिप्शन एग्रीमेंट",
+      "latency_sec": 0.71
+    },
+    {
+      "clause_index": 2,
+      "title": "Preamble",
+      "english": "This Non-Disclosure Agreement (the \"Agreement\") is entered into on [Date], by and between [Disclosing Party], having its principal place of business at [Disclosing Party Address] (\"Disclosing Party\"), and [Receiving Party], having its principal place of business at [Receiving Party Address] (\"Receiving Party\").",
+      "marathi": "या प्रकटीकरण न करण्याच्या कराराचा (\" कराराचा\") [Date], करून आणि दरम्यान [Disclosing Party], ज्याचे मुख्यालय [Disclosing Party Address] (\"प्रकटीकरण करणारा पक्ष\") आणि [Receiving Party], ज्याचे मुख्यालय [Receiving Party Address] (\"प्राप्ती पक्ष\").",
+      "latency_sec": 3.96
+    },
+    {
+      "clause_index": 3,
+      "title": "Confidential Information",
+      "english": "\"Confidential Information\" refers to all non-public, proprietary, or confidential information disclosed by the Disclosing Party to the Receiving Party, whether orally or in writing, including trade secrets, customer data, and source code.",
+      "marathi": "\"गोपनीय माहिती\" म्हणजे सर्व सार्वजनिक नसलेली, मालकीची किंवा गोपनीय माहिती जी प्रकटीकरण करणाऱ्या पक्षाद्वारे प्राप्त करणाऱ्या पक्षाला तोंडी किंवा लिखितरित्या उघड केली जाते, ज्यात व्यावसायिक रहस्ये, ग्राहक डेटा आणि स्त्रोत कोड समाविष्ट आहे.",
+      "latency_sec": 3.5
+    },
+    {
+      "clause_index": 4,
+      "title": "Non-Disclosure Obligations",
+      "english": "The Receiving Party agrees to hold the Confidential Information in strict confidence and not to disclose such information to any third party without prior written consent. The Receiving Party shall protect the Confidential Information using at least a reasonable degree of care.",
+      "marathi": "प्राप्ती करणारा पक्ष गोपनीय माहिती पूर्णपणे गोपनीय ठेवण्यास सहमत आहे आणि पूर्व लिखित संमतीशिवाय ती कोणतीही तृतीय पक्षाला उघड करणार नाही. प्राप्ती करणारा पक्ष किमान वाजवी पातळीवर काळजीपूर्वक गोपनीय माहितीचे संरक्षण करेल.",
+      "latency_sec": 2.97
+    },
+    {
+      "clause_index": 5,
+      "title": "Exclusions",
+      "english": "Confidential Information does not include information that is publicly known through no breach of this Agreement, was already known prior to disclosure, or is independently developed without reference to the Confidential Information.",
+      "marathi": "या करारातील कोणत्याही उल्लंघनामुळे सार्वजनिकरित्या ज्ञात असलेली माहिती, प्रकटीकरणापूर्वी आधीच ज्ञात असलेली माहिती किंवा गोपनीय माहितीचा संदर्भ न घेता स्वतंत्रपणे विकसित केलेली माहिती यामध्ये समाविष्ट नाही.",
+      "latency_sec": 2.81
+    },
+    {
+      "clause_index": 6,
+      "title": "Term and Survival",
+      "english": "This Agreement shall remain in effect for a period of [Term Duration] from the Effective Date. The obligations of confidentiality shall survive for a period of 5 years following termination of this Agreement.",
+      "marathi": "या कराराची अंमलबजावणी [Term Duration] या कराराच्या समाप्तीनंतर पाच वर्षांच्या कालावधीसाठी गोपनीयतेची जबाबदारी कायम राहते.",
+      "latency_sec": 2.81
+    },
+    {
+      "clause_index": 7,
+      "title": "Remedies and Damages",
+      "english": "The Receiving Party acknowledges that any breach of this Agreement may cause irreparable harm. The Disclosing Party shall be entitled to seek injunctive relief and liquidated damages in the amount of $[Liquidated Damages Amount] or Rs. 500,000 within 30 days of written notice.",
+      "marathi": "प्राप्ती करणारा पक्ष हे मान्य करतो की या कराराचा कोणताही उल्लंघनामुळे अपूरणीय नुकसान होऊ शकते.[Liquidated Damages Amount] किंवा लिखित सूचना दिल्यानंतर ३० दिवसांच्या आत ५००,००० रुपये.",
+      "latency_sec": 3.13
+    },
+    {
+      "clause_index": 8,
+      "title": "Return of Materials",
+      "english": "Within 14 days after termination of this Agreement, the Receiving Party shall return or destroy all physical documents and electronic records containing Confidential Information.",
+      "marathi": "या कराराच्या समाप्तीनंतर 14 दिवसांच्या आत, प्राप्त करणारा पक्ष सर्व भौतिक कागदपत्रे आणि गोपनीय माहिती असलेली इलेक्ट्रॉनिक नोंदी परत करेल किंवा नष्ट करेल.",
+      "latency_sec": 2.27
+    },
+    {
+      "clause_index": 9,
+      "title": "Governing Law",
+      "english": "This Agreement shall be governed by and construed in accordance with the laws of [Jurisdiction]. Any legal dispute shall be subject to the exclusive jurisdiction of the courts in [City/State].",
+      "marathi": "या कराराचे नियमन आणि त्याची व्याख्या देशाच्या कायद्यानुसार केली जाईल. [Jurisdiction]. कोणताही कायदेशीर वाद देशांतर्गत न्यायालयांच्या अखंड अधिकार क्षेत्राच्या अधीन असेल. [City/State].",
+      "latency_sec": 2.94
+    },
+    {
+      "clause_index": 10,
+      "title": "Signatures",
+      "english": "Disclosing Party Signature: _______________________ Date: [Signature Date] Receiving Party Signature: _______________________ Date: [Signature Date]",
+      "marathi": "प्रकटीकरण करणारे पक्ष स्वाक्षरीः _______________________ तारीखः [Signature Date] प्राप्तकर्ता पक्ष स्वाक्षरीः _______________________ तारीखः [Signature Date]",
+      "latency_sec": 2.03
+    }
+  ]
+}

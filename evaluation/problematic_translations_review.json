@@ -1,0 +1,88 @@
+{
+  "review_metadata": {
+    "evaluation_title": "Focused Translation Quality Review: English-to-Marathi Legal Translation",
+    "backend_model": "facebook/nllb-200-distilled-600M",
+    "evaluation_date": "2026-09-20",
+    "disclaimer": "Machine-generated translation only. Proposed reference Marathi translations are draft recommendations for review and do not constitute certified legal translations or formal legal advice."
+  },
+  "review_cases": [
+    {
+      "id": "CASE_1_TITLE_NON_DISCLOSURE",
+      "clause_type": "Agreement Title",
+      "source_document": "data/raw/sample-nda.pdf",
+      "original_english": "NON-DISCLOSURE AGREEMENT",
+      "current_marathi_output": "नॉन-डिस्क्रिप्शन एग्रीमेंट",
+      "specific_problem": "Phonological transliteration error: NLLB-200 confused 'Disclosure' with 'Description' (डिस्क्रिप्शन) and transliterated 'Agreement' as 'एग्रीमेंट' rather than translating to standard legal terminology. The output literally reads 'Non-Description Agreement'.",
+      "legal_meaning_impact": "Distorted",
+      "severity": "High",
+      "root_cause": "NLLB-200 subword tokenizer phonetic confusion on all-caps English title string.",
+      "draft_human_reviewed_reference_marathi": "गोपनीयता करार (पर्यायी: माहिती उघड न करण्याचा करार)",
+      "review_notes": "Standard Indian legal practice uniformly uses 'गोपनीयता करार' for Non-Disclosure Agreements. Draft for review; not a certified legal translation."
+    },
+    {
+      "id": "CASE_2_PREAMBLE_MULTI_PARTY",
+      "clause_type": "Preamble / Recitals",
+      "source_document": "data/raw/sample-nda.pdf",
+      "original_english": "This Non-Disclosure Agreement (the \"Agreement\") is entered into on [Date], by and between [Disclosing Party], having its principal place of business at [Disclosing Party Address] (\"Disclosing Party\"), and [Receiving Party], having its principal place of business at [Receiving Party Address] (\"Receiving Party\").",
+      "current_marathi_output": "या प्रकटीकरण न करण्याच्या कराराचा (\" कराराचा\") [Date] वर [Disclosing Party] द्वारे आणि [Disclosing Party] द्वारे, ज्याचे मुख्य व्यवसाय ठिकाण [Disclosing Party Address] (\"प्रकटीकरण करणारा पक्ष\") येथे आहे आणि [Receiving Party] द्वारे, ज्याचे मुख्य व्यवसाय ठिकाण [Receiving Party Address] (\"प्राप्त करणारा पक्ष) येथे आहे, दरम्यान केला जातो.",
+      "specific_problem": "1. Uninflected genitive case phrase 'या ... कराराचा' starts the sentence instead of nominative 'हा ... करार'. 2. Decoder repetition of party token '[Disclosing Party] द्वारे आणि [Disclosing Party] द्वारे' when decoding long multi-entity recitals. 3. Missing closing quotation mark in quote block.",
+      "legal_meaning_impact": "Awkwardly Expressed",
+      "severity": "Medium",
+      "root_cause": "Seq2seq decoder loop on long compound preamble with 5 entity tokens and parenthetical party designations.",
+      "draft_human_reviewed_reference_marathi": "हा गोपनीयता करार (\"करार\") [Date] रोजी [Disclosing Party], ज्यांचे मुख्य कार्यालय [Disclosing Party Address] येथे आहे (\"प्रकटीकरण करणारा पक्ष\"), आणि [Receiving Party], ज्यांचे मुख्य कार्यालय [Receiving Party Address] येथे आहे (\"माहिती स्वीकारणारा पक्ष\"), यांच्या दरम्यान करण्यात आला आहे.",
+      "review_notes": "Draft for review; not a certified legal translation. Parties and addresses are retained, but syntax needs natural legal flow."
+    },
+    {
+      "id": "CASE_3_REMEDIES_LIQUIDATED_DAMAGES",
+      "clause_type": "Remedies & Damages",
+      "source_document": "data/raw/sample-nda.pdf",
+      "original_english": "The Receiving Party acknowledges that any breach of this Agreement may cause irreparable harm. The Disclosing Party shall be entitled to seek injunctive relief and liquidated damages in the amount of $[Liquidated Damages Amount] or Rs. 500,000 within 30 days of written notice.",
+      "current_marathi_output": "प्राप्ती करणारे पक्ष हे मान्य करतात की या कराराच्या कोणत्याही उल्लंघनामुळे अपूरणीय नुकसान होऊ शकते. प्रकटीकरण करणाऱ्या पक्षाला $[Liquidated Damages Amount] किंवा Rs. ३० दिवसांच्या आत ५००,०००.",
+      "specific_problem": "First sentence correctly renders irreparable harm ('अपूरणीय नुकसान'). However, the second sentence drops the entire verb predicate ('shall be entitled to seek' / मागण्याचा हक्क असेल) and drops 'injunctive relief', leaving an incomplete clause that terminates abruptly at the number.",
+      "legal_meaning_impact": "Lost",
+      "severity": "High",
+      "root_cause": "NLLB-200 beam search truncated the verb phrase following multiple currency/number units within the sentence.",
+      "draft_human_reviewed_reference_marathi": "माहिती स्वीकारणारा पक्ष हे मान्य करतो की या कराराच्या कोणत्याही उल्लंघनामुळे अपूरणीय नुकसान होऊ शकते. प्रकटीकरण करणारा पक्ष लेखी सूचना मिळाल्यापासून ३० दिवसांच्या आत न्यायालयीन मनाईहुकूम (injunctive relief) तसेच $[Liquidated Damages Amount] किंवा रु. ५,००,००० इतकी पूर्वनिर्धारित नुकसानभरपाई मागण्यास पात्र असेल.",
+      "review_notes": "Draft for review; not a certified legal translation. The substantive legal right to seek injunctive relief and liquidated damages is critical."
+    },
+    {
+      "id": "CASE_4_GOVERNING_LAW_JURISDICTION",
+      "clause_type": "Governing Law & Dispute Resolution",
+      "source_document": "data/raw/sample-nda.pdf",
+      "original_english": "This Agreement shall be governed by and construed in accordance with the laws of [Jurisdiction]. Any legal dispute shall be subject to the exclusive jurisdiction of the courts in [City/State].",
+      "current_marathi_output": "या कराराचे नियमन [Jurisdiction] च्या कायद्यानुसार केले जाईल आणि त्याची व्याख्या केली जाईल. कोणताही कायदेशीर वाद [City/State] च्या न्यायालयांच्या एकमेव अधिकार क्षेत्राच्या अधीन असेल.",
+      "specific_problem": "Second coordination ('and construed in accordance with the laws of...') dropped the repeated entity prepositional phrase, simplifying it to 'आणि त्याची व्याख्या केली जाईल'. 'एकमेव अधिकार क्षेत्र' accurately conveys exclusive jurisdiction, though statutory legal Marathi standardly uses 'अनन्य अधिकार क्षेत्र'.",
+      "legal_meaning_impact": "Awkwardly Expressed",
+      "severity": "Low",
+      "root_cause": "Stylistic coordination compression by NLLB; postposition attachment to [Jurisdiction] and [City/State] is otherwise intact.",
+      "draft_human_reviewed_reference_marathi": "या कराराचे नियमन आणि अर्थनिर्वचन [Jurisdiction] च्या कायद्यानुसार केले जाईल. कोणताही कायदेशीर वाद [City/State] येथील न्यायालयांच्या अनन्य अधिकार क्षेत्राच्या अधीन राहील.",
+      "review_notes": "Draft for review; not a certified legal translation. Meaning is legally preserved, phrasing can be tightened."
+    },
+    {
+      "id": "CASE_5_PAYMENT_OBLIGATION",
+      "clause_type": "Payment Terms",
+      "source_document": "data/raw/Service-Agreement-template.pdf",
+      "original_english": "The Client will pay the Contractor [Amount]. Invoices are payable within [Number] days after receipt. Payments will be made by [Payment Method].",
+      "current_marathi_output": "ग्राहक कंत्राटदाराला [Amount] देईल. प्राप्तीनंतर [Number] दिवसांच्या आत इनव्हॉयर्स देय आहेत [Payment Method] द्वारे पैसे दिले जातील.",
+      "specific_problem": "1. Phonetic transliteration 'इनव्हॉयर्स' instead of standard commercial Marathi 'इनव्हॉइस' or 'देयके'. 2. Missing punctuation separator between sentence 2 and sentence 3 ('...देय आहेत [Payment Method]...'). 3. 'देईल' (will give) vs formal commercial 'अदा करेल' (will pay).",
+      "legal_meaning_impact": "Awkwardly Expressed",
+      "severity": "Low",
+      "root_cause": "NLLB-200 lexical borrowing of 'invoices'; minor inter-sentence punctuation omission in output.",
+      "draft_human_reviewed_reference_marathi": "ग्राहक कंत्राटदाराला [Amount] अदा करेल. इनव्हॉइस (देयके) मिळाल्यापासून [Number] दिवसांच्या आत देय राहतील. देयके [Payment Method] द्वारे अदा केली जातील.",
+      "review_notes": "Draft for review; not a certified legal translation. All obligations, deadlines, and methods are preserved."
+    },
+    {
+      "id": "CASE_6_TERMINATION_NOTICE",
+      "clause_type": "Termination",
+      "source_document": "data/raw/Service-Agreement-template.pdf",
+      "original_english": "Either party may terminate this Agreement by providing [Notice Period] written notice. The Client will pay for services completed before termination.",
+      "current_marathi_output": "दोन्ही पक्षांनी [Notice Period] ला लिखित सूचना देऊन हा करार रद्द करू शकतो. ग्राहक समाप्तीपूर्वी पूर्ण केलेल्या सेवांसाठी पैसे देईल.",
+      "specific_problem": "Severe subject distortion: 'Either party' (कोणताही एक पक्ष - unilateral right) was mistranslated as 'दोन्ही पक्षांनी' (both parties together - bilateral requirement). This fundamentally alters the legal power to terminate from a unilateral right into a mutual-consent requirement!",
+      "legal_meaning_impact": "Distorted",
+      "severity": "High",
+      "root_cause": "NLLB-200 semantic inversion of distributive pronoun 'Either' into dual/plural 'both' (दोन्ही).",
+      "draft_human_reviewed_reference_marathi": "कोणताही पक्ष [Notice Period] इतकी लेखी पूर्वसूचना देऊन हा करार समाप्त करू शकतो. समाप्तीपूर्वी पूर्ण झालेल्या सेवांसाठी ग्राहक रक्कम अदा करेल.",
+      "review_notes": "Draft for review; not a certified legal translation. Distinguishing 'Either party' (कोणताही पक्ष) from 'Both parties' (दोन्ही पक्ष) is a vital legal distinction."
+    }
+  ]
+}

@@ -1,0 +1,395 @@
+{
+  "service_agreement": [
+    {
+      "clause_index": 1,
+      "title": "Preamble",
+      "english": "SERVICE AGREEMENT Effective Date: [Date] This Service Agreement is made between [Client Name], located at [Client Address], and [Contractor Name], located at [Contractor Address].",
+      "marathi": "सेवा करार प्रभावी दिनांक: [Date] हे सेवा करार [Client Name], [Client Address] येथे स्थित आणि [Contractor Name], [Contractor Address] येथे स्थित दरम्यान केले जाते.",
+      "latency_sec": 3.59,
+      "expected_placeholders": [
+        "[Date]",
+        "[Client Name]",
+        "[Client Address]",
+        "[Contractor Name]",
+        "[Contractor Address]"
+      ],
+      "restored_placeholders": [
+        "[Date]",
+        "[Client Name]",
+        "[Client Address]",
+        "[Contractor Name]",
+        "[Contractor Address]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 2,
+      "title": "Services",
+      "english": "The Contractor agrees to provide the following services: [Description of Services]. The Contractor will perform the services with reasonable care and in a professional manner.",
+      "marathi": "कंत्राटदार खालील सेवा प्रदान करण्यास सहमत आहे: [Description of Services]. कंत्राटदार योग्य काळजीपूर्वक आणि व्यावसायिक पद्धतीने सेवा देईल.",
+      "latency_sec": 2.2,
+      "expected_placeholders": [
+        "[Description of Services]"
+      ],
+      "restored_placeholders": [
+        "[Description of Services]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 3,
+      "title": "Payment",
+      "english": "The Client will pay the Contractor [Amount]. Invoices are payable within [Number] days after receipt. Payments will be made by [Payment Method].",
+      "marathi": "ग्राहक कंत्राटदाराला [Amount] देईल. पावत्यानंतर [Number] दिवसांच्या आत इनव्हॉइस देय आहेत [Payment Method] द्वारे पैसे दिले जातील.",
+      "latency_sec": 3.14,
+      "expected_placeholders": [
+        "[Amount]",
+        "[Number]",
+        "[Payment Method]"
+      ],
+      "restored_placeholders": [
+        "[Amount]",
+        "[Number]",
+        "[Payment Method]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 4,
+      "title": "Confidentiality",
+      "english": "Each party agrees to keep non-public business, technical, and financial information confidential. This obligation continues after this Agreement ends.",
+      "marathi": "प्रत्येक पक्ष व्यावसायिक, तांत्रिक आणि आर्थिक माहिती गोपनीय ठेवण्यास सहमत आहे. या कराराच्या समाप्तीनंतर ही जबाबदारी कायम राहील.",
+      "latency_sec": 2.25,
+      "expected_placeholders": [],
+      "restored_placeholders": [],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 5,
+      "title": "Termination",
+      "english": "Either party may terminate this Agreement by providing [Notice Period] written notice. The Client will pay for services completed before termination.",
+      "marathi": "कोणत्याही पक्षाने [Notice Period] लेखी सूचना देऊन हा करार रद्द करू शकतो. ग्राहक समाप्तीपूर्वी पूर्ण केलेल्या सेवांसाठी पैसे देईल.",
+      "latency_sec": 2.46,
+      "expected_placeholders": [
+        "[Notice Period]"
+      ],
+      "restored_placeholders": [
+        "[Notice Period]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 6,
+      "title": "Governing Law",
+      "english": "This Agreement is governed by the laws of [State or Country]. Disputes will be resolved in the courts located in [Location].",
+      "marathi": "या कराराला [State or Country] च्या कायद्यांचे पालन केले जाते [Location] येथील न्यायालयांमध्ये वाद सोडवले जातील.",
+      "latency_sec": 2.34,
+      "expected_placeholders": [
+        "[State or Country]",
+        "[Location]"
+      ],
+      "restored_placeholders": [
+        "[State or Country]",
+        "[Location]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 7,
+      "title": "Signatures",
+      "english": "Client Signature: ________________________________ Contractor Signature: _____________________________",
+      "marathi": "ग्राहक स्वाक्षरी: ________________________________ कंत्राटदार स्वाक्षरी: _____________________________",
+      "latency_sec": 1.56,
+      "expected_placeholders": [],
+      "restored_placeholders": [],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    }
+  ],
+  "sample_nda": [
+    {
+      "clause_index": 1,
+      "title": "Preamble",
+      "english": "NON-DISCLOSURE AGREEMENT",
+      "marathi": "नॉन-डिस्क्रिप्शन एग्रीमेंट",
+      "latency_sec": 0.71,
+      "expected_placeholders": [],
+      "restored_placeholders": [],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 2,
+      "title": "Preamble",
+      "english": "This Non-Disclosure Agreement (the \"Agreement\") is entered into on [Date], by and between [Disclosing Party], having its principal place of business at [Disclosing Party Address] (\"Disclosing Party\"), and [Receiving Party], having its principal place of business at [Receiving Party Address] (\"Receiving Party\").",
+      "marathi": "या नॉन-डिस्क्रिप्शन कराराचा (या \" कराराचा\") [Date] रोजी, [Disclosing Party] द्वारे आणि दरम्यान, त्याचे मुख्य व्यवसाय ठिकाण [Disclosing Party Address] (\"डिस्क्रिप्शन पार्टी\") आणि [Receiving Party] येथे आहे, त्याचे मुख्य व्यवसाय ठिकाण [Receiving Party Address] (\"रिसीव्हिंग पार्टी\") येथे आहे.",
+      "latency_sec": 5.06,
+      "expected_placeholders": [
+        "[Date]",
+        "[Disclosing Party]",
+        "[Disclosing Party Address]",
+        "[Receiving Party]",
+        "[Receiving Party Address]"
+      ],
+      "restored_placeholders": [
+        "[Date]",
+        "[Disclosing Party]",
+        "[Disclosing Party Address]",
+        "[Receiving Party]",
+        "[Receiving Party Address]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 3,
+      "title": "Confidential Information",
+      "english": "\"Confidential Information\" refers to all non-public, proprietary, or confidential information disclosed by the Disclosing Party to the Receiving Party, whether orally or in writing, including trade secrets, customer data, and source code.",
+      "marathi": "\"गोपनीय माहिती\" म्हणजे सर्व सार्वजनिक नसलेली, मालकीची किंवा गोपनीय माहिती जी प्रकटीकरण करणाऱ्या पक्षाद्वारे प्राप्त करणाऱ्या पक्षाला तोंडी किंवा लिखितरित्या उघड केली जाते, ज्यात व्यावसायिक रहस्ये, ग्राहक डेटा आणि स्त्रोत कोड समाविष्ट आहे.",
+      "latency_sec": 3.57,
+      "expected_placeholders": [],
+      "restored_placeholders": [],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 4,
+      "title": "Non-Disclosure Obligations",
+      "english": "The Receiving Party agrees to hold the Confidential Information in strict confidence and not to disclose such information to any third party without prior written consent. The Receiving Party shall protect the Confidential Information using at least a reasonable degree of care.",
+      "marathi": "प्राप्ती करणारा पक्ष गोपनीय माहिती पूर्णपणे गोपनीय ठेवण्यास सहमत आहे आणि पूर्व लिखित संमतीशिवाय ती कोणतीही तृतीय पक्षाला उघड करणार नाही. प्राप्ती करणारा पक्ष किमान वाजवी प्रमाणात काळजीपूर्वक गोपनीय माहितीचे संरक्षण करेल.",
+      "latency_sec": 3.17,
+      "expected_placeholders": [],
+      "restored_placeholders": [],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 5,
+      "title": "Exclusions",
+      "english": "Confidential Information does not include information that is publicly known through no breach of this Agreement, was already known prior to disclosure, or is independently developed without reference to the Confidential Information.",
+      "marathi": "या करारातील कोणत्याही उल्लंघनामुळे सार्वजनिकरित्या ज्ञात असलेली माहिती, प्रकटीकरणापूर्वी आधीच ज्ञात असलेली माहिती किंवा गोपनीय माहितीचा संदर्भ न घेता स्वतंत्रपणे विकसित केलेली माहिती यामध्ये समाविष्ट नाही.",
+      "latency_sec": 2.87,
+      "expected_placeholders": [],
+      "restored_placeholders": [],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 6,
+      "title": "Term and Survival",
+      "english": "This Agreement shall remain in effect for a period of [Term Duration] from the Effective Date. The obligations of confidentiality shall survive for a period of 5 years following termination of this Agreement.",
+      "marathi": "या कराराची अंमलबजावणी होण्याच्या तारखेपासून [Term Duration] कालावधीसाठी राहील. या कराराच्या समाप्तीनंतर पाच वर्षांच्या कालावधीसाठी गोपनीयतेचे बंधने कायम राहतील.",
+      "latency_sec": 3.15,
+      "expected_placeholders": [
+        "[Term Duration]"
+      ],
+      "restored_placeholders": [
+        "[Term Duration]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 7,
+      "title": "Remedies and Damages",
+      "english": "The Receiving Party acknowledges that any breach of this Agreement may cause irreparable harm. The Disclosing Party shall be entitled to seek injunctive relief and liquidated damages in the amount of $[Liquidated Damages Amount] or Rs. 500,000 within 30 days of written notice.",
+      "marathi": "प्राप्ती करणारे पक्ष हे मान्य करतात की या कराराच्या कोणत्याही उल्लंघनामुळे अपूरणीय नुकसान होऊ शकते. प्रकटीकरण करणाऱ्या पक्षाला $[Liquidated Damages Amount] किंवा Rs. ३० दिवसांच्या आत ५००,०००.",
+      "latency_sec": 3.67,
+      "expected_placeholders": [
+        "[Liquidated Damages Amount]"
+      ],
+      "restored_placeholders": [
+        "[Liquidated Damages Amount]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 8,
+      "title": "Return of Materials",
+      "english": "Within 14 days after termination of this Agreement, the Receiving Party shall return or destroy all physical documents and electronic records containing Confidential Information.",
+      "marathi": "या कराराच्या समाप्तीनंतर 14 दिवसांच्या आत, प्राप्त करणारा पक्ष सर्व भौतिक कागदपत्रे आणि गोपनीय माहिती असलेली इलेक्ट्रॉनिक नोंदी परत करेल किंवा नष्ट करेल.",
+      "latency_sec": 2.27,
+      "expected_placeholders": [],
+      "restored_placeholders": [],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 9,
+      "title": "Governing Law",
+      "english": "This Agreement shall be governed by and construed in accordance with the laws of [Jurisdiction]. Any legal dispute shall be subject to the exclusive jurisdiction of the courts in [City/State].",
+      "marathi": "या कराराचे नियमन [Jurisdiction] च्या कायद्यानुसार केले जाईल आणि त्याची व्याख्या केली जाईल. कोणताही कायदेशीर वाद [City/State] मधील न्यायालयांच्या एकमेव अधिकार क्षेत्राशी निगडित असेल.",
+      "latency_sec": 3.42,
+      "expected_placeholders": [
+        "[Jurisdiction]",
+        "[City/State]"
+      ],
+      "restored_placeholders": [
+        "[Jurisdiction]",
+        "[City/State]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    },
+    {
+      "clause_index": 10,
+      "title": "Signatures",
+      "english": "Disclosing Party Signature: _______________________ Date: [Signature Date] Receiving Party Signature: _______________________ Date: [Signature Date]",
+      "marathi": "उघड करणारे पक्ष स्वाक्षरी: _______________________ तारीख: [Signature Date] प्राप्त करणारे पक्ष स्वाक्षरी: _______________________ तारीख: [Signature Date]",
+      "latency_sec": 2.49,
+      "expected_placeholders": [
+        "[Signature Date]",
+        "[Signature Date]"
+      ],
+      "restored_placeholders": [
+        "[Signature Date]",
+        "[Signature Date]"
+      ],
+      "placeholders_preserved_and_ordered": true,
+      "validation_details": {
+        "is_valid": true,
+        "missing": [],
+        "duplicated": [],
+        "invented": [],
+        "is_order_preserved": true,
+        "corrupted_tokens": [],
+        "error_message": ""
+      }
+    }
+  ]
+}

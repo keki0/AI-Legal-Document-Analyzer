@@ -25,7 +25,15 @@ import streamlit as st  # noqa: E402
 from src.config import PATHS  # noqa: E402
 from src.generation import DISCLAIMER, GenerationTask  # noqa: E402
 from src.pipeline import UNCLASSIFIED, LegalDocumentPipeline  # noqa: E402
-from src.translation import create_translation_backend  # noqa: E402
+from src.translation import (  # noqa: E402
+    PLACEHOLDER_PATTERN,
+    create_translation_backend,
+    normalize_translation_formatting,
+    split_translation_chunks,
+    translate_legal_clause,
+    translate_preserving_placeholders,
+    translate_quick_summary,
+)
 
 APP_TITLE = "AI-Powered Legal Document Analyzer"
 
@@ -335,37 +343,69 @@ CSS = """
 
 
 def render_overview(pipeline, analysis) -> None:
-    st.subheader("Quick summary")
+    st.subheader("Quick Summary")
     st.caption(
         "Generated from the highest-salience clauses, not the whole document — "
         "the generator accepts a limited amount of text."
     )
 
     if st.session_state.get("summary") is None:
-        if st.button("Generate summary", type="primary"):
-            with st.spinner("Summarising the most significant clauses..."):
+        with st.spinner("Summarising the most significant clauses..."):
+            try:
                 st.session_state["summary"] = pipeline.document_summary(analysis)
+            except Exception:  # noqa: BLE001
+                st.session_state["summary"] = None
+                st.warning("Summary could not be generated from the selected clauses.")
+                if st.button("Retry summary generation", key="retry_summary_btn"):
+                    st.session_state["summary"] = None
+                    st.rerun()
+                return
+
+    payload = answer_payload(st.session_state.get("summary"))
+    summary_text = (payload.get("text") or "").strip()
+
+    if payload["status"] == "error" or not summary_text or payload["status"] == "empty":
+        st.warning("Summary could not be generated from the selected clauses.")
+        if st.button("Retry summary generation", key="retry_summary_btn"):
+            st.session_state["summary"] = None
+            st.session_state["summary_marathi"] = None
             st.rerun()
-        st.info("Select **Generate summary** to run the generator.")
         return
 
-    payload = answer_payload(st.session_state["summary"])
-    if payload["status"] == "error":
-        st.error(f"The summary could not be generated. {payload['text']}")
-        return
-    if payload["status"] == "empty" or not payload["text"]:
-        st.warning("No clause content was available to summarise.")
-        return
+    st.markdown(summary_text)
+    st.caption("Based on the uploaded document. " + GROUNDING_CAVEAT)
 
-    st.markdown(
-        f"<div class='answer-card'>{payload['text']}</div>", unsafe_allow_html=True
-    )
-    st.caption(GROUNDING_CAVEAT)
+    # Marathi translation of Quick Summary
+    marathi_summary = st.session_state.get("summary_marathi")
+    if marathi_summary:
+        with st.container(border=True):
+            st.markdown("#### मराठी सारांश (Marathi Summary)")
+            st.markdown(marathi_summary)
+            st.caption(
+                "मशीन-व्युत्पन्न भाषांतर · Machine-generated translation via NLLB. "
+                "Academic prototype only — not legal advice."
+            )
+            if st.button("Hide / Clear Marathi translation", key="clear_summary_mr_btn"):
+                st.session_state["summary_marathi"] = None
+                st.rerun()
+    else:
+        if st.button("🌐 Translate Summary into Marathi (मराठी)", key="btn_translate_summary_mr"):
+            with st.spinner("Translating Quick Summary into Marathi via NLLB..."):
+                backend = load_translation_backend()
+                res = translate_quick_summary(summary_text, backend=backend)
+                st.session_state["summary_marathi"] = res.translated_text
+            st.rerun()
 
-    if payload["sources"]:
-        st.markdown("**Clauses used**")
+    if st.button("Regenerate summary", key="regen_summary_btn"):
+        st.session_state["summary"] = None
+        st.session_state["summary_marathi"] = None
+        st.rerun()
+
+    if payload.get("sources"):
+        st.markdown("**Based on:**")
         for source in payload["sources"]:
-            with st.expander(f"{source['citation']} — {source['category']}"):
+            title = source.get("title") or f"Clause {source['clause_id']}"
+            with st.expander(f"Clause {source['clause_id']} — {title}"):
                 st.write(source["text"])
 
 
@@ -511,95 +551,6 @@ def render_ask(pipeline, analysis) -> None:
                         st.caption("Flags: " + ", ".join(source["flags"]))
 
 
-def split_translation_chunks(text: str, max_chars: int = 700) -> list[str]:
-    """Split text while preserving line breaks and document structure."""
-    if not text.strip():
-        return []
-
-    chunks = []
-
-    # Preserve original line boundaries instead of flattening the text.
-    for line in text.splitlines():
-        line = line.strip()
-
-        if not line:
-            continue
-
-        if len(line) <= max_chars:
-            chunks.append(line)
-            continue
-
-        # Split long lines at sentence boundaries.
-        sentences = re.split(r"(?<=[.!?])\s+", line)
-        current = ""
-
-        for sentence in sentences:
-            if len(sentence) > max_chars:
-                words = sentence.split()
-
-                for word in words:
-                    candidate = f"{current} {word}".strip()
-
-                    if current and len(candidate) > max_chars:
-                        chunks.append(current)
-                        current = word
-                    else:
-                        current = candidate
-                continue
-
-            candidate = f"{current} {sentence}".strip()
-
-            if current and len(candidate) > max_chars:
-                chunks.append(current)
-                current = sentence
-            else:
-                current = candidate
-
-        if current:
-            chunks.append(current)
-
-    return chunks
-
-
-PLACEHOLDER_PATTERN = re.compile(r"\[[^\[\]\n]{1,80}\]")
-
-
-def translate_preserving_placeholders(backend, text: str) -> str:
-    """Translate prose while preserving placeholders and surrounding spaces."""
-    parts = PLACEHOLDER_PATTERN.split(text)
-    placeholders = PLACEHOLDER_PATTERN.findall(text)
-
-    translated_parts = []
-
-    for part in parts:
-        if not part.strip():
-            translated_parts.append(part)
-            continue
-
-        # Preserve whitespace around the text being translated.
-        leading_space = part[: len(part) - len(part.lstrip())]
-        trailing_space = part[len(part.rstrip()) :]
-
-        core_text = part.strip()
-        chunks = split_translation_chunks(core_text)
-
-        translated_core = " ".join(
-            backend.translate(chunk).translated_text for chunk in chunks
-        )
-
-        translated_parts.append(leading_space + translated_core + trailing_space)
-
-    result = translated_parts[0] if translated_parts else ""
-
-    for index, placeholder in enumerate(placeholders):
-        result += placeholder
-
-        if index + 1 < len(translated_parts):
-            result += translated_parts[index + 1]
-
-    return result
-
-
 def render_translation(analysis) -> None:
     """Translate document clauses in smaller chunks from English to Marathi."""
     st.subheader("English → Marathi translation")
@@ -620,17 +571,17 @@ def render_translation(analysis) -> None:
                     continue
 
                 try:
-                    marathi_text = translate_preserving_placeholders(
-                        backend, source_text
-                    )
-
+                    clause_res = translate_legal_clause(backend, source_text)
                     translations.append(
                         {
                             "number": index,
                             "title": clause.title,
                             "page": clause.page,
                             "english": source_text,
-                            "marathi": marathi_text,
+                            "marathi": clause_res.translated_text,
+                            "requires_human_review": clause_res.report.requires_human_review,
+                            "review_flags": clause_res.report.review_flags,
+                            "review_reasons": clause_res.report.reasons,
                         }
                     )
 
@@ -642,6 +593,9 @@ def render_translation(analysis) -> None:
                             "page": clause.page,
                             "english": source_text,
                             "marathi": (f"Translation failed: {type(error).__name__}"),
+                            "requires_human_review": True,
+                            "review_flags": ["TRANSLATION_ERROR"],
+                            "review_reasons": [str(error)],
                         }
                     )
 
@@ -664,11 +618,18 @@ def render_translation(analysis) -> None:
 
     for item in translations:
         title = item["title"] or f"Clause {item['number']}"
+        flagged = item.get("requires_human_review", False)
+        header_label = f"{title} · Page {item['page']}"
+        if flagged:
+            header_label = f"⚠️ {header_label} (Review Recommended)"
 
-        with st.expander(
-            f"{title} · Page {item['page']}",
-            expanded=False,
-        ):
+        with st.expander(header_label, expanded=False):
+            if flagged and item.get("review_reasons"):
+                st.warning(
+                    f"**Human Review Advisory**: {', '.join(item.get('review_flags', []))}\n\n"
+                    + "\n".join(f"- {r}" for r in item.get("review_reasons", []))
+                )
+
             english, marathi = st.columns(2)
 
             with english:
@@ -687,6 +648,7 @@ def main() -> None:
     st.session_state.setdefault("analysis", None)
     st.session_state.setdefault("history", [])
     st.session_state.setdefault("summary", None)
+    st.session_state.setdefault("summary_marathi", None)
     st.session_state.setdefault("translations", None)
 
     st.markdown(
@@ -732,6 +694,7 @@ def main() -> None:
                 st.session_state["analysis"] = analysis
                 st.session_state["history"] = []
                 st.session_state["summary"] = None
+                st.session_state["summary_marathi"] = None
                 st.session_state["translations"] = None
                 st.success(f"Analysed {analysis.n_clauses} clauses.")
 

@@ -9,6 +9,12 @@ from typing import Callable
 import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
+from src.marathi.translator import (
+    PlaceholderIntegrityError,
+    PlaceholderValidationResult,
+    clean_translation,
+)
+
 
 @dataclass(frozen=True)
 class TranslationResult:
@@ -28,24 +34,6 @@ class TranslationBackend(ABC):
     def translate(self, text: str) -> TranslationResult:
         """Translate English text into Marathi."""
         raise NotImplementedError
-
-
-def clean_translation(text: str) -> str:
-    """Clean common formatting issues in machine-translated text."""
-    replacements = {
-        " .": ".",
-        " ,": ",",
-        " :": ":",
-        "( ": "(",
-        " )": ")",
-        "[ ": "[",
-        " ]": "]",
-    }
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-
-    return " ".join(text.split())
 
 
 class LocalTranslationBackend(TranslationBackend):
@@ -193,3 +181,66 @@ def create_translation_backend(
         f"Unsupported translation backend: {backend!r}. "
         "Choose 'local', 'external', or 'hybrid'."
     )
+
+
+from src.marathi.glossary import (
+    DOCUMENTED_LEGAL_GLOSSARY,
+    LegalTermEntry,
+    apply_target_glossary,
+    get_documented_glossary_map,
+)
+from src.marathi.translator import (
+    LEGAL_ABBREVIATION_PATTERN,
+    MASK_TOKEN_PATTERN,
+    PLACEHOLDER_PATTERN,
+    PlaceholderIntegrityError,
+    PlaceholderValidationResult,
+    TranslationClauseResult,
+    TranslationReviewReport,
+    check_translation_review_flags,
+    clean_translation,
+    normalize_translation_formatting,
+    split_translation_chunks,
+    translate_legal_clause,
+    translate_preserving_placeholders,
+    validate_placeholder_integrity,
+)
+
+
+def translate_quick_summary(
+    summary_text: str,
+    backend: TranslationBackend | None = None,
+) -> TranslationClauseResult:
+    """Translate an English quick summary into Marathi using the NLLB translation pipeline."""
+    if backend is None:
+        backend = create_translation_backend("local")
+    return translate_legal_clause(backend, summary_text)
+
+
+__all__ = [
+    "TranslationResult",
+    "TranslationBackend",
+    "LocalTranslationBackend",
+    "ExternalTranslationBackend",
+    "HybridTranslationBackend",
+    "create_translation_backend",
+    "clean_translation",
+    "split_translation_chunks",
+    "normalize_translation_formatting",
+    "validate_placeholder_integrity",
+    "translate_preserving_placeholders",
+    "translate_legal_clause",
+    "translate_quick_summary",
+    "check_translation_review_flags",
+    "TranslationReviewReport",
+    "TranslationClauseResult",
+    "PlaceholderValidationResult",
+    "PlaceholderIntegrityError",
+    "PLACEHOLDER_PATTERN",
+    "MASK_TOKEN_PATTERN",
+    "LEGAL_ABBREVIATION_PATTERN",
+    "DOCUMENTED_LEGAL_GLOSSARY",
+    "LegalTermEntry",
+    "apply_target_glossary",
+    "get_documented_glossary_map",
+]

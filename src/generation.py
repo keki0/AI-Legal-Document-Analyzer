@@ -47,12 +47,13 @@ __all__ = [
     "GroundingReport",
     "build_prompt",
     "check_grounding",
+    "clean_generated_text",
     "GenerationPipeline",
 ]
 
 # Bumped whenever a prompt template changes, so stored evaluation results can
 # be matched to the prompts that produced them.
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 DEFAULT_MODEL = "google/flan-t5-base"
 
@@ -91,13 +92,16 @@ _RULES = (
 
 _TEMPLATES: dict[str, str] = {
     GenerationTask.QUICK_SUMMARY: (
-        "Summarize the key points of the following legal document extract.\n"
+        "Provide a short, coherent overview summarizing the key points of the following contract clauses in a single concise paragraph (3 to 6 sentences).\n"
         f"{_RULES}\n"
+        "Combine information across the selected clauses into a coherent summary.\n"
         "Mention obligations, payments, dates, termination, intellectual "
         "property, confidentiality or liability only if the context states "
-        "them.\n\n"
+        "them.\n"
+        "Preserve exact numbers, dates, amounts, durations, notice periods, and placeholder terms without omitting them.\n"
+        "Do not copy clauses verbatim, do not repeat clauses, and do not mention clause numbers, categories, salience, or internal metadata.\n\n"
         "Context:\n{context}\n\n"
-        "Summary:"
+        "Summary overview:"
     ),
     GenerationTask.SIMPLE_EXPLANATION: (
         "Explain the following legal text in plain language a non-lawyer can "
@@ -191,6 +195,7 @@ def build_prompt(
 # Settings and outputs
 # ===========================================================================
 
+
 @dataclass(frozen=True)
 class GenerationSettings:
     """Deterministic decoding settings.
@@ -212,7 +217,7 @@ class GenerationSettings:
     max_input_tokens: int = 512  # FLAN-T5's encoder limit
     max_new_tokens: dict[str, int] = field(
         default_factory=lambda: {
-            GenerationTask.QUICK_SUMMARY: 160,
+            GenerationTask.QUICK_SUMMARY: 180,
             GenerationTask.SIMPLE_EXPLANATION: 120,
             GenerationTask.CLAUSE_EXPLANATION: 120,
         }
@@ -329,6 +334,59 @@ def check_grounding(
 # Pipeline
 # ===========================================================================
 
+
+KNOWN_CATEGORIES = [
+    "Amendments & Waivers",
+    "Assignment & Transfer",
+    "Boilerplate & Administrative",
+    "Compliance & Approvals",
+    "Confidentiality & Publicity",
+    "Corporate & Financial",
+    "Employment & Compensation",
+    "Governing Law & Dispute Resolution",
+    "Intellectual Property",
+    "Liability & Indemnity",
+    "Notices & Records",
+    "Payment & Fees",
+    "Representations & Warranties",
+    "Tax",
+    "Term & Termination",
+    "Unclassified",
+]
+_CAT_PATTERN = "|".join(re.escape(c) for c in KNOWN_CATEGORIES)
+
+
+def clean_generated_text(text: str) -> str:
+    """Clean generated text by removing leaked metadata headers and prompt echoes."""
+    if not text:
+        return ""
+    # Strip bracketed clause citations: e.g. [Clause 6: Intellectual Property (p2)]
+    cleaned = re.sub(r"\[Clause\s+\d+:[^\]]+\]", " ", text, flags=re.IGNORECASE)
+    # Strip unbracketed clause headers with page: Clause 4: Payment Terms (p1)
+    cleaned = re.sub(
+        r"(?:^|\n|\b)Clause\s+\d+:\s*[^(\n]+\(p\d+\)", " ", cleaned, flags=re.IGNORECASE
+    )
+    # Strip category with known taxonomy categories
+    cleaned = re.sub(
+        rf"\bCategory:\s*(?:{_CAT_PATTERN})\b\.?", " ", cleaned, flags=re.IGNORECASE
+    )
+    # Strip any generic Category: ... at end of line or before newline
+    cleaned = re.sub(r"\bCategory:\s*[^.\n]+(?:\n|$)", " ", cleaned, flags=re.IGNORECASE)
+    # Strip Points to note / Values found labels
+    cleaned = re.sub(r"\bPoints to note:\s*[^.\n]+(?:\n|$)", " ", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bValues found in this clause:\s*[^.\n]+(?:\n|$)", " ", cleaned, flags=re.IGNORECASE)
+    # Strip prompt prefix echoes if any
+    cleaned = re.sub(
+        r"^(?:Summary(?:\s+overview)?|Plain-language explanation|Explanation):\s*",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
+    )
+    # Clean whitespace
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    return cleaned
+
+
 class GenerationPipeline:
     """Generates grounded text from Phase 6 contexts using FLAN-T5.
 
@@ -415,7 +473,8 @@ class GenerationPipeline:
                 early_stopping=self.settings.early_stopping,
                 no_repeat_ngram_size=self.settings.no_repeat_ngram_size,
             )
-        return self._tokenizer.decode(output[0], skip_special_tokens=True).strip()
+        decoded = self._tokenizer.decode(output[0], skip_special_tokens=True).strip()
+        return clean_generated_text(decoded)
 
     def _empty_response(self, task: str) -> GeneratedResponse:
         """Fixed message for an empty context. The model is never called."""
@@ -452,7 +511,9 @@ class GenerationPipeline:
         text = self._generate(prompt, task)
 
         sources = [clause] if clause is not None else list(context.retrieved)
-        grounding_text = clause.text if clause is not None else context.formatted_context
+        grounding_text = (
+            clause.text if clause is not None else context.formatted_context
+        )
 
         return GeneratedResponse(
             text=text,

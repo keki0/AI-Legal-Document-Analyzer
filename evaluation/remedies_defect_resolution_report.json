@@ -1,0 +1,205 @@
+{
+  "metadata": {
+    "evaluation_title": "English-to-Marathi Legal Translation Evaluation",
+    "model": "facebook/nllb-200-distilled-600M",
+    "timestamp": "2026-09-22 08:26:41",
+    "disclaimer": "Machine-generated legal translation only. Reference translations are draft recommendations for expert review and do not constitute certified legal translations or formal legal advice."
+  },
+  "cases": [
+    {
+      "id": "CASE_1_TITLE",
+      "name": "NDA Document Header / Title",
+      "source_doc": "data/raw/sample-nda.pdf",
+      "english_source": "NON-DISCLOSURE AGREEMENT",
+      "old_marathi_output": "नॉन-डिस्क्रिप्शन एग्रीमेंट",
+      "new_marathi_output": "नॉन-डिस्क्रिप्शन एग्रीमेंट",
+      "human_reference": "गोपनीयता करार",
+      "latency_sec": 7.79,
+      "placeholder_validation": {
+        "is_valid": true,
+        "order_preserved": true,
+        "missing": [],
+        "duplicated": [],
+        "corrupted": []
+      },
+      "elements_retention": {
+        "Non-Disclosure / गोपनीयता": false,
+        "Agreement / करार": false
+      },
+      "all_elements_preserved": false,
+      "review_report": {
+        "requires_human_review": false,
+        "is_safe": true,
+        "flags": [],
+        "reasons": []
+      },
+      "status": "FLAGGED_FOR_REVIEW"
+    },
+    {
+      "id": "CASE_2_PREAMBLE",
+      "name": "Multi-Party Recital / Preamble",
+      "source_doc": "data/raw/sample-nda.pdf",
+      "english_source": "This Non-Disclosure Agreement (the \"Agreement\") is entered into on [Date], by and between [Disclosing Party], having its principal place of business at [Disclosing Party Address] (\"Disclosing Party\"), and [Receiving Party], having its principal place of business at [Receiving Party Address] (\"Receiving Party\").",
+      "old_marathi_output": "या प्रकटीकरण न करण्याच्या कराराचा (\" कराराचा\") [Date] वर [Disclosing Party] द्वारे आणि [Disclosing Party] द्वारे, ज्याचे मुख्य व्यवसाय ठिकाण [Disclosing Party Address] (\"प्रकटीकरण करणारा पक्ष\") येथे आहे आणि [Receiving Party] द्वारे, ज्याचे मुख्य व्यवसाय ठिकाण [Receiving Party Address] (\"प्राप्त करणारा पक्ष) येथे आहे, दरम्यान केला जातो.",
+      "new_marathi_output": "या नॉन-डिस्क्रिप्शन कराराचा (या \" कराराचा\") [Date] रोजी, [Disclosing Party] द्वारे आणि दरम्यान, त्याचे मुख्य व्यवसाय ठिकाण [Disclosing Party Address] (\"डिस्क्रिप्शन पार्टी\") आणि [Receiving Party] येथे आहे, त्याचे मुख्य व्यवसाय ठिकाण [Receiving Party Address] (\"रिसीव्हिंग पार्टी\") येथे आहे.",
+      "human_reference": "हा गोपनीयता करार (\"करार\") [Date] रोजी [Disclosing Party], ज्यांचे मुख्य कार्यालय [Disclosing Party Address] येथे आहे (\"प्रकटीकरण करणारा पक्ष\"), आणि [Receiving Party], ज्यांचे मुख्य कार्यालय [Receiving Party Address] येथे आहे (\"माहिती स्वीकारणारा पक्ष\"), यांच्या दरम्यान करण्यात आला आहे.",
+      "latency_sec": 4.83,
+      "placeholder_validation": {
+        "is_valid": true,
+        "order_preserved": true,
+        "missing": [],
+        "duplicated": [],
+        "corrupted": []
+      },
+      "elements_retention": {
+        "[Date]": true,
+        "[Disclosing Party]": true,
+        "[Disclosing Party Address]": true,
+        "[Receiving Party]": true,
+        "[Receiving Party Address]": true
+      },
+      "all_elements_preserved": true,
+      "review_report": {
+        "requires_human_review": false,
+        "is_safe": true,
+        "flags": [],
+        "reasons": []
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "CASE_3_REMEDIES_LIQUIDATED_DAMAGES",
+      "name": "NDA Remedies and Liquidated Damages",
+      "source_doc": "data/raw/sample-nda.pdf",
+      "english_source": "The Receiving Party acknowledges that any breach of this Agreement may cause irreparable harm. The Disclosing Party shall be entitled to seek injunctive relief and liquidated damages in the amount of $[Liquidated Damages Amount] or Rs. 500,000 within 30 days of written notice.",
+      "old_marathi_output": "प्राप्ती करणारे पक्ष हे मान्य करतात की या कराराच्या कोणत्याही उल्लंघनामुळे अपूरणीय नुकसान होऊ शकते. प्रकटीकरण करणाऱ्या पक्षाला $[Liquidated Damages Amount] किंवा Rs. ३० दिवसांच्या आत ५००,०००.",
+      "new_marathi_output": "प्राप्ती करणारे पक्ष हे मान्य करतात की या कराराच्या कोणत्याही उल्लंघनामुळे अपूरणीय नुकसान होऊ शकते. प्रकटीकरण करणाऱ्या पक्षाला लिखित सूचना दिल्यानंतर 30 दिवसांच्या आत $[Liquidated Damages Amount] किंवा 500,000 रुपयांच्या रकमेच्या निषेधात्मक नुकसान भरपाई आणि विल्हेवाट नुकसान भरपाईची मागणी करण्याचा हक्क असेल.",
+      "human_reference": "माहिती स्वीकारणारा पक्ष हे मान्य करतो की या कराराच्या कोणत्याही उल्लंघनामुळे अपूरणीय नुकसान होऊ शकते. प्रकटीकरण करणारा पक्ष लेखी सूचना मिळाल्यापासून ३० दिवसांच्या आत न्यायालयीन मनाईहुकूम तसेच $[Liquidated Damages Amount] किंवा रु. ५,००,००० इतकी पूर्वनिर्धारित नुकसानभरपाई मागण्यास पात्र असेल.",
+      "latency_sec": 4.71,
+      "placeholder_validation": {
+        "is_valid": true,
+        "order_preserved": true,
+        "missing": [],
+        "duplicated": [],
+        "corrupted": []
+      },
+      "elements_retention": {
+        "Receiving Party / प्राप्ती करणारे पक्ष": true,
+        "Disclosing Party / प्रकटीकरण करणाऱ्या पक्षाला": true,
+        "Breach / उल्लंघनामुळे": true,
+        "Irreparable harm / अपूरणीय नुकसान": true,
+        "Entitled to seek / मागणी करण्याचा हक्क असेल": true,
+        "Injunctive relief / निषेधात्मक नुकसान भरपाई": true,
+        "Liquidated damages / विल्हेवाट नुकसान भरपाई": true,
+        "$[Liquidated Damages Amount]": true,
+        "Rs. 500,000 / 500,000 रुपयांच्या": true,
+        "30 days written notice / लेखी सूचना दिल्यानंतर 30 दिवसांच्या आत": false
+      },
+      "all_elements_preserved": false,
+      "review_report": {
+        "requires_human_review": true,
+        "is_safe": true,
+        "flags": [
+          "HIGH_CONSEQUENCE_REMEDY"
+        ],
+        "reasons": [
+          "Clause specifies high-consequence legal remedies (injunctive relief or liquidated damages)."
+        ]
+      },
+      "status": "FLAGGED_FOR_REVIEW"
+    },
+    {
+      "id": "CASE_4_GOVERNING_LAW",
+      "name": "Governing Law and Jurisdiction",
+      "source_doc": "data/raw/sample-nda.pdf",
+      "english_source": "This Agreement shall be governed by and construed in accordance with the laws of [Jurisdiction]. Any legal dispute shall be subject to the exclusive jurisdiction of the courts in [City/State].",
+      "old_marathi_output": "या कराराचे नियमन [Jurisdiction] च्या कायद्यानुसार केले जाईल आणि त्याची व्याख्या केली जाईल. कोणताही कायदेशीर वाद [City/State] च्या न्यायालयांच्या एकमेव अधिकार क्षेत्राच्या अधीन असेल.",
+      "new_marathi_output": "या कराराचे नियमन [Jurisdiction] च्या कायद्यानुसार केले जाईल आणि त्याची व्याख्या केली जाईल. कोणताही कायदेशीर वाद [City/State] मधील न्यायालयांच्या एकमेव अधिकार क्षेत्राशी निगडित असेल.",
+      "human_reference": "या कराराचे नियमन आणि अर्थनिर्वचन [Jurisdiction] च्या कायद्यानुसार केले जाईल. कोणताही कायदेशीर वाद [City/State] येथील न्यायालयांच्या अनन्य अधिकार क्षेत्राच्या अधीन राहील.",
+      "latency_sec": 3.22,
+      "placeholder_validation": {
+        "is_valid": true,
+        "order_preserved": true,
+        "missing": [],
+        "duplicated": [],
+        "corrupted": []
+      },
+      "elements_retention": {
+        "[Jurisdiction]": true,
+        "[City/State]": true,
+        "Governed by / नियमन": true,
+        "Jurisdiction / अधिकार क्षेत्र": true
+      },
+      "all_elements_preserved": true,
+      "review_report": {
+        "requires_human_review": false,
+        "is_safe": true,
+        "flags": [],
+        "reasons": []
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "CASE_5_PAYMENT_TERMS",
+      "name": "Payment Obligations & Invoices",
+      "source_doc": "data/raw/Service-Agreement-template.pdf",
+      "english_source": "The Client will pay the Contractor [Amount]. Invoices are payable within [Number] days after receipt. Payments will be made by [Payment Method].",
+      "old_marathi_output": "ग्राहक कंत्राटदाराला [Amount] देईल. प्राप्तीनंतर [Number] दिवसांच्या आत इनव्हॉयर्स देय आहेत [Payment Method] द्वारे पैसे दिले जातील.",
+      "new_marathi_output": "ग्राहक कंत्राटदाराला [Amount] देईल. पावत्यानंतर [Number] दिवसांच्या आत इनव्हॉइस देय आहेत [Payment Method] द्वारे पैसे दिले जातील.",
+      "human_reference": "ग्राहक कंत्राटदाराला [Amount] अदा करेल. इनव्हॉइस (देयके) मिळाल्यापासून [Number] दिवसांच्या आत देय राहतील. देयके [Payment Method] द्वारे अदा केली जातील.",
+      "latency_sec": 3.15,
+      "placeholder_validation": {
+        "is_valid": true,
+        "order_preserved": true,
+        "missing": [],
+        "duplicated": [],
+        "corrupted": []
+      },
+      "elements_retention": {
+        "[Amount]": true,
+        "[Number]": true,
+        "[Payment Method]": true,
+        "Pay Contractor / कंत्राटदाराला देईल": true,
+        "Invoices payable / इनव्हॉइस देय": true
+      },
+      "all_elements_preserved": true,
+      "review_report": {
+        "requires_human_review": false,
+        "is_safe": true,
+        "flags": [],
+        "reasons": []
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "CASE_6_TERMINATION_UNILATERAL",
+      "name": "Unilateral Termination Clause",
+      "source_doc": "data/raw/Service-Agreement-template.pdf",
+      "english_source": "Either party may terminate this Agreement by providing [Notice Period] written notice. The Client will pay for services completed before termination.",
+      "old_marathi_output": "दोन्ही पक्षांनी [Notice Period] ला लिखित सूचना देऊन हा करार रद्द करू शकतो. ग्राहक समाप्तीपूर्वी पूर्ण केलेल्या सेवांसाठी पैसे देईल.",
+      "new_marathi_output": "कोणत्याही पक्षाने [Notice Period] लेखी सूचना देऊन हा करार रद्द करू शकतो. ग्राहक समाप्तीपूर्वी पूर्ण केलेल्या सेवांसाठी पैसे देईल.",
+      "human_reference": "कोणताही पक्ष [Notice Period] इतकी लेखी पूर्वसूचना देऊन हा करार समाप्त करू शकतो. समाप्तीपूर्वी पूर्ण झालेल्या सेवांसाठी ग्राहक रक्कम अदा करेल.",
+      "latency_sec": 2.51,
+      "placeholder_validation": {
+        "is_valid": true,
+        "order_preserved": true,
+        "missing": [],
+        "duplicated": [],
+        "corrupted": []
+      },
+      "elements_retention": {
+        "[Notice Period]": true,
+        "Terminate / रद्द / समाप्त": true,
+        "Notice / लिखित सूचना": true
+      },
+      "all_elements_preserved": true,
+      "review_report": {
+        "requires_human_review": false,
+        "is_safe": true,
+        "flags": [],
+        "reasons": []
+      },
+      "status": "PASS"
+    }
+  ]
+}
