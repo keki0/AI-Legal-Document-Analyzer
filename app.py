@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import streamlit as st  # noqa: E402
 
 from src.config import PATHS  # noqa: E402
-from src.generation import DISCLAIMER, GenerationTask  # noqa: E402
+from src.generation import DISCLAIMER, EMPTY_CONTEXT_MESSAGE, GenerationTask  # noqa: E402
 from src.pipeline import UNCLASSIFIED, LegalDocumentPipeline  # noqa: E402
 
 APP_TITLE = "AI-Powered Legal Document Analyzer"
@@ -34,12 +34,8 @@ DISCLAIMER_TEXT = (
     "qualified legal professional."
 )
 
-# Shown next to generated answers. Phase 7 measured a case where retrieval
-# succeeded and the model still asserted something absent from the document,
-# and the numeric grounding check scored it clean. The interface must not
-# imply that a cited answer is a correct one.
 GROUNDING_CAVEAT = (
-    "Answers are generated from the clauses shown below them. A cited answer "
+    "Answers are generated strictly from the clauses shown below them. A cited answer "
     "is traceable, not necessarily correct — always read the source clause."
 )
 
@@ -80,11 +76,7 @@ def document_stats(analysis) -> dict:
 
 
 def key_clauses(analysis, limit: int = 6) -> list[dict]:
-    """Most salient clauses, highest first.
-
-    Salience is the Phase 4 signal: calibrated classifier confidence weighted
-    by a documented category prior. It is not a risk score.
-    """
+    """Most salient clauses, highest first."""
     rows = []
     for item in analysis.top_salient(limit):
         text = item.text
@@ -103,12 +95,7 @@ def key_clauses(analysis, limit: int = 6) -> list[dict]:
 
 
 def attention_flags(analysis) -> list[dict]:
-    """Evidence-linked flags, grouped per clause.
-
-    Deliberately independent of salience. Phase 4 found that a low-salience
-    "Boilerplate & Administrative" clause can still carry Choice-of-law and
-    Arbitration flags, so ranking by salience alone would bury them.
-    """
+    """Evidence-linked flags, grouped per clause."""
     rows = []
     for item in analysis.analyses:
         for hit in item.flags:
@@ -145,7 +132,7 @@ def grouped_extractions(analysis) -> dict[str, list[dict]]:
     for key in EXTRACTION_LABELS:
         if key in grouped:
             ordered[key] = grouped[key]
-    for key, rows in grouped.items():   # any type not in the label map
+    for key, rows in grouped.items():
         ordered.setdefault(key, rows)
     return ordered
 
@@ -177,7 +164,7 @@ def answer_payload(result) -> dict:
     if result.error:
         return {"status": "error", "text": result.error, "sources": []}
     if result.empty_context:
-        text = result.response.text if result.response else ""
+        text = result.response.text if result.response else EMPTY_CONTEXT_MESSAGE
         return {"status": "empty", "text": text, "sources": []}
     return {
         "status": "ok",
@@ -236,21 +223,13 @@ def build_report(analysis, history: list) -> str:
 
 @st.cache_resource(show_spinner=False)
 def load_pipeline():
-    """Load models once per session. Cached across reruns.
-
-    Streamlit re-executes this script on every interaction, so without
-    caching Legal-BERT, MPNet-QA and FLAN-T5 would reload on every click.
-    """
+    """Load models once per session. Cached across reruns."""
     pipeline = LegalDocumentPipeline.from_defaults(top_k=3)
     return pipeline
 
 
 def analyze_upload(pipeline, uploaded) -> tuple[object | None, str | None]:
-    """Write the upload to a temp file and analyse it.
-
-    Returns ``(analysis, error_message)``. Streamlit gives an in-memory
-    buffer; PyMuPDF wants a path.
-    """
+    """Write the upload to a temp file and analyse it."""
     if uploaded is None:
         return None, "No document uploaded."
     if not uploaded.name.lower().endswith(".pdf"):
@@ -266,7 +245,7 @@ def analyze_upload(pipeline, uploaded) -> tuple[object | None, str | None]:
 
     try:
         analysis = pipeline.analyze_document(temp_path)
-    except Exception as error:  # noqa: BLE001 - surfaced as a message, not a trace
+    except Exception as error:  # noqa: BLE001
         return None, f"Could not read this PDF ({type(error).__name__}). It may be scanned, encrypted or corrupted."
 
     if analysis.n_clauses == 0:
@@ -285,29 +264,33 @@ CSS = """
   h1, h2, h3 {letter-spacing: -0.01em;}
   .doc-hero {
     background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
-    padding: 1.4rem 1.6rem; border-radius: 10px; color: #fff; margin-bottom: 1.2rem;
+    padding: 1.5rem 1.7rem; border-radius: 10px; color: #fff; margin-bottom: 1.2rem;
   }
-  .doc-hero h1 {color: #fff; margin: 0 0 .3rem 0; font-size: 1.55rem;}
-  .doc-hero p {margin: 0; opacity: .85; font-size: .92rem;}
+  .doc-hero h1 {color: #fff; margin: 0 0 .2rem 0; font-size: 1.6rem; font-weight: 700;}
+  .doc-hero .tagline {font-size: 1.02rem; font-weight: 600; color: #bfdbfe; margin-bottom: 0.4rem;}
+  .doc-hero p {margin: 0; opacity: .88; font-size: .92rem;}
+  
   .flag-card {
-    border-left: 4px solid #d97706; background: #fffbeb;
-    padding: .8rem 1rem; border-radius: 6px; margin-bottom: .7rem;
+    border-left: 5px solid #d97706; background: #fffbeb;
+    padding: .85rem 1.1rem; border-radius: 8px; margin-bottom: .8rem;
+    color: #78350f; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
-  .flag-card .flag-title {font-weight: 600; color: #92400e;}
-  .flag-card .flag-meta {font-size: .82rem; color: #78716c;}
+  .flag-card .flag-title {font-weight: 700; color: #92400e; font-size: 1.02rem;}
+  .flag-card .flag-meta {font-size: .84rem; color: #78350f; font-weight: 600;}
   .evidence {
-    border-left: 3px solid #cbd5e1; background: #f8fafc;
-    padding: .55rem .8rem; font-size: .87rem; color: #334155;
+    border-left: 3px solid #94a3b8; background: #f1f5f9;
+    padding: .6rem .85rem; font-size: .88rem; color: #0f172a;
     margin-top: .5rem; border-radius: 4px;
   }
   .answer-card {
     background: #f0f7ff; border: 1px solid #bfdbfe;
-    padding: 1rem 1.2rem; border-radius: 8px; font-size: 1rem; line-height: 1.6;
+    padding: 1.1rem 1.3rem; border-radius: 8px; font-size: 1rem; line-height: 1.6;
+    color: #0f172a; margin-top: .5rem; margin-bottom: .5rem;
   }
   .pill {
-    display: inline-block; background: #e2e8f0; color: #334155;
-    padding: .12rem .55rem; border-radius: 999px;
-    font-size: .74rem; margin-right: .35rem;
+    display: inline-block; background: #e2e8f0; color: #1e293b;
+    padding: .15rem .6rem; border-radius: 999px;
+    font-size: .76rem; font-weight: 600; margin-right: .4rem;
   }
 </style>
 """
@@ -336,8 +319,7 @@ def render_overview(pipeline, analysis) -> None:
         st.warning("No clause content was available to summarise.")
         return
 
-    st.markdown(f"<div class='answer-card'>{payload['text']}</div>",
-                unsafe_allow_html=True)
+    st.markdown(f"<div class='answer-card'>{payload['text']}</div>", unsafe_allow_html=True)
     st.caption(GROUNDING_CAVEAT)
 
     if payload["sources"]:
@@ -426,62 +408,81 @@ def render_extractions(analysis) -> None:
 def render_ask(pipeline, analysis) -> None:
     st.subheader("Ask about this document")
     st.caption(
-        "Questions are answered from clauses retrieved out of this document. "
+        "Questions are answered from clauses retrieved out of this document using MPNet-QA semantic retrieval. "
         "The system does not answer from general legal knowledge."
     )
 
-    cols = st.columns(len(EXAMPLE_QUESTIONS[:3]))
-    for col, example in zip(cols, EXAMPLE_QUESTIONS[:3]):
-        if col.button(example, use_container_width=True):
-            st.session_state["pending_question"] = example
+    # Initialize stable session state keys
+    st.session_state.setdefault("qa_history", [])
+    st.session_state.setdefault("qa_input_text", "")
 
-    question = st.text_input(
-        "Your question",
-        value=st.session_state.pop("pending_question", ""),
-        placeholder="Ask a question about this document...",
-    )
-    task = st.radio(
-        "Answer style",
-        [GenerationTask.SIMPLE_EXPLANATION, GenerationTask.CLAUSE_EXPLANATION],
-        format_func=lambda t: {
-            GenerationTask.SIMPLE_EXPLANATION: "Plain-language explanation",
-            GenerationTask.CLAUSE_EXPLANATION: "Explain the single best-matching clause",
-        }[t],
-        horizontal=True,
-    )
+    # Example question buttons update st.session_state["qa_input_text"] before widget instantiation
+    st.markdown("**Example questions**")
+    cols = st.columns(len(EXAMPLE_QUESTIONS[:4]))
+    for col, example in zip(cols, EXAMPLE_QUESTIONS[:4]):
+        if col.button(example, use_container_width=True, key=f"ex_btn_{example}"):
+            st.session_state["qa_input_text"] = example
+            st.rerun()
 
-    if st.button("Ask", type="primary", disabled=not question.strip()):
-        with st.spinner("Retrieving clauses and generating an answer..."):
-            result = pipeline.ask(analysis, question, task=task)
-        st.session_state["history"].insert(0, (question, result))
+    with st.form(key="qa_form", clear_on_submit=False):
+        user_q = st.text_input(
+            "Your question",
+            key="qa_input_text",
+            placeholder="Ask a question about this document...",
+        )
+        task = st.radio(
+            "Answer style",
+            [GenerationTask.SIMPLE_EXPLANATION, GenerationTask.CLAUSE_EXPLANATION],
+            format_func=lambda t: {
+                GenerationTask.SIMPLE_EXPLANATION: "Plain-language explanation",
+                GenerationTask.CLAUSE_EXPLANATION: "Explain the single best-matching clause",
+            }[t],
+            horizontal=True,
+        )
+        submit_col, _ = st.columns([1, 4])
+        submitted = submit_col.form_submit_button("Ask Document", type="primary")
 
-    for question_text, result in st.session_state["history"]:
+    if submitted and user_q.strip():
+        with st.spinner("Retrieving clauses and generating answer with FLAN-T5..."):
+            result = pipeline.ask(analysis, user_q.strip(), task=task)
+        st.session_state["qa_history"].insert(0, (user_q.strip(), result))
+        st.session_state["history"] = st.session_state["qa_history"]
+
+    if st.session_state["qa_history"]:
+        if st.button("Clear Q&A History", type="secondary"):
+            st.session_state["qa_history"] = []
+            st.session_state["history"] = []
+            st.rerun()
+
+    for question_text, result in st.session_state["qa_history"]:
         payload = answer_payload(result)
         with st.container(border=True):
-            st.markdown(f"**Q: {question_text}**")
+            st.markdown(f"### Q: {question_text}")
 
             if payload["status"] == "error":
-                st.error("This question could not be answered. "
-                         "The retrieval or generation step failed.")
+                st.error(f"This question could not be answered: {payload['text']}")
                 continue
             if payload["status"] == "empty":
-                st.warning(payload["text"] or
-                           "No relevant clause was found for this question.")
+                st.warning(payload["text"] or EMPTY_CONTEXT_MESSAGE)
+                st.caption("Try rephrasing the question or asking about a specific clause.")
                 continue
 
-            st.markdown(f"<div class='answer-card'>{payload['text']}</div>",
-                        unsafe_allow_html=True)
+            st.markdown(f"<div class='answer-card'>{payload['text']}</div>", unsafe_allow_html=True)
             st.caption(GROUNDING_CAVEAT)
-            st.markdown("**Source clauses**")
-            for source in payload["sources"]:
-                suffix = " (abridged)" if source["abridged"] else ""
-                with st.expander(
-                    f"{source['citation']} — {source['category']}"
-                    f" · similarity {source['score']:.3f}{suffix}"
-                ):
-                    st.write(source["text"])
-                    if source["flags"]:
-                        st.caption("Flags: " + ", ".join(source["flags"]))
+
+            if payload["sources"]:
+                st.markdown("**Based on:**")
+                for source in payload["sources"]:
+                    st.markdown(f"- **{source['title']}** (Clause {source['clause_id']}, page {source['page']}) · similarity `{source['score']:.3f}`")
+
+                with st.expander("View retrieval context"):
+                    for source in payload["sources"]:
+                        suffix = " (abridged)" if source["abridged"] else ""
+                        st.markdown(f"**{source['citation']}** — *{source['category']}*{suffix}")
+                        st.write(source["text"])
+                        if source["flags"]:
+                            st.caption("Flags: " + ", ".join(source["flags"]))
+                        st.divider()
 
 
 def main() -> None:
@@ -490,13 +491,15 @@ def main() -> None:
 
     st.session_state.setdefault("analysis", None)
     st.session_state.setdefault("history", [])
+    st.session_state.setdefault("qa_history", [])
     st.session_state.setdefault("summary", None)
 
     st.markdown(
         f"<div class='doc-hero'><h1>⚖️ {APP_TITLE}</h1>"
-        f"<p>Clause segmentation · Legal-BERT classification · calibrated "
-        f"salience · evidence-linked flags · information extraction · "
-        f"grounded question answering</p></div>",
+        f"<div class='tagline'>Analyze • Understand • Ask</div>"
+        f"<p>Clause segmentation · Legal-BERT classification · Calibrated "
+        f"salience · Evidence-linked flags · Information extraction · "
+        f"Grounded question answering</p></div>",
         unsafe_allow_html=True,
     )
     st.info(DISCLAIMER_TEXT, icon="ℹ️")
@@ -534,6 +537,7 @@ def main() -> None:
             else:
                 st.session_state["analysis"] = analysis
                 st.session_state["history"] = []
+                st.session_state["qa_history"] = []
                 st.session_state["summary"] = None
                 st.success(f"Analysed {analysis.n_clauses} clauses.")
 
@@ -559,7 +563,7 @@ def main() -> None:
             st.divider()
             st.download_button(
                 "Download report (.txt)",
-                data=build_report(analysis, st.session_state["history"]),
+                data=build_report(analysis, st.session_state.get("qa_history", st.session_state["history"])),
                 file_name=f"analysis-{Path(stats['Filename']).stem}.txt",
                 mime="text/plain",
                 use_container_width=True,

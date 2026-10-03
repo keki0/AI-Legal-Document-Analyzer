@@ -461,6 +461,8 @@ class LegalDocumentPipeline:
         result.seconds = time.perf_counter() - started
         return result
 
+
+
     def run(
         self,
         path: str | Path,

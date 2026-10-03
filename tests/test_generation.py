@@ -34,6 +34,7 @@ from src.generation import (  # noqa: E402
     build_prompt,
     check_grounding,
 )
+
 from src.importance import TemperatureScaler, analyze_clauses  # noqa: E402
 from src.rag import RAGContext, RAGContextBuilder  # noqa: E402
 from src.retrieval import RetrievalResult  # noqa: E402
@@ -573,3 +574,5 @@ def test_metrics_payload_shape_serialises():
         },
     }
     assert json.loads(json.dumps(payload))["rag_context"]["rouge"]["rougeL"] == 0.0
+
+

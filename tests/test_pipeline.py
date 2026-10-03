@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.config import PATHS  # noqa: E402
 from src.generation import (  # noqa: E402
     EMPTY_CONTEXT_MESSAGE,
+    GeneratedResponse,
     GenerationPipeline,
     GenerationTask,
 )
@@ -354,6 +355,8 @@ def test_clause_explanation_cites_a_single_clause(pipeline, analysis):
         task=GenerationTask.CLAUSE_EXPLANATION,
     )
     assert len(result.response.source_clause_ids) == 1
+
+
 
 
 def test_disclaimer_present_on_generated_output(pipeline, analysis):
