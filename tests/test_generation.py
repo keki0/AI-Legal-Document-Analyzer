@@ -35,6 +35,7 @@ from src.generation import (  # noqa: E402
     check_grounding,
     clean_generated_text,
 )
+
 from src.importance import TemperatureScaler, analyze_clauses  # noqa: E402
 from src.rag import RAGContext, RAGContextBuilder  # noqa: E402
 from src.retrieval import RetrievalResult  # noqa: E402

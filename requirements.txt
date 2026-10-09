@@ -30,6 +30,7 @@ sentence-transformers==3.2.1
 sentencepiece==0.2.0
 protobuf==5.28.3
 
+
 # --- datasets ------------------------------------------------------------
 # datasets is pinned below 3.0 on purpose. Version 3.x removed support for
 # repositories that carry a loading script, and coastalcph/lex_glue is one

@@ -211,6 +211,8 @@ def test_answer_payload_maps_a_successful_query(pipeline, analysis):
     assert payload["sources"]
 
 
+
+
 def test_source_clauses_map_back_to_real_clauses(pipeline, analysis):
     result = pipeline.ask(analysis, "how is the contractor paid?")
     for source in application.source_clauses(result):
