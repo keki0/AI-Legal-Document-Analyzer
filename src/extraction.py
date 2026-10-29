@@ -223,9 +223,9 @@ _DURATION_UNIT = r"(?:calendar\s+|business\s+|working\s+)?(days?|weeks?|months?|
 _DURATION = re.compile(
     rf"\b(\d{{1,4}}|{_NUMBER_WORD_PATTERN})[\s-]+{_DURATION_UNIT}\b", re.I
 )
-# Bracketed alternatives in templates: "[7/14] days", "[30] days".
+# Bracketed alternatives in templates: "[7/14] days", "[30] days", "[Net 15/30] days".
 _DURATION_PLACEHOLDER = re.compile(
-    rf"\[(\d{{1,4}}(?:\s*/\s*\d{{1,4}})*)\]\s*{_DURATION_UNIT}\b", re.I
+    rf"\[(?:Net\s+)?(\d{{1,4}}(?:\s*/\s*\d{{1,4}})*)\]\s*{_DURATION_UNIT}\b", re.I
 )
 
 _DATE = re.compile(

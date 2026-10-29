@@ -164,6 +164,14 @@ def test_bracketed_duration_alternatives_marked_placeholder(extractor):
     assert items[0].is_placeholder is True
 
 
+def test_bracketed_net_terms_marked_placeholder(extractor):
+    items = [i for i in extractor.extract("payable within [Net 15/30] days of invoice")
+             if i.type == ExtractionType.DURATION]
+    assert items
+    assert items[0].is_placeholder is True
+    assert items[0].value == "[Net 15/30] days"
+
+
 # ===========================================================================
 # Money
 # ===========================================================================

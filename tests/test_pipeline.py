@@ -480,6 +480,72 @@ def test_document_summary_serialises(analysis):
     assert payload["degraded"] is False
 
 
+def test_summary_context_selects_multiple_balanced_clauses(pipeline, analysis):
+    """Document summary context selects multiple salient clauses with balanced budget."""
+    context = pipeline.summary_context(analysis, k=6)
+    assert len(context.retrieved) >= 5
+    assert context.within_budget is True
+    assert context.dropped_clause_ids == []
+    # Provenance preserved
+    for rc in context.retrieved:
+        assert rc.clause_id in analysis.clause_ids
+        assert rc.title
+        assert rc.page >= 1
+        assert rc.salience is not None
+    # Balanced budget: no single clause consumes more than 40% of the total text
+    total_len = len(context.formatted_context)
+    for rc in context.retrieved:
+        assert len(rc.text) / total_len < 0.40
+    # Natural document order
+    clause_ids = [rc.clause_id for rc in context.retrieved]
+    assert clause_ids == sorted(clause_ids)
+
+
+def test_document_summary_synthesizes_multiple_clauses(pipeline, analysis):
+    """Document summary incorporates multiple clauses and does not copy the first clause."""
+    result = pipeline.document_summary(analysis, k=6)
+    assert result.response is not None
+    assert len(result.response.source_clause_ids) >= 5
+    assert result.is_grounded is True
+    first_clause_text = result.context.retrieved[0].text
+    # Generated summary is not a verbatim copy of the first clause
+    assert result.response.text != first_clause_text
+    assert not result.response.text.startswith(first_clause_text[:40])
+
+
+def test_document_summary_structured_overview_regression(pipeline, analysis):
+    """Regression test ensuring Quick Summary generates a synthesized overview across multiple sections."""
+    result = pipeline.document_summary(analysis, k=6)
+    assert result.response is not None
+    assert result.is_grounded is True
+    assert len(result.response.source_clause_ids) >= 5
+
+    text = result.response.text
+    # 1. Must not contain internal category labels
+    for forbidden in (
+        "Category:",
+        "Liability & Property Insurance",
+        "Liability & Indemnity",
+        "Term & Termination",
+        "Payment & Fees",
+        "Confidentiality & Publicity",
+    ):
+        assert forbidden not in text
+
+    # 2. Must not be simply a concatenation or verbatim copy of source clauses
+    first_clause_text = result.context.retrieved[0].text
+    assert text != first_clause_text
+    assert not text.startswith(first_clause_text[:40])
+
+    # 3. Context contains structured facts from multiple major sections
+    ctx = result.context.formatted_context
+    assert any(sec in ctx for sec in ("TERM", "RENEWAL", "PAYMENT", "INDEMNIFICATION"))
+
+    # 4. Remains grounded in the selected clauses
+    assert result.context.within_budget is True
+    assert result.context.dropped_clause_ids == []
+
+
 # ===========================================================================
 # Earlier phases must not have regressed
 # ===========================================================================

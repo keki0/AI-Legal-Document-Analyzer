@@ -34,6 +34,7 @@ from src.generation import (  # noqa: E402
     build_prompt,
     check_grounding,
     clean_generated_text,
+    is_placeholder_relevant_to_query,
 )
 
 from src.importance import TemperatureScaler, analyze_clauses  # noqa: E402
@@ -247,6 +248,20 @@ def test_prompt_embeds_the_rag_context(context, task):
 def test_simple_explanation_prompt_includes_the_question(context):
     prompt = build_prompt(GenerationTask.SIMPLE_EXPLANATION, context)
     assert context.query in prompt
+
+
+def test_clause_prompt_includes_the_question(context):
+    clause = context.retrieved[0]
+    prompt = build_prompt(GenerationTask.CLAUSE_EXPLANATION, context, clause=clause)
+    assert context.query in prompt
+
+
+def test_prompts_include_placeholder_and_unanswerable_instructions(context):
+    for task in (GenerationTask.SIMPLE_EXPLANATION, GenerationTask.CLAUSE_EXPLANATION):
+        clause = context.retrieved[0] if task == GenerationTask.CLAUSE_EXPLANATION else None
+        prompt = build_prompt(task, context, clause=clause)
+        assert "placeholder" in prompt.lower()
+        assert "does not specify" in prompt.lower()
 
 
 def test_clause_prompt_includes_title_category_and_flags(context):
@@ -695,3 +710,189 @@ def test_quick_summary_generation_produces_non_empty_grounded_response(pipeline,
     assert response.text
     assert response.is_grounded
     assert len(response.source_clause_ids) == len(context.retrieved)
+
+
+# ===========================================================================
+# Payment QA and Hallucination Guard Regression Tests
+# ===========================================================================
+
+
+def test_payment_qa_regression_retrieval_and_generation():
+    """Verify semantic QA on sample contract: rate placeholder acknowledged, no tax/termination drift."""
+    from src.document_processing import load_and_segment
+    from src.retrieval import build_improved
+
+    contract_path = PATHS.data_raw / "sample-independent-contractor-agreement.pdf"
+    if not contract_path.exists():
+        pytest.skip("sample contract PDF not present")
+
+    _, clauses = load_and_segment(contract_path)
+    retriever = build_improved(clauses, use_bm25=False)
+    builder = RAGContextBuilder(retriever, top_k=3)
+    gen = GenerationPipeline(device="cpu")
+
+    # 1. Main payment query
+    query = "How much does the contractor get paid?"
+    context = builder.build(query)
+
+    # Retrieval verification: Payment Terms is retrieved at rank 1
+    assert len(context.retrieved) >= 1
+    assert context.retrieved[0].title == "Payment Terms"
+
+    # Generation verification: Style A (plain language) and Style B (clause explanation)
+    for task, clause_arg in [
+        (GenerationTask.SIMPLE_EXPLANATION, None),
+        (GenerationTask.CLAUSE_EXPLANATION, context.retrieved[0]),
+    ]:
+        resp = gen.run(task, context, clause=clause_arg)
+        text_lower = resp.text.lower()
+
+        # Must not answer with tax liability
+        assert not ("tax" in text_lower and "solely responsible" in text_lower), (
+            f"Incorrectly answered with tax obligations: {resp.text}"
+        )
+        # Must not answer with termination payment
+        assert "termination" not in text_lower, (
+            f"Incorrectly answered with termination payment: {resp.text}"
+        )
+        # Must acknowledge rate placeholder or that amount is unspecified/placeholder
+        assert any(
+            token in resp.text
+            for token in ("$[Rate]", "[Rate]", "placeholder", "rate", "unspecified", "fixed amount")
+        ), f"Did not acknowledge rate placeholder or unspecified amount: {resp.text}"
+        # Must not invent concrete payment amounts
+        for fabricated in ("$5,000", "$10,000", "$2,500", "$50,000"):
+            assert fabricated not in resp.text
+
+    # 2. Related payment queries
+    related_queries = [
+        ("What is the contractor's payment rate?", "Payment Terms"),
+        ("When is payment due?", "Payment Terms"),
+        ("What is the invoicing schedule?", "Payment Terms"),
+    ]
+    for rel_q, expected_title in related_queries:
+        rel_ctx = builder.build(rel_q)
+        assert rel_ctx.retrieved[0].title == expected_title
+        rel_resp = gen.run(GenerationTask.SIMPLE_EXPLANATION, rel_ctx)
+        assert not ("tax" in rel_resp.text.lower() and "solely responsible" in rel_resp.text.lower())
+        assert "termination" not in rel_resp.text.lower()
+
+    # 3. Unanswerable question / hallucination guard
+    unanswerable_q = "What is the contractor's phone number?"
+    un_ctx = builder.build(unanswerable_q)
+    un_resp_a = gen.run(GenerationTask.SIMPLE_EXPLANATION, un_ctx)
+    un_resp_b = gen.run(GenerationTask.CLAUSE_EXPLANATION, un_ctx, clause=un_ctx.retrieved[0])
+
+    for un_resp in (un_resp_a, un_resp_b):
+        assert "not specify" in un_resp.text.lower() or "does not specify" in un_resp.text.lower(), (
+            f"Expected abstention on unanswerable query, got: {un_resp.text}"
+        )
+        assert not any(ph in un_resp.text for ph in ("XXX", "[Date]", "$[Rate]", "20XX"))
+
+
+def test_clean_generated_text_placeholder_preservation_and_safeguards():
+    """Verify that clean_generated_text preserves relevant placeholders and enforces abstention safeguards."""
+    lease_context = (
+        "Clause 4: RENT. sum of [Monthly Rental Amount] per month in advance... "
+        "Clause 5: SECURITY DEPOSIT. Upon execution of this Lease, Tenant deposits with Landlord "
+        "[Security Deposit Amount], as security for Tenant's performance..."
+    )
+
+    # 1. Relevant placeholder preserved
+    ans_sec = clean_generated_text(
+        "[Security Deposit Amount]",
+        query="What is the security deposit amount under the lease?",
+        context=lease_context,
+    )
+    assert ans_sec == "[Security Deposit Amount]"
+
+    # 2. Existing placeholder behavior preserved
+    rent_text = (
+        "[Monthly Rental Amount] per month in advance on the first day of each calendar month, "
+        "at [Address for Rent Payments], or at such other place as Landlord may designate."
+    )
+    ans_rent = clean_generated_text(
+        rent_text,
+        query="What is the monthly rent under the lease?",
+        context=lease_context,
+    )
+    assert "[Monthly Rental Amount]" in ans_rent
+
+    # 3. Missing information / unrelated placeholder abstains
+    ans_unrelated = clean_generated_text(
+        "[Date]",
+        query="What is the tenant's phone number?",
+        context=lease_context,
+    )
+    assert ans_unrelated == "The document does not specify this information."
+
+    ans_addr_phone = clean_generated_text(
+        "[Complete Address of House]",
+        query="What is the tenant's phone number?",
+        context=lease_context,
+    )
+    assert ans_addr_phone == "The document does not specify this information."
+
+    ans_rate_phone = clean_generated_text(
+        "$[Rate]",
+        query="What is the tenant's phone number?",
+        context=lease_context,
+    )
+    assert ans_rate_phone == "The document does not specify this information."
+
+    # 4. Raw template placeholder safeguards: XXX, 20XX, ____, [0]
+    for raw_placeholder in ("XXX", "20XX", "____", "[0]", "[12]", "[]"):
+        ans_raw = clean_generated_text(
+            raw_placeholder,
+            query="What is the security deposit amount under the lease?",
+            context=lease_context,
+        )
+        assert ans_raw == "The document does not specify this information."
+
+    # 5. Ungrounded placeholder (not present in context) triggers abstention
+    ans_hallucinated = clean_generated_text(
+        "[Pet Deposit Amount]",
+        query="What is the pet deposit amount?",
+        context=lease_context,
+    )
+    assert ans_hallucinated == "The document does not specify this information."
+
+
+def test_model_lease_placeholder_qa_regression():
+    """Verify placeholder preservation and abstention behavior on Model-Lease-Agreement.pdf."""
+    from src.pipeline import LegalDocumentPipeline
+
+    lease_path = PATHS.data_raw / "Model-Lease-Agreement.pdf"
+    if not lease_path.exists():
+        pytest.skip("Model-Lease-Agreement.pdf not found in data/raw")
+
+    pipe = LegalDocumentPipeline()
+    analysis = pipe.analyze_document(lease_path)
+
+    # 1. Placeholder-backed question: Security deposit
+    q_sec = "What is the security deposit amount under the lease?"
+    for task in (GenerationTask.SIMPLE_EXPLANATION, GenerationTask.CLAUSE_EXPLANATION):
+        res_sec = pipe.ask(analysis, q_sec, task=task)
+        assert res_sec.response is not None
+        assert "[Security Deposit Amount]" in res_sec.response.text, (
+            f"Expected '[Security Deposit Amount]' preserved in {task}, got: {res_sec.response.text}"
+        )
+        assert "not specify" not in res_sec.response.text.lower()
+        # Placeholder integrity: no fabricated numeric values
+        for fabricated in ("$1,000", "$1,500", "$500", "$2,000", "$750"):
+            assert fabricated not in res_sec.response.text
+
+    # 2. Existing placeholder behavior: Monthly rent
+    q_rent = "What is the monthly rent under the lease?"
+    res_rent = pipe.ask(analysis, q_rent, task=GenerationTask.SIMPLE_EXPLANATION)
+    assert res_rent.response is not None
+    assert "[Monthly Rental Amount]" in res_rent.response.text
+
+    # 3. Genuine missing information: Tenant phone number
+    q_phone = "What is the tenant's phone number?"
+    for task in (GenerationTask.SIMPLE_EXPLANATION, GenerationTask.CLAUSE_EXPLANATION):
+        res_phone = pipe.ask(analysis, q_phone, task=task)
+        assert res_phone.response is not None
+        assert res_phone.response.text == "The document does not specify this information."
+
+

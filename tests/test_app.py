@@ -22,7 +22,7 @@ pytest.importorskip("streamlit", reason="streamlit not installed")
 import app as application  # noqa: E402
 
 from src.config import PATHS  # noqa: E402
-from src.generation import EMPTY_CONTEXT_MESSAGE  # noqa: E402
+from src.generation import EMPTY_CONTEXT_MESSAGE, GenerationTask  # noqa: E402
 from src.pipeline import UNCLASSIFIED, LegalDocumentPipeline, QueryResult  # noqa: E402
 from tests.test_pipeline import (  # noqa: E402
     TITLE_TO_CATEGORY_BY_TEXT,
@@ -209,6 +209,25 @@ def test_answer_payload_maps_a_successful_query(pipeline, analysis):
     assert payload["status"] == "ok"
     assert payload["text"]
     assert payload["sources"]
+
+
+def test_app_answer_styles_behave_differently_and_receive_query(pipeline, analysis):
+    query = "How much does the contractor get paid?"
+    res_simple = pipeline.ask(analysis, query, task=GenerationTask.SIMPLE_EXPLANATION)
+    res_clause = pipeline.ask(analysis, query, task=GenerationTask.CLAUSE_EXPLANATION)
+
+    assert res_simple.response.prompt != res_clause.response.prompt
+    assert query in res_simple.response.prompt
+    assert query in res_clause.response.prompt
+
+    payload_simple = application.answer_payload(res_simple)
+    payload_clause = application.answer_payload(res_clause)
+
+    assert payload_simple["status"] == "ok"
+    assert payload_clause["status"] == "ok"
+    assert len(res_clause.response.source_clause_ids) == 1
+    assert res_clause.response.source_clause_ids == [res_clause.context.retrieved[0].clause_id]
+    assert len(res_simple.response.source_clause_ids) >= 1
 
 
 

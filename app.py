@@ -49,14 +49,6 @@ GROUNDING_CAVEAT = (
     "is traceable, not necessarily correct — always read the source clause."
 )
 
-EXAMPLE_QUESTIONS = [
-    "Who owns the work produced by the contractor?",
-    "How can the contract be terminated?",
-    "How much does the contractor get paid?",
-    "Is there an automatic renewal?",
-    "How are disputes resolved?",
-]
-
 EXTRACTION_LABELS = {
     "party": "Parties",
     "date": "Dates",
@@ -158,6 +150,20 @@ def source_clauses(result) -> list[dict]:
     """Source clauses supporting a generated answer."""
     if result is None or result.context is None:
         return []
+
+    clauses = result.context.retrieved
+    if (
+        getattr(result, "task", None) == GenerationTask.CLAUSE_EXPLANATION
+        and getattr(result, "response", None)
+        and getattr(result.response, "source_clause_ids", None)
+    ):
+        source_ids = set(result.response.source_clause_ids)
+        filtered = [c for c in clauses if c.clause_id in source_ids]
+        if filtered:
+            clauses = filtered
+        elif clauses:
+            clauses = clauses[:1]
+
     return [
         {
             "clause_id": clause.clause_id,
@@ -170,7 +176,7 @@ def source_clauses(result) -> list[dict]:
             "flags": clause.flag_labels,
             "abridged": not clause.included_fully,
         }
-        for clause in result.context.retrieved
+        for clause in clauses
     ]
 
 
@@ -478,14 +484,6 @@ def render_ask(pipeline, analysis) -> None:
     # Initialize stable session state keys
     st.session_state.setdefault("qa_history", [])
     st.session_state.setdefault("qa_input_text", "")
-
-    # Example question buttons update st.session_state["qa_input_text"] before widget instantiation
-    st.markdown("**Example questions**")
-    cols = st.columns(len(EXAMPLE_QUESTIONS[:4]))
-    for col, example in zip(cols, EXAMPLE_QUESTIONS[:4]):
-        if col.button(example, use_container_width=True, key=f"ex_btn_{example}"):
-            st.session_state["qa_input_text"] = example
-            st.rerun()
 
     with st.form(key="qa_form", clear_on_submit=False):
         user_q = st.text_input(

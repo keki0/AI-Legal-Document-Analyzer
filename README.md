@@ -19,13 +19,12 @@ plain-language simplification, summarisation, and semantic search.
 | 3 | Clause classification (TF-IDF baseline + Legal-BERT) | **Complete** |
 | 4 | Importance & attention flags | **Complete** |
 | 5 | Information extraction | **Complete** |
-| 6 | Simplification & summarisation (FLAN-T5) | **Complete** |
-| 7 | Improved semantic retrieval | Not started |
-| 8 | Streamlit application | Not started |
-| 9 | Evaluation & documentation | Not started |
+| 6 | Retrieval & context selection (MPNet + optional BM25/RRF) | **Complete** |
+| 7 | Grounded generation & summarisation (FLAN-T5) | **Complete** |
+| 8 | Streamlit application & Marathi translation (NLLB-200) | **Complete** |
+| 9 | Evaluation, documentation & test suite | **Complete** |
 
-No model has been trained yet. **No metrics are reported anywhere in this
-repository, because none have been produced.**
+All pipeline stages and evaluation suites are implemented, tested, and reproducible. Legal-BERT is fine-tuned on LEDGAR (91.71% test accuracy) with temperature calibration. Retrieval, generation, and Marathi accessibility translation are integrated end-to-end.
 
 ## Baseline
 

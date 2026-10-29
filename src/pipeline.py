@@ -42,9 +42,24 @@ from typing import TYPE_CHECKING, Sequence
 from src.config import PATHS
 from src.document_processing import extract_document, segment_clauses
 from src.extraction import attach_extractions
-from src.generation import GenerationPipeline, GenerationTask
-from src.importance import TemperatureScaler, analyze_clauses, top_k_salient
-from src.rag import RAGContextBuilder
+from src.generation import (
+    GenerationPipeline,
+    GenerationTask,
+    build_structured_summary_context,
+    compact_summary_clause,
+)
+from src.importance import (
+    TemperatureScaler,
+    analyze_clauses,
+    top_k_salient,
+)
+from src.rag import (
+    DEFAULT_BUDGET_CHARS,
+    RAGContext,
+    RAGContextBuilder,
+    RetrievedClause,
+    estimate_tokens,
+)
 from src.retrieval import RetrievalResult
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -238,6 +253,7 @@ class LegalDocumentPipeline:
         top_k: int = 3,
         budget_chars: int | None = None,
         include_flagged: bool = False,
+        use_bm25: bool = False,
     ) -> None:
         self.classifier = classifier
         self.scaler = scaler
@@ -246,6 +262,7 @@ class LegalDocumentPipeline:
         self.top_k = top_k
         self.budget_chars = budget_chars
         self.include_flagged = include_flagged
+        self.use_bm25 = use_bm25
 
     # -- lazy component loading -----------------------------------------
 
@@ -294,7 +311,7 @@ class LegalDocumentPipeline:
             return self._retriever_factory(clauses)
         from src.retrieval import build_improved
 
-        return build_improved(clauses)
+        return build_improved(clauses, use_bm25=self.use_bm25)
 
     # -- stage 1: document analysis --------------------------------------
 
@@ -358,42 +375,96 @@ class LegalDocumentPipeline:
     # -- document-level summary ------------------------------------------
 
     def summary_context(
-        self, analysis: DocumentAnalysis, *, k: int = 4
+        self, analysis: DocumentAnalysis, *, k: int = 6
     ) -> "RAGContext":
-        """Build a context from the most salient clauses, without retrieval.
+        """Build a balanced context from the most salient clauses, without retrieval.
 
         A document summary has no query to retrieve against, and FLAN-T5's
         512-token limit means a whole contract cannot be passed in. Phase 4's
-        salience ranking is what selects which clauses are worth summarising --
-        this is the wiring that connects the classifier to the generator.
-
-        Implemented as a tiny adapter satisfying the Phase 6 ``Retriever``
-        protocol rather than by assembling a ``RAGContext`` by hand, so
-        deduplication, budgeting and formatting all remain Phase 6's job.
+        salience ranking selects the top salient clauses (defaulting to top 6).
+        Rather than allowing one long provision to consume the entire budget and
+        starve subsequent clauses, this allocates a balanced text budget per clause,
+        retaining the beginning and most informative sentences of each clause while
+        preserving clause IDs, titles, and full provenance for UI inspection.
         """
+        if not analysis or not analysis.analyses:
+            return RAGContext(
+                query="Summary of the most significant clauses in this document.",
+                retrieved=[],
+                formatted_context="",
+                char_count=0,
+                token_estimate=0,
+                budget_chars=self.budget_chars or DEFAULT_BUDGET_CHARS,
+                within_budget=True,
+            )
+
         ranked = top_k_salient(analysis.analyses, k=k)
+        if not ranked:
+            return RAGContext(
+                query="Summary of the most significant clauses in this document.",
+                retrieved=[],
+                formatted_context="",
+                char_count=0,
+                token_estimate=0,
+                budget_chars=self.budget_chars or DEFAULT_BUDGET_CHARS,
+                within_budget=True,
+            )
 
-        class _SalienceOrder:
-            """Returns clauses in salience order. Score = salience."""
+        total_budget = min(self.budget_chars or 1080, 1080)
+        per_clause_budget = max(total_budget // len(ranked), 160)
 
-            def search(self, query: str, top_k: int = 3):
-                return [
-                    RetrievalResult(
-                        rank=rank, clause_id=item.clause_id, title=item.title,
-                        score=float(item.salience), text=item.text, page=item.page,
-                    )
-                    for rank, item in enumerate(ranked[:top_k], start=1)
-                ]
+        # Order clauses by clause_id for natural document flow in narrative synthesis
+        doc_ordered = sorted(ranked, key=lambda item: item.clause_id)
 
-        kwargs = {"analyses": analysis.analyses, "top_k": k}
-        if self.budget_chars is not None:
-            kwargs["budget_chars"] = self.budget_chars
-        return RAGContextBuilder(_SalienceOrder(), **kwargs).build(
-            "Summary of the most significant clauses in this document."
+        retrieved: list[RetrievedClause] = []
+        abridged_ids: list[int] = []
+
+        salience_rank_map = {
+            item.clause_id: rank for rank, item in enumerate(ranked, start=1)
+        }
+
+        for item in doc_ordered:
+            compact_text, was_abridged = compact_summary_clause(
+                item, per_clause_budget
+            )
+            if was_abridged:
+                abridged_ids.append(item.clause_id)
+
+            rc = RetrievedClause(
+                rank=salience_rank_map[item.clause_id],
+                score=float(item.salience),
+                clause_id=item.clause_id,
+                title=item.title,
+                text=compact_text,
+                page=item.page,
+                category=item.category,
+                salience=float(item.salience),
+                calibrated_confidence=float(item.calibrated_confidence),
+                flags=list(item.flags),
+                extractions=list(item.extractions),
+                selection_reason="salience",
+                included_fully=not was_abridged,
+                original_char_count=len(item.text),
+            )
+            retrieved.append(rc)
+        # Build compact structured facts context for FLAN-T5 synthesis
+        formatted = build_structured_summary_context(doc_ordered)
+        char_count = len(formatted)
+
+        return RAGContext(
+            query="Summary of the most significant clauses in this document.",
+            retrieved=retrieved,
+            formatted_context=formatted,
+            char_count=char_count,
+            token_estimate=estimate_tokens(formatted),
+            budget_chars=total_budget,
+            within_budget=True,
+            dropped_clause_ids=[],
+            abridged_clause_ids=abridged_ids,
         )
 
     def document_summary(
-        self, analysis: DocumentAnalysis, *, k: int = 4
+        self, analysis: DocumentAnalysis, *, k: int = 6
     ) -> QueryResult:
         """Generate a quick summary from the most salient clauses."""
         started = time.perf_counter()
